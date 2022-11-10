@@ -1,3 +1,5 @@
+
+
 <template>
   <div class="customer">
     <img class="img" src="../assets/tjx-logo.png" alt="TJX logo" />
@@ -97,15 +99,28 @@
           <td>456</td>
           <td>456</td>
         </tr>
+    
+        <tr v-for = "customer in customers" :key="customer.id">
+            <td scope="row">{{ customer.id }}</td>
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.email }}</td>
+            <td>{{ customer.phone }}</td>
+            <td>{{ customer.phone }}</td>
+            <td>{{ customer.phone }}</td>
+            
+        </tr> 
+
       </tbody>
     </table>
     <!--<button type = "button" id = "get-joke" @click = "fetchAPIData">Get a Joke!!</button>-->
   </div>
   <!--Test Fetch print-->
-  <div>
-    {{ res }}
-  </div>
+  <!--remove when pushing to main repo-->
+  <!-- <div>
+    {{ customers }}
+  </div> -->
 </template>
+
 
 
 <script>
@@ -113,7 +128,7 @@ import axios from "axios";
 export default {
     data() {
         return {
-            res: [],
+            customers: [],
         };
     },
     name: "App",
@@ -121,11 +136,12 @@ export default {
         // The get method called by the function
         onGet() {
             axios
-                .get(`https://jsonplaceholder.typicode.com/users?email=${this.emailValue}`)
+                //.get(`https://jsonplaceholder.typicode.com/users?email=${this.emailValue}`)
+                .get(`https://jsonplaceholder.typicode.com/users`)
                 .then((response) => {
                     console.log(response);
-                    // using stringify to beautify the output
-                    this.res = JSON.stringify(response.data);
+                    //returns as raw JSON
+                    this.customers = response.data
                 })
                 .catch((errors) => {
                     console.log(errors); // Errors
