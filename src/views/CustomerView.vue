@@ -36,6 +36,7 @@
       </div>
       <!--Search button for the email field-->
       <button type="button" class="btn btn-outline-danger" v-on:click="onGet">Search</button>
+      <button type="button" class="btn btn-outline-danger" v-on:click="getAll">Get All</button>
       
     </form>
 
@@ -75,31 +76,6 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>S</td>
-          <td>Twain</td>
-          <td>456</td>
-          <td>456</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>T</td>
-          <td>Johnson</td>
-          <td>456</td>
-          <td>456</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>B</td>
-          <td>Ladle</td>
-          <td>456</td>
-          <td>456</td>
-        </tr>
-    
         <tr v-for = "customer in customers" :key="customer.id">
             <td scope="row">{{ customer.id }}</td>
             <td>{{ customer.name }}</td>
@@ -112,7 +88,6 @@
 
       </tbody>
     </table>
-    <!--<button type = "button" id = "get-joke" @click = "fetchAPIData">Get a Joke!!</button>-->
   </div>
   <!--Test Fetch print-->
   <!--remove when pushing to main repo-->
@@ -131,12 +106,8 @@ export default {
             customers: [],
         };
     },
-    name: "App",
-    methods: {
-        // The get method called by the function
-        onGet() {
+    mounted: function () {
             axios
-                //.get(`https://jsonplaceholder.typicode.com/users?email=${this.emailValue}`)
                 .get(`https://jsonplaceholder.typicode.com/users`)
                 .then((response) => {
                     console.log(response);
@@ -146,7 +117,34 @@ export default {
                 .catch((errors) => {
                     console.log(errors); // Errors
                 });
+    },
+    name: "App",
+    methods: {
+        // The get method called by the function
+        onGet() {
+            axios
+                .get(`https://jsonplaceholder.typicode.com/users?email=${this.emailValue}`)
+                .then((response) => {
+                    console.log(response);
+                    //returns as raw JSON
+                    this.customers = response.data
+                })
+                .catch((errors) => {
+                    console.log(errors); // Errors
+                });
         },
+        getAll(){
+            axios
+                .get(`https://jsonplaceholder.typicode.com/users`)
+                .then((response) => {
+                    console.log(response);
+                    //returns as raw JSON
+                    this.customers = response.data
+                })
+                .catch((errors) => {
+                    console.log(errors); // Errors
+                });
+        }
     },
 };
 </script>
