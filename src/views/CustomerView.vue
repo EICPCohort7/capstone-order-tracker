@@ -3,6 +3,15 @@
     <img class="img" src="../assets/tjx-logo.png" alt="TJX logo" />
 
     <h1>Customer Information</h1>
+  </div>
+      <button type="button" class="btn btn-outline-danger">Seach</button>
+      <div class="form-group">
+    <select class="custom-select" required>
+      <option value="">Open this select menu</option>
+      <option value="1">Customer ID</option>
+      <option value="2">Email</option>
+    </select>
+    <div class="invalid-feedback">Example invalid custom select feedback</div>
 
     <form id="searching">
       <div class="form-group">
@@ -12,22 +21,7 @@
           id="entercid"
           placeholder="Customer ID"
         />
-      </div>
-      <div class="form-group">
-        <input
-          type="search"
-          class="form-control"
-          id="firstname"
-          placeholder="First Name"
-        />
-      </div>
-      <div class="form-group">
-        <input
-          type="search"
-          class="form-control"
-          id="lastname"
-          placeholder="Last Name"
-        />
+      
       </div>
       <div class="form-group">
         <input
@@ -38,28 +32,32 @@
         />
       </div>
       <button type="button" class="btn btn-outline-danger">Seach</button>
+      
     </form>
 
-    <div class="container mt-2">
-      <button
-        type="button"
-        class="btn btn-outline-danger"
-        data-bs-toggle="modal"
-        data-bs-target="#myModal"
-      >
-        Create Customer
-      </button>
-      <div class="modal" id="myModal"></div>
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <div class="modal-title">
-              <h3>Create New Customer</h3>
-            </div>
-          </div>
-        </div>
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
+  </div>
+</div>
 
     <table class="table table-striped">
       <thead>
@@ -99,5 +97,6 @@
         </tr>
       </tbody>
     </table>
+    <!--<button type = "button" id = "get-joke" @click = "fetchAPIData">Get a Joke!!</button>-->
   </div>
 </template>

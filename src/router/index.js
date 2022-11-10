@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/HomeView.vue";
 import Customer from "../views/CustomerView.vue";
 import Product from "../views/ProductView.vue"
+//import vue from 
+
 const routes = [
   {
     path: "/",
@@ -29,6 +31,22 @@ const routes = [
   },
   
 ];
+
+/*const app = new Vue({
+  el: '#app',
+ 
+  data () {
+      result: "",
+      responseAvailable: false,
+      apiKey: '<YOUR_RAPIDAPI_KEY>'
+  },
+  methods: {
+      fetchAPIData( ) { 
+      }
+  }
+});*/
+
+
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
