@@ -25,13 +25,15 @@
       </div>
       <div class="form-group">
         <input
+          v-model = "emailValue"
           type="search"
           class="form-control"
           id="email"
           placeholder="Email"
         />
       </div>
-      <button type="button" class="btn btn-outline-danger">Seach</button>
+      <!--Search button for the email field-->
+      <button type="button" class="btn btn-outline-danger" v-on:click="onGet">Search</button>
       
     </form>
 
@@ -99,4 +101,36 @@
     </table>
     <!--<button type = "button" id = "get-joke" @click = "fetchAPIData">Get a Joke!!</button>-->
   </div>
+  <!--Test Fetch print-->
+  <div>
+    {{ res }}
+  </div>
 </template>
+
+
+<script>
+import axios from "axios";
+export default {
+    data() {
+        return {
+            res: [],
+        };
+    },
+    name: "App",
+    methods: {
+        // The get method called by the function
+        onGet() {
+            axios
+                .get(`https://jsonplaceholder.typicode.com/users?email=${this.emailValue}`)
+                .then((response) => {
+                    console.log(response);
+                    // using stringify to beautify the output
+                    this.res = JSON.stringify(response.data);
+                })
+                .catch((errors) => {
+                    console.log(errors); // Errors
+                });
+        },
+    },
+};
+</script>
