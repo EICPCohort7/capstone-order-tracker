@@ -18,10 +18,10 @@
   <div class="form-group">
     <input type="search" class="form-control" id="email" placeholder="Email">
   </div>
-  <button type="button" class="btn btn-primary">Seach</button>
+  <button type="button" class="btn btn-outline-danger">Seach</button>
 </form>
 
-<button type="button" class="btn btn-outline-danger">Create</button>
+<button type="button" class="btn btn-outline-danger">Create Customer</button>
 
 <table class="table table-striped">
   <thead>

@@ -35,13 +35,19 @@ img {
   margin-left: 30px;
 }
 
-button{
+button {
   float: right;
+  margin-top: 10px;
   margin-right: 20px;
+  margin-bottom: 50px;
 }
-
-searching{ 
-  
-
+form {
+  width: 300px;
+  height: 150px;
+  border-radius: 50px;
+  margin-left: 225px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
 }
 </style>
