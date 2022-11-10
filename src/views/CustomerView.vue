@@ -1,12 +1,9 @@
-
-
 <template>
   <div class="customer">
     <img class="img" src="../assets/tjx-logo.png" alt="TJX logo" />
 
     <h1>Customer Information</h1>
   </div>
-      <button type="button" class="btn btn-outline-danger">Seach</button>
       <div class="form-group">
     <select class="custom-select" required>
       <option value="">Open this select menu</option>
@@ -40,30 +37,98 @@
       
     </form>
 
+<!--Modal-->
+<button id="show-modal" @click="showModal = true" class="btn btn-outline-danger">New Customer</button>
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button>
+<Teleport to="body">
+  <!-- use the modal component, pass in the prop -->
+  <modal :show="showModal" @close="showModal = false">
+    <template #header>
+      <h3>Create a new Customer</h3>
+    </template>
+    <template #body>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          placeholder="First Name"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="middleName"
+          placeholder="Middle Initial"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          placeholder="Last Name"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="phone"
+          placeholder="Phone Number"
+        />
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="Email"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="streetAdd"
+          placeholder="Street Address"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="aptNum"
+          placeholder="Apartment Number"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="city"
+          placeholder="City"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="state"
+          placeholder="State/Province"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="zip"
+          placeholder="Zip/Postal Code"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="country"
+          placeholder="Country"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="notes"
+          placeholder="Customer Notes"
+        />
+    </template>
+    <template #btn>
+        <button
+                class="btn btn-outline-danger"
+              >Submit</button>
+    </template>
+  </modal>
+</Teleport>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
+<!--Data Table-->
     <table class="table table-striped">
       <thead>
         <tr>
@@ -100,10 +165,12 @@
 
 <script>
 import axios from "axios";
+import Modal from '../components/Modal.vue'
 export default {
     data() {
         return {
             customers: [],
+            showModal: false
         };
     },
     mounted: function () {
@@ -146,5 +213,8 @@ export default {
                 });
         }
     },
+    components: {
+    Modal
+  },
 };
 </script>
