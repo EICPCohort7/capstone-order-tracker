@@ -2,3 +2,4 @@
 Cohort 7's Capstone Project
 
 Testing PR
+Small change/.
