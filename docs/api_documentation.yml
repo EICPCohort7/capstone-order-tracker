@@ -23,7 +23,7 @@ paths:
           $ref: "#/components/responses/400Error"
 
     post:
-      description: 'Let a user create a new customer'
+      description: "Let a user create a new customer"
       requestBody:
         required: true
         content:
@@ -31,11 +31,10 @@ paths:
             schema:
               $ref: "#/components/schemas/Customer"
       responses:
-        '201':
-          description: Successfully added a new customer 
-        '400':
+        "201":
+          description: Successfully added a new customer
+        "400":
           $ref: "#/components/responses/400Error"
-
 
   /customers/{customer_id}:
     get:
@@ -60,6 +59,73 @@ paths:
         "400":
           $ref: "#/components/responses/400Error"
 
+  /addresses:
+    get:
+      description: "Get all of the system's addresses."
+      parameters: []
+      responses:
+        "200":
+          description: Successfully returned addresses.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Address"
+
+    post:
+      description: "Create a new address."
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Address"
+      responses:
+        "201":
+          description: Successfully added address.
+        "500":
+          description: Address endpoint error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /addresses/{addressId}:
+    get:
+      description: "Get an address by address_id."
+      parameters:
+        - name: addressId
+          description: The id of the address to be returned.
+          in: path
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "201":
+          description: Successfully returned the address referenced by addressId.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Address"
+
+        "500":
+          description: Address endpoint error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
 components:
   schemas:
     Customer:
@@ -83,6 +149,24 @@ components:
           type: integer
         is_active:
           type: boolean
+
+    Address:
+      type: object
+      properties:
+        address_id:
+          type: integer
+        street:
+          type: string
+        apt_num:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
 
   responses:
     400Error:
