@@ -1,0 +1,95 @@
+openapi: "3.0.2"
+info:
+  title: Order Tracker API
+  version: "1.0"
+servers:
+  - url: https://
+paths:
+  /customers:
+    get:
+      description: "Returns a list of all the customers."
+      parameters: []
+      responses:
+        "200":
+          description: Successfully returned a list of customers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+
+        "400":
+          $ref: "#/components/responses/400Error"
+
+    post:
+      description: "Let a user create a new customer"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Customer"
+      responses:
+        "201":
+          description: Successfully added a new customer
+        "400":
+          $ref: "#/components/responses/400Error"
+
+  /customers/{customer_id}:
+    get:
+      description: "Obtain information about a customer from their unique customer_id"
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "201":
+          description: Successfully returned the customer referenced by customer_id.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+
+        "400":
+          $ref: "#/components/responses/400Error"
+
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        customer_id:
+          type: integer
+        first_name:
+          type: string
+        middle_initial:
+          type: string
+        last_name:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        customer_notes:
+          type: string
+        billing_address_id:
+          type: integer
+        is_active:
+          type: boolean
+
+  responses:
+    400Error:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string

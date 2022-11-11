@@ -1,0 +1,93 @@
+openapi: "3.0.2"
+info:
+  title: Order Tracker API
+  version: "1.0"
+servers:
+  - url: https://
+paths:
+  /addresses:
+    get:
+      description: "Get all of the system's addresses."
+      parameters: []
+      responses:
+        "200":
+          description: Successfully returned addresses.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Address"
+
+    post:
+      description: "Create a new address."
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Address"
+      responses:
+        "201":
+          description: Successfully added address.
+        "500":
+          description: Address endpoint error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /addresses/{addressId}:
+    get:
+      description: "Get an address by address_id."
+      parameters:
+        - name: addressId
+          description: The id of the address to be returned.
+          in: path
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "201":
+          description: Successfully returned the address referenced by addressId.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Address"
+
+        "500":
+          description: Address endpoint error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  schemas:
+    Address:
+      type: object
+      properties:
+        address_id:
+          type: integer
+        street:
+          type: string
+        apt_num:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
