@@ -125,6 +125,64 @@ paths:
                 properties:
                   message:
                     type: string
+  /orders:
+    get:
+      description: "Returns a list of all orders."
+      parameters: []
+      responses:
+        "200":
+          description: Successfully returned orders.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Order"
+        "400":
+          $ref: "#/components/responses/400Error"
+    post:
+      description: 'Create a new order'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        '201':
+          description: Successfully added new order 
+        '400':
+          $ref: "#/components/responses/400Error"
+
+
+  /orders/{order_id}:
+    get:
+      description: "Obtain order from unique order_id"
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Successfully returned the Order referenced by Order_ID.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Order"
+        "404":
+          description: Order ID not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
 
 components:
   schemas:
@@ -167,6 +225,22 @@ components:
           type: string
         country:
           type: string
+
+    Order:
+      type: object
+      properties:
+        order_id:
+          type: integer
+        customer_id:
+          type: integer
+        order_status_code:
+          type: integer
+        order_placed:
+          type: string
+        order_notes:
+          type: string
+        shipping_address_id:
+          type: integer
 
   responses:
     400Error:
