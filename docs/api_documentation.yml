@@ -1,0 +1,51 @@
+openapi: "3.0.2"
+info:
+  title: Order Tracker API
+  version: "1.0"
+servers:
+  - url: https://
+paths:
+  /test:
+    get:
+      responses:
+        "200":
+          description: OK
+
+  /customers:
+    get:
+      description: "Returns a list of all the customers."
+      parameters: []
+      responses:
+        "200":
+          description: Successfully returned a list of customers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+
+        "400":
+          description: Invalid request.
+
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        customer_id:
+          type: integer
+        first_name:
+          type: string
+        middle_name:
+          type: string
+        last_name:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        customer_notes:
+          type: string
+        address:
+          type: string
