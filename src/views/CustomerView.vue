@@ -15,7 +15,7 @@
           placeholder="Email"
         />
         <!--Search button for the email field-->
-        <button type="button" class="btn btn-outline-danger" v-on:click="onGet">
+        <button type="button" class="btn btn-outline-danger" v-on:click="getEmail">
           Search
         </button>
         <button
@@ -52,9 +52,7 @@
       </tbody>
     </table>
   </div>
-  <div>
-    {{ customers }}
-  </div>
+  
 </template>
 
 <script>
@@ -68,59 +66,37 @@ export default {
   },
  
 
-  mounted: function () {
-    axios
-      //Change to eic API endpoint
-      .get(`https://jsonplaceholder.typicode.com/users/1`)
-      .then((response) => {
-        console.log(response);
-        //returns as raw JSON
-        this.customers = response.data;
-      })
-      .catch((errors) => {
-        console.log(errors); // Errors
-      });
+  mounted: async function () {
+      let customers= await axios.get(`http://localhost:3000/api/v1/customers/`)
+      .catch((errors)=> {
+          console.log(errors); // Errors
+        });
+      this.customers = customers.data;
   },
   name: "App",
   methods: {
     // The get method called by the function
-    onGet() {
-      axios
-        //Change to eic API endpoint
-        .get(
-          `https://jsonplaceholder.typicode.com/users?email=${this.emailValue}`
-        )
-        .then((response) => {
-          console.log(response);
-          //returns as raw JSON
-          this.customers = response.data;
-        })
-        .catch((errors) => {
-          console.log(errors); // Errors
-        });
-    },
-    getAll() {
-      axios
-        //Change to eic API endpoint
-        .get(`http://localhost:3000/api/v1/customers/`)
-        .then((response) => {
-          console.log(response);
-          //returns as raw JSON
-          this.customers = response.data;
-        })
-        .catch((errors) => {
-          console.log(errors); // Errors
-        });
-    },
+    
     async getCustomers() {
       
       let customers= await axios.get(`http://localhost:3000/api/v1/customers/`)
       .catch((errors)=> {
           console.log(errors); // Errors
         });
-      this.customers = customers;
+      this.customers = customers.data;
+
+    },
+
+    async getEmail() {
+      
+      let customers= await axios.get(`http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`)
+      .catch((errors)=> {
+          console.log(errors); // Errors
+        });
+      this.customers = customers.data;
 
     }
+
 
   },
 };
