@@ -21,6 +21,21 @@ paths:
 
         "400":
           $ref: "#/components/responses/400Error"
+          
+    post:
+      description: 'Let a user create a new customer'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Customer"
+      responses:
+        '202':
+          description: Successfully added a new customer 
+        '400':
+          $ref: "#/components/responses/400Error"
+
 
   /customers/{customer_id}:
     get:
