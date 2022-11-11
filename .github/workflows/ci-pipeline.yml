@@ -22,9 +22,9 @@ jobs:
     # - run: npm run build --if-present
     
     # at the moment mocharc.cjs requires .env
-    # PROD_ENV_FILE holds env variables (empty atm) and they are written to .env
+    # ENV_FILE holds env variables (empty at the moment) and they are written to .env
     - run: touch .env
-    - run: echo $PROD_ENV_FILE >> .env
+    - run: echo $ENV_FILE >> .env
     - run: npm run test:mocha --if-present
   
     # Static code analysis: Eslint. Checks programmatic and stylistic errors
