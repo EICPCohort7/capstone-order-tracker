@@ -26,24 +26,30 @@ paths:
                   $ref: "#/components/schemas/Customer"
 
         "400":
-          description: Invalid request.
+          $ref: "#/components/responses/400Error"
 
-  /customers/customer_id:
+  /customers/{customer_id}:
     get:
-      description: 'Obtain information about an artist from their unique customer_id'
+      description: "Obtain information about a customer from their unique customer_id"
       parameters:
         - name: customer_id
-          in: path 
+          in: path
           required: true
           schema:
             type: string
-            items:
-              $ref: "#/components/schemas/Customer"
-              
-      responses:
-        '200':
-          description: Successfully returned a customer
 
+      responses:
+        "201":
+          description: Successfully returned the customer referenced by customer_id.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+
+        "400":
+          $ref: "#/components/responses/400Error"
 
 components:
   schemas:
@@ -69,5 +75,13 @@ components:
         is_active:
           type: boolean
 
-
-
+  responses:
+    400Error:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
