@@ -9,11 +9,14 @@ import productRouter from './routes/ProductRouter.js';
 import orderRouter from './routes/OrderRouter.js';
 import orderDetailsRouter from './routes/OrderDetailsRouter.js';
 import orderStatusRouter from './routes/OrderStatusRouter.js';
+import cors from 'cors';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 let app = express();
+
+app.use(cors());
 
 app.use(logger('dev'));
 app.use(express.json());
