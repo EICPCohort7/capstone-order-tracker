@@ -182,6 +182,64 @@ paths:
                 properties:
                   message:
                     type: string
+  /Details:
+    get:
+      description: "Returns a list of all orders detail rows."
+      parameters: []
+      responses:
+        "200":
+          description: Successfully returned a list of orders details.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Detail"
+        "400":
+          $ref: "#/components/responses/400Error"
+    post:
+      description: 'Create new order detail'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Detail"
+      responses:
+        '201':
+          description: Successfully added a new order detail
+        '400':
+          $ref: "#/components/responses/400Error"
+  /Details/{order_details_id}:
+    get:
+      description: "Obtain order detail from their unique order_details_id"
+      parameters:
+        - name: order_details_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Successfully returned the order detail referenced by order_details_id.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Detail"
+        
+        "404":
+          description: Failed GET request for order detail with ID.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+
 
 
 components:
@@ -240,6 +298,18 @@ components:
         order_notes:
           type: string
         shipping_address_id:
+          type: integer
+
+    Detail:
+      type: object
+      properties:
+        order_details_id:
+          type: integer
+        order_id:
+          type: integer
+        product_id:
+          type: integer
+        product_quantity:
           type: integer
 
   responses:
