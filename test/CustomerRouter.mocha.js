@@ -109,7 +109,7 @@ describe('Customer Router Functionality Tests', () => {
     await axios.delete(`${host}/${testCustomer.data[0].customerId}`);
   });
 
-  describe('Customer Router Error Tests', () => {
+  describe('Customer Router Functionality Tests', () => {
     it("should test error message if a customer doesn't exist", async () => {
       try {
         await axios.get(`${host}/5`);

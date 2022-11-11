@@ -4,7 +4,7 @@ import Product from '../server/orm/models/Product.js';
 
 const host = 'http://localhost:3000/api/v1/products';
 
-describe('Customer Router Tests', () => {
+describe('Product Router Tests', () => {
   it('Smoke Test', async () => {
     let result = await Product.sync({ logging: false });
     expect(result).to.equal(Product);
