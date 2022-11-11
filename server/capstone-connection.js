@@ -28,3 +28,11 @@ export const dbConnection = new Sequelize(dbConnectionString, {
     underscored: true,
   },
 });
+
+// Need to figure out how to send response to front-end based on failure
+try {
+  await dbConnection.authenticate();
+  console.log('Connection to the database has been established successfully.');
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
