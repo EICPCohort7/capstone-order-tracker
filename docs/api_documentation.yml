@@ -28,6 +28,23 @@ paths:
         "400":
           description: Invalid request.
 
+  /customers/customer_id:
+    get:
+      description: 'Obtain information about an artist from their unique customer_id'
+      parameters:
+        - name: customer_id
+          in: path 
+          required: true
+          schema:
+            type: string
+            items:
+              $ref: "#/components/schemas/Customer"
+              
+      responses:
+        '200':
+          description: Successfully returned a customer
+
+
 components:
   schemas:
     Customer:
@@ -37,7 +54,7 @@ components:
           type: integer
         first_name:
           type: string
-        middle_name:
+        middle_initial:
           type: string
         last_name:
           type: string
@@ -47,5 +64,10 @@ components:
           type: string
         customer_notes:
           type: string
-        address:
-          type: string
+        billing_address_id:
+          type: integer
+        is_active:
+          type: boolean
+
+
+
