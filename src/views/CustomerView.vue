@@ -4,25 +4,30 @@
 
     <h1>Customer Information</h1>
   </div>
-      <div class="form-group">
-
+  <div class="form-group">
     <form id="searching">
       <div class="form-group">
         <input
-          v-model = "emailValue"
+          v-model="emailValue"
           type="search"
           class="form-control"
           id="email"
           placeholder="Email"
         />
         <!--Search button for the email field-->
-        <button type="button" class="btn btn-outline-danger" v-on:click="onGet">Search</button>
-        <button type="button" class="btn btn-outline-danger" v-on:click="getAll">Get All</button>
+        <button type="button" class="btn btn-outline-danger" v-on:click="onGet">
+          Search
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          v-on:click="getCustomers"
+        >
+          Get All
+        </button>
       </div>
-      
-      
     </form>
-<!--Data Table-->
+    <!--Data Table-->
     <table class="table table-striped">
       <thead>
         <tr>
@@ -35,74 +40,88 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for = "customer in customers" :key="customer.id">
-            <!--Change these to proper fields-->
-            <td scope="row">{{ customer.id }}</td>
-            <td>{{ customer.name }}</td>
-            <td>{{ customer.email }}</td>
-            <td>{{ customer.phone }}</td>
-            <td>{{ customer.phone }}</td>
-            <td>{{ customer.phone }}</td>
-            
-        </tr> 
-
+        <tr v-for="customer in customers" :key="customer.id">
+          <!--Change these to proper fields-->
+          <td scope="row">{{ customer.customerId }}</td>
+          <td>{{ customer.firstName }}</td>
+          <td>{{ customer.middleInitial }}</td>
+          <td>{{ customer.lastName }}</td>
+          <td>{{ customer.phone }}</td>
+          <td>{{ customer.email }}</td>
+        </tr>
       </tbody>
     </table>
   </div>
+  <div>
+    {{ customers }}
+  </div>
 </template>
-
-
 
 <script>
 import axios from "axios";
+
 export default {
-    data() {
-        return {
-            customers: [],
-        };
+  data() {
+    return {
+      customers: [],
+    };
+  },
+ 
+
+  mounted: function () {
+    axios
+      //Change to eic API endpoint
+      .get(`https://jsonplaceholder.typicode.com/users/1`)
+      .then((response) => {
+        console.log(response);
+        //returns as raw JSON
+        this.customers = response.data;
+      })
+      .catch((errors) => {
+        console.log(errors); // Errors
+      });
+  },
+  name: "App",
+  methods: {
+    // The get method called by the function
+    onGet() {
+      axios
+        //Change to eic API endpoint
+        .get(
+          `https://jsonplaceholder.typicode.com/users?email=${this.emailValue}`
+        )
+        .then((response) => {
+          console.log(response);
+          //returns as raw JSON
+          this.customers = response.data;
+        })
+        .catch((errors) => {
+          console.log(errors); // Errors
+        });
     },
-    mounted: function () {
-            axios
-                //Change to eic API endpoint
-                .get(`https://jsonplaceholder.typicode.com/users`)
-                .then((response) => {
-                    console.log(response);
-                    //returns as raw JSON
-                    this.customers = response.data
-                })
-                .catch((errors) => {
-                    console.log(errors); // Errors
-                });
+    getAll() {
+      axios
+        //Change to eic API endpoint
+        .get(`http://localhost:3000/api/v1/customers/`)
+        .then((response) => {
+          console.log(response);
+          //returns as raw JSON
+          this.customers = response.data;
+        })
+        .catch((errors) => {
+          console.log(errors); // Errors
+        });
     },
-    name: "App",
-    methods: {
-        // The get method called by the function
-        onGet() {
-            axios
-                //Change to eic API endpoint
-                .get(`https://jsonplaceholder.typicode.com/users?email=${this.emailValue}`)
-                .then((response) => {
-                    console.log(response);
-                    //returns as raw JSON
-                    this.customers = response.data
-                })
-                .catch((errors) => {
-                    console.log(errors); // Errors
-                });
-        },
-        getAll(){
-            axios
-                //Change to eic API endpoint
-                .get(`https://jsonplaceholder.typicode.com/users`)
-                .then((response) => {
-                    console.log(response);
-                    //returns as raw JSON
-                    this.customers = response.data
-                })
-                .catch((errors) => {
-                    console.log(errors); // Errors
-                });
-        }
-    },
+    async getCustomers() {
+      
+      let customers= await axios.get(`http://localhost:3000/api/v1/customers/`)
+      .catch((errors)=> {
+          console.log(errors); // Errors
+        });
+      this.customers = customers;
+
+    }
+
+  },
 };
-</script>
+</script> 

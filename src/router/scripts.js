@@ -1,22 +1,10 @@
-this.responseAvailable = false;
-fetch("https://jokes-database.p.rapidapi.com/", {
-    "method": "GET",
-    "headers": {
-        "x-rapidapi-host": "jokes-database.p.rapidapi.com",
-        "x-rapidapi-key": this.apiKey
+import axios from "axios";
+
+let customer_uri = "http://loclhost:3000/api/v1/customers/";
+
+const actions = {
+    async fetchCustomers({ get:all}) {
+        let allActive = await axios.get(customer_uri);
+        let customerData = allActive.data
     }
-})
-.then(response => { 
-    if(response.ok){
-        return response.json()    
-    } else{
-        alert("Server returned " + response.status + " : " + response.statusText);
-    }                
-})
-.then(response => {
-    this.result = response.body; 
-    this.responseAvailable = true;
-})
-.catch(err => {
-    console.log(err);
-});
+}
