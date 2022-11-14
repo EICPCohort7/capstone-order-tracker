@@ -2,12 +2,19 @@
 export default {
   props: {
     show: Boolean
+  },
+  methods:{
+    onSubmit(){
+      this.$emit('form-submit')
+    }
   }
 }
 </script>
 
 <template>
+<form @submit.prevent="onSubmit">
   <Transition name="modal">
+  
     <div v-if="show" class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
@@ -26,12 +33,15 @@ export default {
           <div class="modal-footer">
             <slot name="btn"><button
                 class="btn btn-outline-danger"
+                type="submit"
+                value = "Submit"
               >Submit</button></slot>
           </div>
         </div>
       </div>
     </div>
   </Transition>
+</form>
 </template>
 
 <style>

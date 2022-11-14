@@ -15,7 +15,11 @@
           placeholder="Email"
         />
         <!--Search button for the email field-->
-        <button type="button" class="btn btn-outline-danger" v-on:click="getEmail">
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          v-on:click="getEmail"
+        >
           Search
         </button>
         <button
@@ -27,120 +31,120 @@
         </button>
       </div>
     </form>
-
     <!--Modal-->
-<button id="show-modal" @click="showModal = true" class="btn btn-outline-danger">New Customer</button>
+    <button id="show-modal" @click="showModal = true" class="btn btn-outline-danger">New Customer</button>
 
-<Teleport to="body">
-  <!-- use the modal component, pass in the prop -->
-
-  <modal :show="showModal" @close="showModal = false">
-    <template #header>
-      <h3>Create a new Customer</h3>
-    </template>
+    <Teleport to="body">
+      <!-- use the modal component, pass in the prop -->
     
-    <template #body>
-      <!--  </form>   -->   
-    <form ref="form" @submit.prevent="createCustomer">
-        <input
-          type="text"
-          class="form-control"
-          id="firstName"
-          placeholder="First Name"
-          v-model="firstName"
+      <modal :show="showModal" @close="showModal = false" @form-submit="createCustomer">
+        <template #header>
+          <h3>Create a new Customer</h3>
+        </template>
+        
+        <template #body>
+          <!-- <form ref="form" @submit="createCustomer">  </form>   -->   
+       
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              placeholder="First Name"
+              v-model="firstName"
+              
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="middleInitial"
+              placeholder="Middle Initial"
+              v-model="middleInitial"
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              placeholder="Last Name"
+              v-model="lastName"
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="phone"
+              placeholder="Phone Number"
+              v-model="phone"
+            />
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Email"
+              v-model="email"
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="streetAdd"
+              placeholder="Street Address"
+              v-model="billingAddressId"
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="aptNum"
+              placeholder="Apartment Number"
+              v-model="phone"
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="city"
+              placeholder="City"
+              v-model="phone"
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="state"
+              placeholder="State/Province"
+              v-model="phone"
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="zip"
+              placeholder="Zip/Postal Code"
+              v-model="phone"
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="country"
+              placeholder="Country"
+              v-model="phone"
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="notes"
+              placeholder="Customer Notes"
+              v-model="customerNotes"
+            />
           
-        />
-        <input
-          type="text"
-          class="form-control"
-          id="middleInitial"
-          placeholder="Middle Initial"
-          v-model="middleInitial"
-        />
-        <input
-          type="text"
-          class="form-control"
-          id="lastName"
-          placeholder="Last Name"
-          v-model="lastName"
-        />
-        <input
-          type="text"
-          class="form-control"
-          id="phone"
-          placeholder="Phone Number"
-          v-model="phone"
-        />
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          placeholder="Email"
-          v-model="email"
-        />
-        <input
-          type="text"
-          class="form-control"
-          id="streetAdd"
-          placeholder="Street Address"
-          v-model="billingAddress"
-        />
-        <input
-          type="text"
-          class="form-control"
-          id="aptNum"
-          placeholder="Apartment Number"
-          v-model="phone"
-        />
-        <input
-          type="text"
-          class="form-control"
-          id="city"
-          placeholder="City"
-          v-model="phone"
-        />
-        <input
-          type="text"
-          class="form-control"
-          id="state"
-          placeholder="State/Province"
-          v-model="phone"
-        />
-        <input
-          type="text"
-          class="form-control"
-          id="zip"
-          placeholder="Zip/Postal Code"
-          v-model="phone"
-        />
-        <input
-          type="text"
-          class="form-control"
-          id="country"
-          placeholder="Country"
-          v-model="phone"
-        />
-        <input
-          type="text"
-          class="form-control"
-          id="notes"
-          placeholder="Customer Notes"
-          v-model="customerNotes"
-        />
-      </form>
-    </template>
-    <template>
-       <button
-          type="button"
-          class="btn btn-outline-danger"
-          v-on:submit="createCustomer"
-        >
-          Submit
-        </button> 
-    </template>
-    
-  </modal>
-</Teleport>
+        </template>
+        <!-- <template>
+           <button
+              type="submit"
+              class="btn btn-outline-danger"
+              v-on:submit="createCustomer"
+            >
+              Submit
+            </button> 
+        </template> -->
+        
+      </modal>
+    </Teleport>
+
     <!--Data Table-->
     <table class="table table-striped">
       <thead>
@@ -166,85 +170,81 @@
       </tbody>
     </table>
   </div>
-  <div>
-    
-  </div>
+  <div></div>
 </template>
 
 <script>
 import axios from "axios";
 import Modal from '../components/Modal.vue'
 export default {
-    data() {
-        return {
-            customers: [],
-            firstName:'',
-            middleInitial:'',
-            lastName:'',
-            phone:'',
-            email:'',
-            customerNotes:'',
-            billingAddress:'',
-            orders:[],
-            products:[],
-            showModal: false
-        };
-    },
+  data() {
+    return {
+      customers: [],
+      firstName: "",
+      middleInitial: "",
+      lastName: "",
+      phone: "",
+      email: "",
+      customerNotes: "",
+      billingAddressId: "",
+      orders: [],
+      products: [],
+       showModal: false
+    };
+  },
 
   mounted: async function () {
-      let customers= await axios.get(`http://localhost:3000/api/v1/customers/`)
-      .catch((errors)=> {
-          console.log(errors); // Errors
-        });
-      this.customers = customers.data;
+    let customers = await axios
+      .get(`http://localhost:3000/api/v1/customers/`)
+      .catch((errors) => {
+        console.log(errors); // Errors
+      });
+    this.customers = customers.data;
   },
   name: "App",
   methods: {
     // The get method called by the function
-    
+
     async getCustomers() {
-      
-      let customers= await axios.get(`http://localhost:3000/api/v1/customers/`)
-      .catch((errors)=> {
+      let customers = await axios
+        .get(`http://localhost:3000/api/v1/customers/`)
+        .catch((errors) => {
           console.log(errors); // Errors
         });
       this.customers = customers.data;
-
     },
 
     async getEmail() {
-      
-      let customers= await axios.get(`http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`)
-      .catch((errors)=> {
+      let customers = await axios
+        .get(
+          `http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`
+        )
+        .catch((errors) => {
           console.log(errors); // Errors
         });
       this.customers = customers.data;
-
     },
     async createCustomer() {
-      console.log("hello")
-      let customers= await axios.post(`http://localhost:3000/api/v1/customers/`,{
-        firstName: this.firstName,
-            middleInitial:this.middleInitial,
-            lastName:this.lastName,
-            phone:this.phone,
-            email:this.email,
-            customerNotes:this.customerNotes,
-            billingAddress:this.billingAddress
-      })
-      .catch((errors)=> {
+      console.log("hello");
+      let customers = await axios
+        .post(`http://localhost:3000/api/v1/customers/`, {
+          firstName: this.firstName,
+          middleInitial: this.middleInitial,
+          lastName: this.lastName,
+          phone: this.phone,
+          email: this.email,
+          customerNotes: this.customerNotes,
+          billingAddressId: 1,
+        })
+        .catch((errors) => {
           console.log(errors); // Errors
         });
       this.customers = customers.data;
-
     },
-    
-
-
   },
-  
-    components: {
-    Modal
-    }
+
+  components: {
+     Modal
+  },
 };
-</script> 
+</script>
