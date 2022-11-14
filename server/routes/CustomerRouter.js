@@ -79,7 +79,7 @@ router.get('/search', async (req, res) => {
 
 // POST api/v1/customers/
 // Create new customer
-router.post('/', async (req, res) => {
+router.post('/', validateCustomer, async (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
