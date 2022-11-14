@@ -93,35 +93,35 @@
               class="form-control"
               id="aptNum"
               placeholder="Apartment Number"
-              v-model="phone"
+              v-model="aptNum"
             />
             <input
               type="text"
               class="form-control"
               id="city"
               placeholder="City"
-              v-model="phone"
+              v-model="city"
             />
             <input
               type="text"
               class="form-control"
               id="state"
               placeholder="State/Province"
-              v-model="phone"
+              v-model="stateProv"
             />
             <input
               type="text"
               class="form-control"
               id="zip"
               placeholder="Zip/Postal Code"
-              v-model="phone"
+              v-model="zip"
             />
             <input
               type="text"
               class="form-control"
               id="country"
               placeholder="Country"
-              v-model="phone"
+              v-model="country"
             />
             <input
               type="text"
@@ -225,8 +225,7 @@ export default {
       this.customers = customers.data;
     },
     async createCustomer() {
-      console.log("hello");
-      let customers = await axios
+      await axios
         .post(`http://localhost:3000/api/v1/customers/`, {
           firstName: this.firstName,
           middleInitial: this.middleInitial,
@@ -235,11 +234,12 @@ export default {
           email: this.email,
           customerNotes: this.customerNotes,
           billingAddressId: 1,
+          isActive: 1
         })
         .catch((errors) => {
           console.log(errors); // Errors
         });
-      this.customers = customers.data;
+      this.customers = this.getCustomers().data;
     },
   },
 
