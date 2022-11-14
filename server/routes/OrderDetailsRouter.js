@@ -56,7 +56,10 @@ router.put('/:orderDetailsId([0-9]+)', async (req, res) => {
     if (!orderDetails) {
       return res.status(404).send(`Failed PUT request for order detail with ID ${orderDetailsId}. Must handle this on the frontend.`);
     }
-    orderDetails.productQuantity = req.body.productQuantity || null; // productQuantity is only column that is not a primary or foreign key
+    orderDetails.orderId = req.body.orderId || orderDetails.orderId;
+    orderDetails.productId = req.body.productId || orderDetails.productId;
+    orderDetails.productQuantity = req.body.productQuantity || null;
+
     await orderDetails.update({ ...req.body });
     console.log(`Order detail ID ${orderDetailsId} successfully updated with PUT request`);
     return res.json(orderDetails);

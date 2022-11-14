@@ -12,6 +12,10 @@ import { Address } from '../orm/models/index.js';
 import _ from 'lodash';
 let router = express.Router();
 
+// Frontend response
+// findAll() returns an array of objects
+// findByPk returns an object
+
 // GET api/v1/addresses/
 // Get all of the system's addresses
 router.get('/', async (req, res) => {

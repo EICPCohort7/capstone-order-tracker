@@ -108,14 +108,14 @@ router.put('/:customerId([0-9]+)', async (req, res) => {
     if (!customer) return res.status(404).send(`Customer ID ${req.params.customerId} not found`);
 
     // PUT _replaces_ the record, whereas PATCH merges the record
-    customer.firstName = req.body.firstName || null;
+    customer.firstName = req.body.firstName || customer.firstName;
     customer.middleInitial = req.body.middleInitial || null;
-    customer.lastName = req.body.lastName || null;
-    customer.phone = req.body.phone || null;
-    customer.email = req.body.email || null;
+    customer.lastName = req.body.lastName || customer.lastName;
+    customer.phone = req.body.phone || customer.phone;
+    customer.email = req.body.email || customer.email;
     customer.customerNotes = req.body.customerNotes || null;
-    customer.billingAddressId = req.body.billingAddressId || null;
-    customer.isActive = req.body.isActive || null;
+    customer.billingAddressId = req.body.billingAddressId || customer.billingAddressId;
+    customer.isActive = req.body.isActive || customer.isActive;
 
     await customer.update({ ...req.body });
     console.log(`Customer id ${req.params.customerId} updated`);

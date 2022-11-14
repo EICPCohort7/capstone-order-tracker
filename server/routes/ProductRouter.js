@@ -50,10 +50,10 @@ router.put('/:productId([0-9]+)', async (req, res) => {
           `Failed PUT request for product with ID ${productId}. Must handle this on the frontend.`
         );
     }
-    product.productSku = req.body.productSku || null;
-    product.productPrice = req.body.productPrice || null;
-    product.productName = req.body.productName || null;
-    product.productInventory = req.body.productInventory || null;
+    product.productSku = req.body.productSku || product.productSku;
+    product.productPrice = req.body.productPrice || product.productPrice;
+    product.productName = req.body.productName || product.productName;
+    product.productInventory = req.body.productInventory || product.productInventory;
     product.productDescription = req.body.productDescription || null;
 
     await product.update({ ...req.body });

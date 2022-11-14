@@ -9,6 +9,7 @@ function handleError(res, error) {
 
 // GET api/v1/orders
 // Get all of the system's orders
+// Calls findAll(), returns an array to the frontend
 router.get('/', async (req, res) => {
   try {
     let orders = await Order.findAll();
@@ -20,6 +21,7 @@ router.get('/', async (req, res) => {
 
 // GET api/v1/orders/:orderId
 // Get order by order ID
+// Calls findbyPK, returns an object to the frontend
 router.get('/:orderId([0-9]+)', async (req, res) => {
   try {
     let orderId = req.params.orderId;
@@ -50,6 +52,7 @@ router.post('/', async (req, res) => {
 
 // PUT api/v1/orders/:orderId
 // Replace an already existing order by order ID
+// Calls findbyPK, returns an object to the frontend
 router.put('/:orderId([0-9]+)', async (req, res) => {
   try {
     let order = await Order.findByPk(req.params.orderId);
@@ -59,7 +62,7 @@ router.put('/:orderId([0-9]+)', async (req, res) => {
     order.orderNotes = req.body.orderNotes || null;
     order.orderPlaced = req.body.orderPlaced || null;
     order.orderStatusCode = req.body.orderStatusCode || order.orderStatusCode;
-    order.shippingAddressId = req.body.shippingAddressId || order.shippingAddressId;
+    order.shippingAddressId = req.body.shippingAddressId || null;
 
     await order.update({ ...req.body });
     console.log(`Order id ${req.params.orderId} updated`);
@@ -71,6 +74,7 @@ router.put('/:orderId([0-9]+)', async (req, res) => {
 
 // PATCH api/orders/:orderId
 // Edit an already existing order by order ID
+// Calls findbyPK, returns an object to the frontend
 router.patch('/:orderId([0-9]+)', async (req, res) => {
   try {
     let order = await Order.findByPk(req.params.orderId);
