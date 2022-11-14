@@ -6,7 +6,7 @@
  */
 import express from 'express';
 import { ValidationError } from 'sequelize';
-import { Customer } from '../orm/models/index.js';
+import { Customer, Address } from '../orm/models/index.js';
 import { validationResult } from 'express-validator';
 import { validateCustomer } from './validators/CustomerValidator.js';
 
@@ -77,24 +77,65 @@ router.get('/search', async (req, res) => {
   }
 });
 
+// BUG!!!
+// POST will only work once, and then returns 500 (Customer endpoint error: Validation error) until the MySQL server is reset.
+// A new customer with a new address, and a new customer with an existing address all work (the first time).
+// Afterwards, new addresses will be added to the database, but not the customer.
+
 // POST api/v1/customers/
-// Create new customer
-router.post('/', validateCustomer, async (req, res) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
+// Create new customer (and address if neccesary)
+// JSON format (for Postman/testing):
+// {
+//   "firstName":"D",
+//   "middleInitial":"E",
+//   ...
+//   "address" : {
+//     "street": "1st",
+//     "aptNum": "123",
+//     ...
+//   }
+// }
+router.post('/', async (req, res) => {
   try {
+    // create the Address
+    let addAddress = Address.build({ ...req.body.address });
+    if (addAddress instanceof ValidationError) {
+      console.error('Validation failed:', addAddress);
+      throw addAddress;
+    }
+    // Check if Address already exists
+    let street = addAddress.dataValues.street;
+    let aptNum = addAddress.dataValues.aptNum || null;
+    let city = addAddress.dataValues.city;
+    let state = addAddress.dataValues.state || null;
+    let zip = addAddress.dataValues.zip;
+    let country = addAddress.dataValues.country;
+    let existingAddress = await Address.findOne({
+      where: {
+        street,
+        aptNum,
+        city,
+        state,
+        zip,
+        country,
+      },
+    });
+    // if Address exists: use search result
+    if (existingAddress !== null) {
+      req.body.billingAddressId = existingAddress.dataValues.addressId;
+    // otherwise: create new Address
+    } else {
+      let newAddress = await addAddress.save();
+      req.body.billingAddressId = newAddress.dataValues.addressId;
+    }
+    // create the new Customer
     let addCustomer = Customer.build({ ...req.body });
     let result = await addCustomer.save();
-
     if (result instanceof ValidationError) {
       console.error('Validation failed:', result);
       throw result;
     }
-    return res.status(201).json(addCustomer);
+    return res.status(201).send(result);
   } catch (error) {
     errorHandler(res, error);
   }
