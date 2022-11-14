@@ -34,14 +34,4 @@ describe('Product Router Tests', () => {
       productSku: preTestSku,
     });
   });
-
-  describe('\nProduct Error Tests', () => {
-    it('should respond with error code 404', async () => {
-      try {
-        await Product.findByPk(7, { logging: false });
-      } catch (error) {
-        expect(error.response.status).to.be(404);
-      }
-    });
-  });
 });

@@ -64,7 +64,7 @@ router.get('/search', async (req, res) => {
 
   try {
     if (email) {
-      let result = await Customer.findOne({
+      let result = await Customer.findAll({
         where: {
           email,
         },
@@ -79,7 +79,7 @@ router.get('/search', async (req, res) => {
 
 // POST api/v1/customers/
 // Create new customer
-router.post('/', validateCustomer, async (req, res) => {
+router.post('/', async (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {

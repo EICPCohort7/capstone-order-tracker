@@ -30,13 +30,16 @@ export const validateCustomer = [
     checkNull: true,
     checkFalsy: true,
   }),
-  check('customerNotes').isAlphanumeric().isLength({
-    max: 1024,
-  }),
-  check('billing_address_id')
-    .exists({
-      checkNull: true,
-      checkFalsy: true,
+  check('customerNotes')
+    .isLength({
+      min: 0,
+      max: 1024,
     })
-    .isInt(),
+    .isAlphanumeric(),
+  // check('billingAddressId')
+  //   .exists({
+  //     checkNull: true,
+  //     checkFalsy: true,
+  //   })
+  // .isInt(),
 ];
