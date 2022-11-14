@@ -7,6 +7,22 @@ import OrderDetails from './OrderDetails.js';
 
 // Sequelize Association Declarations
 
+// Customer/Address - one to many
+Address.hasMany(Customer, { foreignKey: 'billingAddressId' });
+Customer.hasOne(Address, { foreignKey: 'addressId' });
+
+// Address/Order - one to many
+Address.hasMany(Order, { foreignKey: 'shippingAddressId' });
+Order.hasOne(Address, { foreignKey: 'addressId' });
+
+// Customer/Order - one to many
+Customer.hasMany(Order, { foreignKey: 'customerId' });
+Order.hasOne(Customer, { foreignKey: 'customerId' });
+
+// OrderStatus/Order - one to many
+OrderStatus.hasMany(Order, { foreignKey: 'orderStatusCode' });
+Order.hasOne(OrderStatus, { foreignKey: 'orderStatusCode' });
+
 // Order/OrderDetails/Product
 Order.belongsToMany(Product, {
   foreignKey: 'orderId',
@@ -16,21 +32,5 @@ Product.belongsToMany(Order, {
   foreignKey: 'productId',
   through: OrderDetails,
 });
-
-// Customer/Address - one to many
-Address.hasMany(Customer, { foreignKey: 'billingAddressId' });
-Customer.hasOne(Address, { foreignKey: 'billingAddressId' });
-
-// Address/Order - one to many
-Address.hasMany(Order, { foreignKey: 'shippingAddressId' });
-Order.hasOne(Address, { foreignKey: 'shippingAddressId' });
-
-// Customer/Order - one to many
-Customer.hasMany(Order, { foreignKey: 'customerId' });
-Order.hasOne(Customer, { foreignKey: 'customerId' });
-
-// OrderStatus/Order - one to many
-OrderStatus.hasMany(Order, { foreignKey: 'orderStatusCode' });
-Order.hasOne(OrderStatus, { foreignKey: 'orderStatusCode' });
 
 export { Customer, Address, Product, Order, OrderDetails, OrderStatus };

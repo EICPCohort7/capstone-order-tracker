@@ -12,8 +12,8 @@ describe('Customer Router Functionality Tests', () => {
 
   it('should query a customer in the customerDb', async () => {
     let testCustomer = await Customer.findByPk(2, { logging: false });
-    expect(testCustomer.firstName).to.equal('Bob');
-    expect(testCustomer.lastName).to.equal('Bobbo');
+    expect(testCustomer.firstName).to.equal('Denim');
+    expect(testCustomer.lastName).to.equal('Rob');
   });
 
   it('should return customers flagged as active', async () => {
@@ -26,12 +26,12 @@ describe('Customer Router Functionality Tests', () => {
   });
 
   it('should return customer of specified email', async () => {
-    const customerEmail = 'imbob@bob.bob';
+    const customerEmail = 'jenny12@icloud.com';
     let testCustomer = await axios.get(`${host}/search?email=${customerEmail}`);
 
     let testCustomerData = testCustomer.data[0];
-    expect(testCustomerData.firstName).to.equal('Bob');
-    expect(testCustomerData.lastName).to.equal('Bobbo');
+    expect(testCustomerData.firstName).to.equal('Jenny');
+    expect(testCustomerData.lastName).to.equal('nolan');
     expect(testCustomerData.email).to.equal(customerEmail);
   });
 

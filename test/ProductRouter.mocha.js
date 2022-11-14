@@ -12,12 +12,12 @@ describe('Product Router Tests', () => {
 
   it('should query a product in the product db by productId', async () => {
     let testProduct = await Product.findByPk(1, { logging: false });
-    expect(testProduct.productSku).to.equal('A1B3011');
+    expect(testProduct.productSku).to.equal('DEN-BLU-MEN');
   });
 
   it('should retrieve all products stored', async () => {
     let testProducts = await axios.get(`${host}`);
-    expect(testProducts.data.length).to.equal(3);
+    expect(testProducts.data.length).to.equal(5);
   });
 
   it('should modify a desired product', async () => {
