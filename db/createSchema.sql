@@ -1,7 +1,9 @@
+-- creates database
 drop schema if exists Capstone_OTS;
 
 Create schema capstone_OTS;
 
+-- create address table
 CREATE TABLE IF NOT EXISTS `Capstone_OTS`.`Addresses` (
   `address_id` INT NOT NULL AUTO_INCREMENT,
   `street` VARCHAR(255) NOT NULL,
@@ -13,6 +15,7 @@ CREATE TABLE IF NOT EXISTS `Capstone_OTS`.`Addresses` (
   PRIMARY KEY (`address_id`))
 ENGINE = InnoDB;
 
+-- create customers table
 CREATE TABLE IF NOT EXISTS `Capstone_OTS`.`Customers` (
   `customer_id` INT NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NOT NULL,
@@ -33,12 +36,14 @@ CREATE TABLE IF NOT EXISTS `Capstone_OTS`.`Customers` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+--create order statuses table
 CREATE TABLE IF NOT EXISTS `Capstone_OTS`.`Order_statuses` (
   `order_status_code` INT NOT NULL AUTO_INCREMENT,
   `order_status_description` VARCHAR(45) NULL,
   PRIMARY KEY (`order_status_code`))
 ENGINE = InnoDB;
 
+-- create orders table
 CREATE TABLE IF NOT EXISTS `Capstone_OTS`.`Orders` (
   `order_id` INT NOT NULL AUTO_INCREMENT,
   `customer_id` INT NOT NULL,
@@ -67,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `Capstone_OTS`.`Orders` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
+-- create products table
 CREATE TABLE IF NOT EXISTS `Capstone_OTS`.`Products` (
   `product_id` INT NOT NULL AUTO_INCREMENT,
   `product_SKU` VARCHAR(45) NOT NULL,
@@ -78,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `Capstone_OTS`.`Products` (
   PRIMARY KEY (`product_id`))
 ENGINE = InnoDB;
 
+-- creates order details
 CREATE TABLE IF NOT EXISTS `Capstone_OTS`.`Order_details` (
   `order_details_id` INT NOT NULL AUTO_INCREMENT,
   `order_id` INT NOT NULL,
