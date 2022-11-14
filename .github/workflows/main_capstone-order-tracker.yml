@@ -24,14 +24,19 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
-          npm run test:mocha
-        # npm run build --if-present
+        # npm run test:mocha
+          npm run build --if-present
+
+      - name: Zip Artifact
+        run: |
+          mkdir -p dist
+          zip -rq dist/release.zip node_modules server package*
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: ./dist/release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -45,6 +50,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: node-app
+
+      - name: Unzip Artifact
+        run: unzip -q release.zip
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp

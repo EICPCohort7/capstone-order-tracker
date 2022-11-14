@@ -10,7 +10,8 @@
     "build:watch": "webpack --watch",
     "server:start": "node ./server/bin/www.js",
     "server:watch": "nodemon ./server/bin/www.js",
-    "test:mocha": "mocha"
+    "test:mocha": "mocha",
+    "start": "node ./server/bin/www.js"
   },
   "keywords": [],
   "author": "",
