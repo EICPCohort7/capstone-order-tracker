@@ -24,7 +24,4 @@ jobs:
   
     # Static code analysis: Eslint. Checks programmatic and stylistic errors
     - run: npx eslint . --ext .js,.jsx,.ts,.tsx
-    
-    - name: Reformat SQL Files
-      uses: credfeto/action-sql-format@v1.3.1
 
