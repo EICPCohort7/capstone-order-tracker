@@ -17,11 +17,14 @@ jobs:
       with:
         node-version: 16
     - run: npm install
-    
+        # Run the reformat action
+    - name: Reformat SQL Files
+      uses: credfeto/action-sql-format@v1.3.1
     - run: npm run build --if-present
     
     - run: npm run test:mocha
   
     # Static code analysis: Eslint. Checks programmatic and stylistic errors
     - run: npx eslint . --ext .js,.jsx,.ts,.tsx
+    
     
