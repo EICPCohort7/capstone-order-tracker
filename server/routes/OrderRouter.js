@@ -59,7 +59,7 @@ router.put('/:orderId([0-9]+)', async (req, res) => {
     order.orderNotes = req.body.orderNotes || null;
     order.orderPlaced = req.body.orderPlaced || null;
     order.orderStatusCode = req.body.orderStatusCode || order.orderStatusCode;
-    order.shippingAddressId = req.body.shippingAddressId || order.shippingAddressId;
+    order.shippingAddressId = req.body.shippingAddressId || null;
 
     await order.update({ ...req.body });
     console.log(`Order id ${req.params.orderId} updated`);
