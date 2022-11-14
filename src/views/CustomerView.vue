@@ -42,22 +42,21 @@
           <h3>Create a new Customer</h3>
         </template>
         
-        <template #body>
-          <!-- <form ref="form" @submit="createCustomer">  </form>   -->   
+        <template #body> 
        
             <input
               type="text"
               class="form-control"
               id="firstName"
-              placeholder="First Name"
+              placeholder="First Name (i.e. Jane)"
               v-model="firstName"
-              
+              required
             />
             <input
               type="text"
               class="form-control"
               id="middleInitial"
-              placeholder="Middle Initial"
+              placeholder="Middle Initial (i.e. M)"
               v-model="middleInitial"
             />
             <input
@@ -66,13 +65,16 @@
               id="lastName"
               placeholder="Last Name"
               v-model="lastName"
+              required
             />
             <input
-              type="text"
+              type="tel"
               class="form-control"
               id="phone"
-              placeholder="Phone Number"
+              placeholder="Phone Number (i.e. 1234567890)"
               v-model="phone"
+              required
+              pattern="[0-9]{10}"
             />
             <input
               type="email"
@@ -80,13 +82,15 @@
               id="email"
               placeholder="Email"
               v-model="email"
+              required
             />
             <input
               type="text"
               class="form-control"
               id="streetAdd"
               placeholder="Street Address"
-              v-model="billingAddressId"
+              v-model="streetAdd"
+              required
             />
             <input
               type="text"
@@ -101,6 +105,7 @@
               id="city"
               placeholder="City"
               v-model="city"
+              required
             />
             <input
               type="text"
@@ -115,6 +120,7 @@
               id="zip"
               placeholder="Zip/Postal Code"
               v-model="zip"
+              required
             />
             <input
               type="text"
@@ -122,6 +128,7 @@
               id="country"
               placeholder="Country"
               v-model="country"
+              required
             />
             <input
               type="text"
@@ -132,15 +139,6 @@
             />
           
         </template>
-        <!-- <template>
-           <button
-              type="submit"
-              class="btn btn-outline-danger"
-              v-on:submit="createCustomer"
-            >
-              Submit
-            </button> 
-        </template> -->
         
       </modal>
     </Teleport>
@@ -159,7 +157,6 @@
       </thead>
       <tbody>
         <tr v-for="customer in customers" :key="customer.id">
-          <!--Change these to proper fields-->
           <td scope="row">{{ customer.customerId }}</td>
           <td>{{ customer.firstName }}</td>
           <td>{{ customer.middleInitial }}</td>
