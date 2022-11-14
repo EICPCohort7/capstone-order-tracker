@@ -34,7 +34,6 @@ import OrderDetails from './OrderDetails.js';
 
 // Version that uses belongsTo
 // Customer/Address - one to many
-     
 Address.hasMany(Customer, { foreignKey: 'billingAddressId' });
 Customer.belongsTo(Address, { foreignKey: 'billingAddressId' });
 
@@ -47,16 +46,16 @@ Customer.hasMany(Order, { foreignKey: 'customerId' });
 Order.belongsTo(Customer, { foreignKey: 'customerId' });
 
 // Order/OrderDetails - one to many
-Order.hasMany(OrderDetails, { foreignKey: 'orderId' });
-OrderDetails.belongsTo(Order, { foreignKey: 'orderId' });
+// Order.hasMany(OrderDetails, { foreignKey: 'orderId' });
+// OrderDetails.belongsTo(Order, { foreignKey: 'orderId' });
 
 // OrderStatus/Order
 OrderStatus.hasMany(Order, { foreignKey: 'orderStatusCode' });
 Order.belongsTo(OrderStatus, { foreignKey: 'orderStatusCode' });
 
 // Product/OrderDetails
-Product.hasMany(OrderDetails, { foreignKey: 'productId' });
-OrderDetails.belongsTo(Product, { foreignKey: 'productId' });
+// Product.hasMany(OrderDetails, { foreignKey: 'productId' });
+// OrderDetails.belongsTo(Product, { foreignKey: 'productId' });
 
 // Order/OrderDetails/Product
 Order.belongsToMany(Product, {
