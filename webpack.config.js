@@ -6,15 +6,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const webpackConfig = {
-  entry: {
-  },
+  entry: {},
   devtool: 'inline-source-map',
   plugins: [
     new CopyPlugin({
-      patterns: [{
-        from: path.resolve(__dirname, 'front-end', 'public'),
-        to: path.resolve(__dirname, 'server/public'),
-      }],
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'front-end', 'public'),
+          to: path.resolve(__dirname, 'server/public'),
+        },
+      ],
     }),
   ],
   mode: 'development',
