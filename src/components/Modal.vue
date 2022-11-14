@@ -22,7 +22,7 @@ export default {
             <slot name="header">default header</slot>
             <button
                 class="btn"
-                @click="$emit('close')"
+                @click.prevent="$emit('close')"
               >X</button>
           </div>
 
