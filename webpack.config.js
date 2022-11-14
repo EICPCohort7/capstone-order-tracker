@@ -7,8 +7,6 @@ const __dirname = dirname(__filename);
 
 const webpackConfig = {
   entry: {
-    index: './front-end/src/index.js',
-    books: './front-end/src/books.js',
   },
   devtool: 'inline-source-map',
   plugins: [
