@@ -11,12 +11,12 @@ describe('Customer model', () => {
   it('should query a Customer in the database', async () => {
     let testCustomer = await Customer.findByPk(1, { logging: false });
     expect(testCustomer).not.to.be.null;
-    expect(testCustomer.firstName).to.equal('John');
-    expect(testCustomer.middleInitial).to.equal('J');
-    expect(testCustomer.lastName).to.equal('Johnso');
-    expect(testCustomer.phone).to.equal('1111111111');
-    expect(testCustomer.email).to.equal('imjohn@john.john');
-    expect(testCustomer.customerNotes).to.equal('Nothing ordered');
+    expect(testCustomer.firstName).to.equal('Steven');
+    expect(testCustomer.middleInitial).to.equal('A');
+    expect(testCustomer.lastName).to.equal('Park');
+    expect(testCustomer.phone).to.equal('(558) 402-1342');
+    expect(testCustomer.email).to.equal('stevepark@gmail.com');
+    expect(testCustomer.customerNotes).to.equal('customer has file complaint before');
     expect(testCustomer.billingAddressId).to.equal(1);
     expect(testCustomer.isActive).to.equal(1);
   });
@@ -28,7 +28,7 @@ describe('Customer model', () => {
 
   it('should query Order (an association)', async () => {
     let testCustomer = await Customer.findByPk(3, { logging: false });
-    expect(testCustomer.email).to.equal('immike@mike.mike');
+    expect(testCustomer.email).to.equal('jamesy@hotmail.com');
 
     let ordersRecord = await testCustomer.getOrders({ logging: false });
     expect(ordersRecord.length).to.equal(1);
@@ -40,9 +40,10 @@ describe('Customer model', () => {
   // Customer.belongsTo(Address, { foreignKey: 'billingAddressId' });
   it('should query Address (an association)', async () => {
     let testCustomer = await Customer.findByPk(1, { logging: false });
-    expect(testCustomer.firstName).to.equal('John');
+    expect(testCustomer.email).to.equal('stevepark@gmail.com');
 
     let testAddress = await testCustomer.getAddress({ logging: false });
-    expect(testAddress.street).to.equal('Street');
+    expect(testAddress.addressId).to.equal(1);
+    expect(testAddress.street).to.equal('lincoln street');
   });
 });

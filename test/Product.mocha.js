@@ -11,11 +11,11 @@ describe('Product model', () => {
   it('should query a Product in the database', async () => {
     let testProduct = await Product.findByPk(1, { logging: false });
     expect(testProduct).not.to.be.null;
-    expect(testProduct.productSku).to.equal('A1B3011');
-    expect(testProduct.productPrice).to.equal(55.3);
-    expect(testProduct.productName).to.equal('Crocs');
-    expect(testProduct.productInventory).to.equal(10);
-    expect(testProduct.productDescription).to.equal('Nice crocs');
+    expect(testProduct.productSku).to.equal('DEN-BLU-MEN');
+    expect(testProduct.productPrice).to.equal(31.99);
+    expect(testProduct.productName).to.equal('Denim Pant');
+    expect(testProduct.productInventory).to.equal(1);
+    expect(testProduct.productDescription).to.equal('Blue Denim Pants');
   });
 
   it('should query a Product not in the database', async () => {
@@ -25,15 +25,12 @@ describe('Product model', () => {
 
   it('should query Order (an association)', async () => {
     let testProduct = await Product.findByPk(3, { logging: false });
-    expect(testProduct.productSku).to.equal('7Z41228');
+    expect(testProduct.productSku).to.equal('SAL-KIT-HOM');
 
     let ordersRecord = await testProduct.getOrders({ logging: false });
-    expect(ordersRecord.length).to.equal(2);
+    expect(ordersRecord.length).to.equal(1);
 
     let firstOrder = ordersRecord[0];
-    expect(firstOrder.orderId).to.equal(2);
-
-    let secondOrder = ordersRecord[1];
-    expect(secondOrder.orderId).to.equal(3);
+    expect(firstOrder.orderId).to.equal(4);
   });
 });
