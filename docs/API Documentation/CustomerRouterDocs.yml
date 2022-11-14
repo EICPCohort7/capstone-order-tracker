@@ -7,11 +7,11 @@ servers:
 paths:
   /customers:
     get:
-      description: "Returns a list of all the customers."
+      description: "Returns a list of all active customers."
       parameters: []
       responses:
         "200":
-          description: Successfully returned a list of customers.
+          description: Successfully returned a list of active customers.
           content:
             application/json:
               schema:
@@ -19,8 +19,8 @@ paths:
                 items:
                   $ref: "#/components/schemas/Customer"
 
-        "400":
-          $ref: "#/components/responses/400Error"
+        "404":
+          description: ECONNREFUSED
 
     post:
       description: "Let a user create a new customer"
@@ -33,8 +33,8 @@ paths:
       responses:
         "201":
           description: Successfully added a new customer
-        "400":
-          $ref: "#/components/responses/400Error"
+        "500":
+          description: Sequelize couldn't validate body, likely missing required object fields
 
   /customers/{customer_id}:
     get:
@@ -47,7 +47,7 @@ paths:
             type: string
 
       responses:
-        "201":
+        "200":
           description: Successfully returned the customer referenced by customer_id.
           content:
             application/json:
@@ -56,8 +56,105 @@ paths:
                 items:
                   $ref: "#/components/schemas/Customer"
 
-        "400":
-          $ref: "#/components/responses/400Error"
+        "404":
+          description: Customer with passed customer_id not found
+        
+    patch:
+      description: "Edit the existing customer referenced by customer_id."
+      parameters:
+        - name: customer_id
+          description: The customer id of the customer to be edited/patched.
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Customer"
+      responses:
+        "200":
+          description: Successfully edited the customer referenced by customer_id.
+        "404":
+          description: Request successful but no customer found with matching customer_id
+
+    put:
+      description: "Modify existing customer referenced by order_id."
+      parameters:
+        - name: customer_id
+          description: The code of the customer to be modified.
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Customer"
+      responses:
+        "200":
+          description: Successfully modified the customer referenced by customer_id.
+        "404":
+          description: Request successful but no customer found with matching customer_id
+
+    delete:
+      description: "Delete a customer by customer_id"
+      requestBody:
+        required: false
+        content:
+          application/json:
+           schema:
+            $ref: "#/components/schemas/Customer"
+      responses:
+        "204":
+          description: Successfully deleted the customer referenced by customer_id.
+        "404":
+          description: Request successful but no customer found with matching customer_id
+
+  /customers/all:
+    get:
+      description: "Returns a list of all customers (active and non-active)."
+      parameters: []
+      responses:
+        "200":
+          description: Successfully returned a list of all customers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+
+        "404":
+          description: ECONNREFUSED
+  
+  /customers/search?email=[email]:
+    get:
+      description: "Search for customer by email."
+      parameters: 
+        - name: email
+          description: The email of the customer to be found
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully found customer with passed email parameter.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+
+        "404":
+          description: Request successful but no customer found by the passed email parameter
+
 
 components:
   schemas:
@@ -83,13 +180,4 @@ components:
         is_active:
           type: boolean
 
-  responses:
-    400Error:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
+  

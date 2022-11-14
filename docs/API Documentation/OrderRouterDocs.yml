@@ -18,8 +18,8 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Order"
-        "400":
-          $ref: "#/components/responses/400Error"
+        "500": 
+          $ref: "#/components/responses/500Error" 
     post:
       description: "Create a new order"
       requestBody:
@@ -61,7 +61,68 @@ paths:
                 properties:
                   message:
                     type: string
+    put:
+      description: "Replace the order referenced by order_id."
+      parameters:
+        - name: order_id
+          description: The code of the order to be replaced.
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "200":
+          description: Successfully updated the order referenced by order_id.
+        "404":
+          description: Failed PUT request for order referenced by order_id.
+        "500":
+          $ref: "#/components/responses/500Error"
+  
+    patch:
+      description: "Edit the existing order referenced by order_id."
+      parameters:
+        - name: order_id
+          description: The order id of the order to be edited/patched.
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "200":
+          description: Successfully edited the order referenced by order_id.
+        "404":
+          description: Failed PATCH request for order referenced by order_id.
+        "500":
+          $ref: "#/components/responses/500Error"
 
+    delete:
+      description: "Delete a draft order by order_id"
+      requestBody:
+        required: false
+        content:
+          application/json:
+           schema:
+            $ref: "#/components/schemas/Order"
+      responses:
+        "204":
+          description: Successfully deleted the draft order referenced by order_id.
+        "404":
+          description: Failed DELETE request for the draft order referenced by order_id.
+        "500":
+          $ref: "#/components/responses/500Error"
+          
 components:
   schemas:
     Order:
@@ -88,5 +149,15 @@ components:
           schema:
             type: object
             properties:
+              message:
+                type: string
+    
+    500Error:
+      description: Order endpoint error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: 
               message:
                 type: string
