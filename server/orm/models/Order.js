@@ -25,10 +25,10 @@ const Order = dbConnection.define('Order', {
   orderStatusCode: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    defaultValue: 1,
   },
   shippingAddressId: {
     type: DataTypes.INTEGER,
-    allowNull: false,
   },
 });
 
