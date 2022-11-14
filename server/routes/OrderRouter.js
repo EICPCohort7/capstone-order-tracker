@@ -7,9 +7,13 @@ function handleError(res, error) {
   return res.status(500).send('Order endpoint error:', error.message);
 }
 
+// Frontend response
+// findAll() returns an array of objects
+// findByPk returns an object
+
 // GET api/v1/orders
 // Get all of the system's orders
-// Calls findAll(), returns an array to the frontend
+// Frontend response: array of objects
 router.get('/', async (req, res) => {
   try {
     let orders = await Order.findAll();
@@ -21,7 +25,7 @@ router.get('/', async (req, res) => {
 
 // GET api/v1/orders/:orderId
 // Get order by order ID
-// Calls findbyPK, returns an object to the frontend
+// Frontend response: object
 router.get('/:orderId([0-9]+)', async (req, res) => {
   try {
     let orderId = req.params.orderId;
@@ -35,7 +39,8 @@ router.get('/:orderId([0-9]+)', async (req, res) => {
 });
 
 // POST api/v1/orders
-// Create new order (think about how to differentiate between draft and live orders)
+// Create new order
+// Frontend response: object
 router.post('/', async (req, res) => {
   try {
     let newOrder = Order.build({ ...req.body });
@@ -52,7 +57,7 @@ router.post('/', async (req, res) => {
 
 // PUT api/v1/orders/:orderId
 // Replace an already existing order by order ID
-// Calls findbyPK, returns an object to the frontend
+// Frontend response: object
 router.put('/:orderId([0-9]+)', async (req, res) => {
   try {
     let order = await Order.findByPk(req.params.orderId);
@@ -74,7 +79,7 @@ router.put('/:orderId([0-9]+)', async (req, res) => {
 
 // PATCH api/orders/:orderId
 // Edit an already existing order by order ID
-// Calls findbyPK, returns an object to the frontend
+// Frontend response: object
 router.patch('/:orderId([0-9]+)', async (req, res) => {
   try {
     let order = await Order.findByPk(req.params.orderId);
@@ -90,6 +95,7 @@ router.patch('/:orderId([0-9]+)', async (req, res) => {
 
 // DELETE api/orders/:orderId
 // Delete a draft order by orderId (shouldn't allow for deletion of live orders)
+// Frontend response: message string
 router.delete('/:orderId([0-9]+)', async (req, res) => {
   try {
     let order = await Order.findByPk(req.params.orderId);
@@ -98,19 +104,6 @@ router.delete('/:orderId([0-9]+)', async (req, res) => {
     await order.destroy();
     console.log(`Order ${req.params.orderId} deleted.`);
     return res.status(204).send('');
-
-    /*
-      if (results === 1) {
-        console.log(`Book ${req.params.bookId} deleted.`);
-        return res.status(204);
-      } else if (results === 0) {
-        console.log(`Book ${req.params.bookId} NOT deleted, for some reason.`);
-        return res.status(500).send(`Book ${req.params.bookId} not deleted for some reason`);
-      } else if (results > 1) {
-        console.error('Multiple books deleted, this should not happen.');
-        throw new Error('Multiple books deleted, this should not happen.');
-      }
-      */
   } catch (error) {
     handleError(res, error);
   }

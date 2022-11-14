@@ -13,8 +13,13 @@ import { validateCustomer } from './validators/CustomerValidator.js';
 import _ from 'lodash';
 let router = express.Router();
 
+// Frontend response
+// findAll() returns an array of objects
+// findByPk returns an object
+
 // GET api/v1/customers/
 // Get all of the system's ACTIVE customers
+// Frontend response: array of objects
 router.get('/', async (req, res) => {
   try {
     let activeCustomers = await Customer.findAll({
@@ -28,6 +33,7 @@ router.get('/', async (req, res) => {
 
 // GET api/v1/customers/all
 // Get all of the system's customers (active and inactive)
+// Frontend response: array of objects
 router.get('/all/', async (req, res) => {
   try {
     let result = await Customer.findAll();
@@ -39,6 +45,7 @@ router.get('/all/', async (req, res) => {
 
 // GET api/v1/customers/:customerId
 // Get customer by customer ID
+// Frontend response: object
 router.get('/:customerId([0-9]+)', async (req, res) => {
   try {
     let customerId = req.params.customerId;
@@ -57,6 +64,7 @@ router.get('/:customerId([0-9]+)', async (req, res) => {
 
 // GET api/v1/customers/search?email=[email]
 // Get customer by email
+// Frontend response: array of objects
 router.get('/search', async (req, res) => {
   console.log('Query string', req.query);
   let criteria = new URLSearchParams(req.query);
@@ -79,6 +87,8 @@ router.get('/search', async (req, res) => {
 
 // POST api/v1/customers/
 // Create new customer
+// Frontend response: object
+// needs modifications
 router.post('/', validateCustomer, async (req, res) => {
   const errors = validationResult(req);
 
@@ -101,7 +111,8 @@ router.post('/', validateCustomer, async (req, res) => {
 });
 
 // PUT api/v1/customers/:customerId
-// Modify existing customer by customerId
+// Replace existing customer by customerId
+// Frontend response: object
 router.put('/:customerId([0-9]+)', async (req, res) => {
   try {
     let customer = await Customer.findByPk(req.params.customerId);
@@ -127,6 +138,7 @@ router.put('/:customerId([0-9]+)', async (req, res) => {
 
 // PATCH api/v1/customers/:customerId
 // Edit an already existing customer by customerId
+// Frontend response: object
 router.patch('/:customerId([0-9]+)', async (req, res) => {
   try {
     let customer = await Customer.findByPk(req.params.customerId);
@@ -142,6 +154,8 @@ router.patch('/:customerId([0-9]+)', async (req, res) => {
 
 // DELETE api/v1/customers/:customerId
 // Delete customer by customer ID
+// Won't actually get used
+// Frontend response: message string
 router.delete('/:customerId([0-9]+)', async (req, res) => {
   try {
     let customerId = req.params.customerId;

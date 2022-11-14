@@ -18,12 +18,14 @@ let router = express.Router();
 
 // GET api/v1/addresses/
 // Get all of the system's addresses
+// Frontend response: array of objects
 router.get('/', async (req, res) => {
   return res.json(await Address.findAll());
 });
 
 // GET api/v1/addresses/:addressId
 // Get address by address ID
+// Frontend response: object
 router.get('/:addressId([0-9]+)', async (req, res) => {
   try {
     let addressId = req.params.addressId;
@@ -42,6 +44,7 @@ router.get('/:addressId([0-9]+)', async (req, res) => {
 
 // POST api/v1/addresses/
 // Create new address
+// Frontend response: object
 router.post('/', async (req, res) => {
   try {
     let addAddress = Address.build({ ...req.body });
