@@ -11,7 +11,8 @@ function handleError(res, error) {
 // Get all of the system's orders
 router.get('/', async (req, res) => {
   try {
-    return res.json(await Order.findAll());
+    let orders = await Order.findAll();
+    return res.status(200).json(orders);
   } catch (error) {
     handleError(res, error);
   }
@@ -23,7 +24,7 @@ router.get('/:orderId([0-9]+)', async (req, res) => {
   try {
     let orderId = req.params.orderId;
     let order = await Order.findByPk(orderId);
-    if (order) return res.json(order);
+    if (order) return res.status(200).json(order);
 
     return res.status(404).send(`Order ID ${orderId} not found`);
   } catch (error) {

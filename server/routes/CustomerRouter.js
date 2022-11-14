@@ -16,17 +16,25 @@ let router = express.Router();
 // GET api/v1/customers/
 // Get all of the system's ACTIVE customers
 router.get('/', async (req, res) => {
-  return res.json(
-    await Customer.findAll({
+  try {
+    let activeCustomers = await Customer.findAll({
       where: { isActive: true },
-    })
-  );
+    });
+    return res.status(200).json(activeCustomers);
+  } catch (error) {
+    return errorHandler(res, error);
+  }
 });
 
 // GET api/v1/customers/all
 // Get all of the system's customers (active and inactive)
 router.get('/all/', async (req, res) => {
-  return res.json(await Customer.findAll());
+  try {
+    let result = await Customer.findAll();
+    return res.status(200).json(result);
+  } catch (error) {
+    errorHandler(error);
+  }
 });
 
 // GET api/v1/customers/:customerId
@@ -38,9 +46,9 @@ router.get('/:customerId([0-9]+)', async (req, res) => {
 
     // Use lodash library to check if returned JSON is empty
     if (!_.isEmpty(customer)) {
-      return res.status(201).send(customer);
+      return res.status(200).send(customer);
     } else {
-      return res.status(400).send(`Customer with the customerId of ${customerId} not found :(`); // needs to be handled by front-end somehow
+      return res.status(404).send(`Customer with the customerId of ${customerId} not found :(`); // needs to be handled by front-end somehow
     }
   } catch (error) {
     errorHandler(res, error);
@@ -126,7 +134,7 @@ router.patch('/:customerId([0-9]+)', async (req, res) => {
 
     await customer.update({ ...req.body });
     console.log(`Customer id ${req.params.customerId} updated`);
-    return res.json(customer);
+    return res.status(200).json(customer);
   } catch (error) {
     errorHandler(res, error);
   }
@@ -139,10 +147,9 @@ router.delete('/:customerId([0-9]+)', async (req, res) => {
     let customerId = req.params.customerId;
     let customer = await Customer.findByPk(customerId);
     if (!customer) return res.status(404).send(`Customer ID ${req.params.customerId} not found`);
-
     await customer.destroy();
     console.log(`Customer ${req.params.customerId} deleted.`);
-    return res.status(204).send('');
+    return res.status(204).send(''); // Customer deleleted, no response required
   } catch (error) {
     errorHandler(res, error);
   }

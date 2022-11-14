@@ -9,7 +9,12 @@ let router = express.Router();
 // GET api/v1/products/
 // Get all of the system's products
 router.get('/', async (req, res) => {
-  return res.json(await Product.findAll());
+  try {
+    let allProducts = await Product.findAll();
+    return res.status(200).json(allProducts);
+  } catch (error) {
+    handleError(res, error);
+  }
 });
 
 // GET api/v1/products/:productId
@@ -19,7 +24,11 @@ router.get('/:productId([0-9]+)', async (req, res) => {
     const productId = req.params.productId;
     const product = await Product.findByPk(productId);
     if (!product) {
-      return res.status(404).send(`Failed GET request for product with ID ${productId}. Must handle this on the frontend.`); // needs to be handled by front-end somehow
+      return res
+        .status(404)
+        .send(
+          `Failed GET request for product with ID ${productId}. Must handle this on the frontend.`
+        ); // needs to be handled by front-end somehow
     } else {
       return res.send(product);
     }
@@ -35,7 +44,11 @@ router.put('/:productId([0-9]+)', async (req, res) => {
     const productId = req.params.productId;
     const product = await Product.findByPk(productId);
     if (!product) {
-      return res.status(404).send(`Failed PUT request for product with ID ${productId}. Must handle this on the frontend.`);
+      return res
+        .status(404)
+        .send(
+          `Failed PUT request for product with ID ${productId}. Must handle this on the frontend.`
+        );
     }
     product.productSku = req.body.productSku || null;
     product.productPrice = req.body.productPrice || null;
@@ -58,7 +71,11 @@ router.patch('/:productId([0-9]+)', async (req, res) => {
     const productId = req.params.productId;
     const product = await Product.findByPk(productId);
     if (!product) {
-      return res.status(404).send(`Failed PATCH request for product with ID ${productId}. Must handle this on the frontend.`);
+      return res
+        .status(404)
+        .send(
+          `Failed PATCH request for product with ID ${productId}. Must handle this on the frontend.`
+        );
     }
     await product.update({ ...req.body });
     console.log(`Product ID ${productId} successfully updated with PATCH request`);
