@@ -27,13 +27,127 @@
         </button>
       </div>
     </form>
+
+    <!--Modal-->
+<button id="show-modal" @click="showModal = true" class="btn btn-outline-danger">New Customer</button>
+
+<Teleport to="body">
+  <!-- use the modal component, pass in the prop -->
+
+  <modal :show="showModal" @close="showModal = false">
+    <template #header>
+      <h3>Create a new Customer</h3>
+    </template>
+    
+    <template #body>
+      <!--  </form>   -->   
+    <form ref="form" @submit.prevent="createCustomer">
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          placeholder="First Name"
+          v-model="firstName"
+          
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="middleInitial"
+          placeholder="Middle Initial"
+          v-model="middleInitial"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          placeholder="Last Name"
+          v-model="lastName"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="phone"
+          placeholder="Phone Number"
+          v-model="phone"
+        />
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="Email"
+          v-model="email"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="streetAdd"
+          placeholder="Street Address"
+          v-model="billingAddress"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="aptNum"
+          placeholder="Apartment Number"
+          v-model="phone"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="city"
+          placeholder="City"
+          v-model="phone"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="state"
+          placeholder="State/Province"
+          v-model="phone"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="zip"
+          placeholder="Zip/Postal Code"
+          v-model="phone"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="country"
+          placeholder="Country"
+          v-model="phone"
+        />
+        <input
+          type="text"
+          class="form-control"
+          id="notes"
+          placeholder="Customer Notes"
+          v-model="customerNotes"
+        />
+      </form>
+    </template>
+    <template>
+       <button
+          type="button"
+          class="btn btn-outline-danger"
+          v-on:submit="createCustomer"
+        >
+          Submit
+        </button> 
+    </template>
+    
+  </modal>
+</Teleport>
     <!--Data Table-->
     <table class="table table-striped">
       <thead>
         <tr>
           <th scope="col">Customer ID</th>
           <th scope="col">First Name</th>
-          <th scope="col">Middle Inital</th>
+          <th scope="col">Middle Initial</th>
           <th scope="col">Last Name</th>
           <th scope="col">Phone Number</th>
           <th scope="col">Email</th>
@@ -52,19 +166,30 @@
       </tbody>
     </table>
   </div>
-  
+  <div>
+    
+  </div>
 </template>
 
 <script>
 import axios from "axios";
-
+import Modal from '../components/Modal.vue'
 export default {
-  data() {
-    return {
-      customers: [],
-    };
-  },
- 
+    data() {
+        return {
+            customers: [],
+            firstName:'',
+            middleInitial:'',
+            lastName:'',
+            phone:'',
+            email:'',
+            customerNotes:'',
+            billingAddress:'',
+            orders:[],
+            products:[],
+            showModal: false
+        };
+    },
 
   mounted: async function () {
       let customers= await axios.get(`http://localhost:3000/api/v1/customers/`)
@@ -95,9 +220,31 @@ export default {
         });
       this.customers = customers.data;
 
-    }
+    },
+    async createCustomer() {
+      console.log("hello")
+      let customers= await axios.post(`http://localhost:3000/api/v1/customers/`,{
+        firstName: this.firstName,
+            middleInitial:this.middleInitial,
+            lastName:this.lastName,
+            phone:this.phone,
+            email:this.email,
+            customerNotes:this.customerNotes,
+            billingAddress:this.billingAddress
+      })
+      .catch((errors)=> {
+          console.log(errors); // Errors
+        });
+      this.customers = customers.data;
+
+    },
+    
 
 
   },
+  
+    components: {
+    Modal
+    }
 };
 </script> 

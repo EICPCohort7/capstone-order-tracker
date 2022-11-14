@@ -32,21 +32,6 @@ const routes = [
   
 ];
 
-/*const app = new Vue({
-  el: '#app',
- 
-  data () {
-      result: "",
-      responseAvailable: false,
-      apiKey: '<YOUR_RAPIDAPI_KEY>'
-  },
-  methods: {
-      fetchAPIData( ) { 
-      }
-  }
-});*/
-
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
