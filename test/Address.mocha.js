@@ -19,6 +19,11 @@ describe('Address Model', () => {
     expect(testAddress.country).to.equal('Country');
   });
 
+  it('should query an Address not in the database', async () => {
+    let testAddress = await Address.findByPk(100000, { logging: false });
+    expect(testAddress).to.be.null;
+  });
+
   // Address.hasMany(Customer, { foreignKey: 'billingAddressId' });
   it('should query Customers (an association)', async () => {
     let testAddress = await Address.findByPk(1, { logging: false });
