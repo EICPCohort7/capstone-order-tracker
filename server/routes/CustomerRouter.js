@@ -7,6 +7,8 @@
 import express from 'express';
 import { ValidationError } from 'sequelize';
 import { Customer } from '../orm/models/index.js';
+import { validationResult } from 'express-validator';
+import { validateCustomer } from './validators/CustomerValidator.js';
 
 import _ from 'lodash';
 let router = express.Router();
@@ -54,13 +56,13 @@ router.get('/search', async (req, res) => {
 
   try {
     if (email) {
-      let result = await Customer.findAll({
+      let result = await Customer.findOne({
         where: {
           email,
         },
       });
       if (result.length) return res.json(result);
-      return res.status(404).json([]);
+      return res.status(404).json();
     }
   } catch (error) {
     errorHandler(res, error);
@@ -69,7 +71,13 @@ router.get('/search', async (req, res) => {
 
 // POST api/v1/customers/
 // Create new customer
-router.post('/', async (req, res) => {
+router.post('/', validateCustomer, async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     let addCustomer = Customer.build({ ...req.body });
     let result = await addCustomer.save();
