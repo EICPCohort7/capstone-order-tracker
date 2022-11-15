@@ -6,13 +6,12 @@ import express from 'express';
 import { Product } from '../orm/models/index.js';
 let router = express.Router();
 
-// Frontend response
-// findAll() returns an array of objects
-// findByPk returns an object
+/*
+GET api/v1/products/
+Get all of the system's products
+Frontend response: array of objects
+*/
 
-// GET api/v1/products/
-// Get all of the system's products
-// Frontend response: array of objects
 router.get('/', async (req, res) => {
   try {
     let allProducts = await Product.findAll();
@@ -22,9 +21,11 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET api/v1/products/:productId
-// Get product by product ID
-// Frontend response: object
+/*
+GET api/v1/products/:productId
+Get product by product ID
+Frontend response: object
+*/
 router.get('/:productId([0-9]+)', async (req, res) => {
   try {
     const productId = req.params.productId;
@@ -43,9 +44,11 @@ router.get('/:productId([0-9]+)', async (req, res) => {
   }
 });
 
-// GET api/v1/products/search?productSku=[productSku]
-// Get product by productSku
-// Frontend response: array of objects
+/*
+GET api/v1/products/search?productSku=[productSku]
+Get product by productSku
+Frontend response: array of objects
+*/
 router.get('/search', async (req, res) => {
   console.log('Query string', req.query);
   const criteria = new URLSearchParams(req.query);
@@ -68,9 +71,11 @@ router.get('/search', async (req, res) => {
   }
 });
 
-// PUT api/v1/products/:productId
-// Replace an already existing product by product ID
-// Frontend response: object
+/*
+PUT api/v1/products/:productId
+Replace an already existing product by product ID
+Frontend response: object
+*/
 router.put('/:productId([0-9]+)', async (req, res) => {
   try {
     const productId = req.params.productId;
@@ -96,9 +101,11 @@ router.put('/:productId([0-9]+)', async (req, res) => {
   }
 });
 
-// PATCH api/v1/products/:productId
-// Edit an already existing product by product ID
-// Frontend response: object
+/*
+PATCH api/v1/products/:productId
+Edit an already existing product by product ID
+Frontend response: object
+*/
 router.patch('/:productId([0-9]+)', async (req, res) => {
   try {
     const productId = req.params.productId;
@@ -118,7 +125,6 @@ router.patch('/:productId([0-9]+)', async (req, res) => {
   }
 });
 
-// Error handler
 function handleError(res, error) {
   return res.status(500).send('Product endpoint error: ', error.message);
 }
