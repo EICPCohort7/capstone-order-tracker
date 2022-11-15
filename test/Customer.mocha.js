@@ -2,6 +2,13 @@
 import { Customer } from '../server/orm/models/index.js';
 import { expect } from 'chai';
 
+/*
+  Will need to add in additional unit testing based on changes to customer.
+  POST api/v1/customers/
+  GET api/v1/customers/search?email=[email]
+  GET api/v1/customers/:customerId/orders
+*/
+
 describe('Customer model', () => {
   it('Smoke test', async () => {
     let result = await Customer.sync({ logging: false });
@@ -37,7 +44,7 @@ describe('Customer model', () => {
     expect(firstOrder.orderId).to.equal(3);
   });
 
-  // Customer.belongsTo(Address, { foreignKey: 'billingAddressId' });
+  // From models/index.js - Customer.hasOne(Address, { foreignKey: 'addressId' });
   it('should query Address (an association)', async () => {
     let testCustomer = await Customer.findByPk(1, { logging: false });
     expect(testCustomer.email).to.equal('stevepark@gmail.com');

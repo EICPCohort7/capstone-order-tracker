@@ -2,6 +2,13 @@
 import { Order } from '../server/orm/models/index.js';
 import { expect } from 'chai';
 
+/*
+  Will need to add in additional unit testing based on changes to order.
+  POST api/v1/customers/
+  GET api/v1/customers/search?email=[email]
+  GET api/v1/customers/:customerId/orders
+*/
+
 describe('Order model', () => {
   it('Smoke test', async () => {
     let result = await Order.sync({ logging: false });
@@ -13,7 +20,6 @@ describe('Order model', () => {
     expect(testOrder).not.to.be.null;
     expect(testOrder.customerId).to.equal(1);
     expect(testOrder.orderStatusCode).to.equal(1);
-    // expect(testOrder.orderPlaced).to.equal('1900-01-01T00:00:00.000Z');
     expect(testOrder.orderNotes).to.equal('order delivery delayed to 2022-11-20');
     expect(testOrder.shippingAddressId).to.be.null;
   });
@@ -31,7 +37,7 @@ describe('Order model', () => {
     expect(customerRecord.customerId).to.equal(3);
   });
 
-  // Order.belongsTo(Address, { foreignKey: 'shippingAddressId' });
+  // From models/index.js -  Order.hasOne(Address, { foreignKey: 'addressId' });
   it('should query Order for Address (an association)', async () => {
     let testOrder = await Order.findByPk(2, { logging: false });
     expect(testOrder.orderNotes).to.equal('order delivery delayed');
@@ -41,6 +47,12 @@ describe('Order model', () => {
     expect(testAddress.street).to.equal('1223 lion ave');
   });
 
+  /* From models/index.js
+    Order.belongsToMany(Product, {
+      foreignKey: 'orderId',
+      through: OrderDetails,
+    });
+  */
   it('should query Product (an association)', async () => {
     let testOrder = await Order.findByPk(2, { logging: false });
     expect(testOrder.orderStatusCode).to.equal(2);

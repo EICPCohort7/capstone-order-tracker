@@ -25,7 +25,7 @@ describe('Address Model', () => {
     expect(testAddress).to.be.null;
   });
 
-  // Address.hasMany(Customer, { foreignKey: 'billingAddressId' });
+  // From models/index.js - Address.hasMany(Customer, { foreignKey: 'billingAddressId' });
   it('should query Customers (an association)', async () => {
     let testAddress = await Address.findByPk(1, { logging: false });
     expect(testAddress.street).to.equal('lincoln street');
@@ -37,7 +37,7 @@ describe('Address Model', () => {
     expect(firstCustomer.customerId).to.equal(1);
   });
 
-  // Address.hasMany(Order, { foreignKey: 'shippingAddressId' });
+  // From models/index.js - Address.hasMany(Order, { foreignKey: 'shippingAddressId' });
   it('should query Orders (an association)', async () => {
     let testAddress = await Address.findByPk(2, { logging: false });
     expect(testAddress.street).to.equal('1223 lion ave');
