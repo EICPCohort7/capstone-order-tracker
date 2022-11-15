@@ -14,12 +14,8 @@
           id="email"
           placeholder="Email"
         />
-        <!--Search button for the email field-->
-        <button
-          type="button"
-          class="btn btn-outline-danger"
-          v-on:click="getEmail"
-        >
+        <!-- Search button for the email field -->
+        <button type="button" class="btn btn-outline-danger" v-on:click="getEmail">
           Search
         </button>
         <button
@@ -198,7 +194,7 @@ export default {
       });
     this.customers = customers.data;
   },
-  name: "App",
+  name: 'App',
   methods: {
     // The get method called by the function
 
@@ -212,10 +208,7 @@ export default {
     },
 
     async getEmail() {
-      let customers = await axios
-        .get(
-          `http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`
-        )
+      let customers = await axios.get(`http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`)
         .catch((errors) => {
           console.log(errors); // Errors
         });
