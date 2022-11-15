@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import HelloWorld from '@/components/HelloWorld';
-import HomeVue from '@/views/HomeView';
+import HomeView from '@/views/HomeView';
 
 describe('Basic tests', () => {
   it('should test simple math', () => {
@@ -24,7 +24,7 @@ describe('HelloWorld', () => {
 
 describe('HomeView', () => {
   it('using standard @vue/test-utils', () => {
-    let wrapper = mount(HomeVue);
+    let wrapper = mount(HomeView);
     let helloWorld = wrapper.findComponent(HelloWorld);
     let header = helloWorld.find('h1');
     expect(header.text()).toEqual('Welcome to the TJX CSR home page');
