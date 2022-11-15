@@ -14,7 +14,7 @@
           id="email"
           placeholder="Email"
         />
-        <!--Search button for the email field-->
+        <!-- Search button for the email field -->
         <button type="button" class="btn btn-outline-danger" v-on:click="getEmail">
           Search
         </button>
@@ -52,52 +52,47 @@
       </tbody>
     </table>
   </div>
-  
+
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
   data() {
     return {
       customers: [],
+      emailValue: '',
     };
   },
- 
 
   mounted: async function () {
-      let customers= await axios.get(`http://localhost:3000/api/v1/customers/`)
-      .catch((errors)=> {
-          console.log(errors); // Errors
-        });
-      this.customers = customers.data;
+    let customers = await axios.get('http://localhost:3000/api/v1/customers/')
+      .catch((errors) => {
+        console.log(errors); // Errors
+      });
+    this.customers = customers.data;
   },
-  name: "App",
+  name: 'App',
   methods: {
     // The get method called by the function
-    
+
     async getCustomers() {
-      
-      let customers= await axios.get(`http://localhost:3000/api/v1/customers/`)
-      .catch((errors)=> {
+      let customers = await axios.get('http://localhost:3000/api/v1/customers/')
+        .catch((errors) => {
           console.log(errors); // Errors
         });
       this.customers = customers.data;
-
     },
 
     async getEmail() {
-      
-      let customers= await axios.get(`http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`)
-      .catch((errors)=> {
+      let customers = await axios.get(`http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`)
+        .catch((errors) => {
           console.log(errors); // Errors
         });
       this.customers = customers.data;
-
-    }
-
+    },
 
   },
 };
-</script> 
+</script>
