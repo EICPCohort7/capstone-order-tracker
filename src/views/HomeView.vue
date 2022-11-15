@@ -1,7 +1,10 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/tjx-logo.png">
-    <HelloWorld msg="Welcome to the TJX CSR home page"/>
+    <img
+      alt="Vue logo"
+      src="../assets/tjx-logo.png"
+    >
+    <HelloWorld msg="Welcome to the TJX CSR home page" />
   </div>
 </template>
 
