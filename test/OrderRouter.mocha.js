@@ -10,11 +10,11 @@ describe('Order Router Tests', () => {
     expect(result).to.equal(Order);
   });
 
-  // it('should find order by orderId', async () => {
-  //   let testOrder = await Order.findByPk(2, { logging: false });
-  //   console.log(testOrder.data);
-  //   expect(testOrder.data[0].customerId).to.equal(1);
-  // });
+  it('should find order by orderId', async () => {
+    let testOrder = await Order.findByPk(2, { logging: false });
+    console.log(testOrder);
+    expect(testOrder.dataValues.customerId).to.equal(2);
+  });
 
   // it('should remove order by orderId', async () => {
   //   await axios.post(`${host}/`, {
