@@ -17,6 +17,7 @@ export const validateCustomer = [
     })
     .isAlpha(),
   check('middleInitial').isLength({ max: 1 }).isAlpha(),
+  check('customerNotes').isLength({ max: 1024 }),
   check('lastName')
     .exists({
       checkNull: true,
