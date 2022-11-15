@@ -31,11 +31,12 @@
     "@vue/vue3-jest": "^27.0.0-alpha.1",
     "babel-jest": "^27.0.6",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3",
     "eslint-config-standard": "^16.0.0",
     "eslint-plugin-jest-dom": "^4.0.2",
     "eslint-plugin-testing-library": "^5.7.2",
+    "eslint-plugin-vue": "^8.0.3",
     "jest": "^27.0.5",
+    "msw": "^0.48.2",
     "prettier": "^2.7.1",
     "sass": "^1.56.1"
   },
