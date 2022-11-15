@@ -9,20 +9,20 @@ import { ValidationError } from 'sequelize';
 
 let router = express.Router();
 
-// Frontend response
-// findAll() returns an array of objects
-// findByPk returns an object
-
-// GET api/v1/orderdetails/
-// Get all of the system's order details rows
-// Frontend response: array of objects
+/**
+ * GET api/v1/orderdetails/
+ * Get all of the system's order details rows
+ * Frontend response: array of objects
+ */
 router.get('/', async (req, res) => {
   return res.json(await OrderDetails.findAll());
 });
 
-// GET api/v1/orderdetails/:orderDetailsId
-// Get order detail by order detail ID
-// Frontend response: object
+/**
+ * GET api/v1/orderdetails/:orderDetailsId
+ * Get order detail by order detail ID
+ * Frontend response: object
+ */
 router.get('/:orderDetailsId([0-9]+)', async (req, res) => {
   try {
     const orderDetailsId = req.params.orderDetailsId;
@@ -37,9 +37,11 @@ router.get('/:orderDetailsId([0-9]+)', async (req, res) => {
   }
 });
 
-// POST api/v1/orderdetails
-// Create new order detail
-// Frontend response: object
+/**
+ * POST api/v1/orderdetails
+ * Create new order detail
+ * Frontend response: object
+ */
 router.post('/', async (req, res) => {
   try {
     const newOrderDetail = OrderDetails.build({ ...req.body });
@@ -54,9 +56,11 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PUT api/v1/orderdetails/:orderDetailsId
-// Replace an already existing order detail by order detail ID
-// Frontend response: object
+/**
+ * PUT api/v1/orderdetails/:orderDetailsId
+ * Replace an already existing order detail by order detail ID
+ * Frontend response: object
+ */
 router.put('/:orderDetailsId([0-9]+)', async (req, res) => {
   try {
     const orderDetailsId = req.params.orderDetailsId;
@@ -76,9 +80,11 @@ router.put('/:orderDetailsId([0-9]+)', async (req, res) => {
   }
 });
 
-// PATCH api/v1/orderdetails/:orderDetailsId
-// Edit an already existing order detail by order detail ID
-// Frontend response: object
+/**
+ * PATCH api/v1/orderdetails/:orderDetailsId
+ * Edit an already existing order detail by order detail ID
+ * Frontend response: object
+ */
 router.patch('/:orderDetailsId([0-9]+)', async (req, res) => {
   try {
     const orderDetailsId = req.params.orderDetailsId;
@@ -94,9 +100,11 @@ router.patch('/:orderDetailsId([0-9]+)', async (req, res) => {
   }
 });
 
-// DELETE api/orderdetails/:orderDetailsId
-// Delete an order detail by order detail ID (shouldn't allow for deletion of live orders)
-// Frontend response: message string
+/**
+ * DELETE api/orderdetails/:orderDetailsId
+ * Delete an order detail by order detail ID (shouldn't allow for deletion of live orders)
+ * Frontend response: message string
+ */
 router.delete('/:orderDetailsId([0-9]+)', async (req, res) => {
   try {
     const orderDetailsId = req.params.orderDetailsId;
@@ -113,7 +121,9 @@ router.delete('/:orderDetailsId([0-9]+)', async (req, res) => {
   }
 });
 
-// Error handler
+/**
+ * Error handler
+*/
 function handleError(res, error) {
   return res.status(500).send('Order detail endpoint error: ', error.message);
 }

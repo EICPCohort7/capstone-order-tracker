@@ -1,8 +1,5 @@
 /**
- * File for customer model, to match db teams schema
- */
-/**
- * Customer controller handles customer related requests and responses from router
+ * File for Customer model, to match db teams schema
  */
 import { DataTypes } from 'sequelize';
 import { dbConnection } from '../capstone-connection.js';

@@ -12,20 +12,20 @@ import { Address } from '../orm/models/index.js';
 import _ from 'lodash';
 let router = express.Router();
 
-// Frontend response
-// findAll() returns an array of objects
-// findByPk returns an object
-
-// GET api/v1/addresses/
-// Get all of the system's addresses
-// Frontend response: array of objects
+/**
+ * GET api/v1/addresses/
+ * Get all of the system's addresses
+ * Frontend response: array of objects
+ */
 router.get('/', async (req, res) => {
   return res.json(await Address.findAll());
 });
 
-// GET api/v1/addresses/:addressId
-// Get address by address ID
-// Frontend response: object
+/**
+ * GET api/v1/addresses/:addressId
+ * Get address by address ID
+ * Frontend response: object
+ */
 router.get('/:addressId([0-9]+)', async (req, res) => {
   try {
     let addressId = req.params.addressId;
@@ -42,9 +42,11 @@ router.get('/:addressId([0-9]+)', async (req, res) => {
   }
 });
 
-// POST api/v1/addresses/
-// Create new address
-// Frontend response: object
+/**
+ * POST api/v1/addresses/
+ * Create new address
+ * Frontend response: object
+ */
 router.post('/', async (req, res) => {
   try {
     let addAddress = Address.build({ ...req.body });
@@ -60,7 +62,9 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Error handler
+/**
+ * Error handler
+ */
 function handleError(res, error) {
   return res.status(500).send(`Address endpoint error: ${error.message}`);
 }
