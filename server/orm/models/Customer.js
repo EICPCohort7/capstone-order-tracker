@@ -5,7 +5,7 @@
  * Customer controller handles customer related requests and responses from router
  */
 import { DataTypes } from 'sequelize';
-import { dbConnection } from '../../capstone-connection.js';
+import { dbConnection } from '../capstone-connection.js';
 
 const Customer = dbConnection.define('Customers', {
   customerId: {

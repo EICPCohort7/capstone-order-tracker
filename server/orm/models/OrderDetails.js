@@ -3,7 +3,7 @@
  */
 
 import { DataTypes } from 'sequelize';
-import { dbConnection } from '../../capstone-connection.js';
+import { dbConnection } from '../capstone-connection.js';
 
 const OrderDetails = dbConnection.define(
   'OrderDetails',
