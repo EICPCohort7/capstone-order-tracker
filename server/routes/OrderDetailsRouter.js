@@ -113,6 +113,7 @@ router.delete('/:orderDetailsId([0-9]+)', async (req, res) => {
   }
 });
 
+// Error handler
 function handleError(res, error) {
   return res.status(500).send('Order detail endpoint error: ', error.message);
 }

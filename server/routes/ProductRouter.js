@@ -43,6 +43,31 @@ router.get('/:productId([0-9]+)', async (req, res) => {
   }
 });
 
+// GET api/v1/products/search?productSku=[productSku]
+// Get product by productSku
+// Frontend response: array of objects
+router.get('/search', async (req, res) => {
+  console.log('Query string', req.query);
+  const criteria = new URLSearchParams(req.query);
+  const productSku = criteria.get('productSku');
+
+  try {
+    if (productSku) {
+      const result = await Product.findAll({
+        where: {
+          productSku,
+        },
+      });
+      if (result.length) {
+        return res.json(result);
+      }
+      return res.status(404).json('');
+    }
+  } catch (error) {
+    handleError(res, error);
+  }
+});
+
 // PUT api/v1/products/:productId
 // Replace an already existing product by product ID
 // Frontend response: object
@@ -93,6 +118,7 @@ router.patch('/:productId([0-9]+)', async (req, res) => {
   }
 });
 
+// Error handler
 function handleError(res, error) {
   return res.status(500).send('Product endpoint error: ', error.message);
 }

@@ -6,7 +6,7 @@
  */
 import express from 'express';
 import { ValidationError } from 'sequelize';
-import { Customer, Address } from '../orm/models/index.js';
+import { Customer, Address, Order } from '../orm/models/index.js';
 import { validationResult } from 'express-validator';
 import { validateCustomer } from './validators/CustomerValidator.js';
 
@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
     });
     return res.status(200).json(activeCustomers);
   } catch (error) {
-    return errorHandler(res, error);
+    return handleError(res, error);
   }
 });
 
@@ -39,7 +39,7 @@ router.get('/all/', async (req, res) => {
     let result = await Customer.findAll();
     return res.status(200).json(result);
   } catch (error) {
-    errorHandler(error);
+    handleError(error);
   }
 });
 
@@ -58,7 +58,32 @@ router.get('/:customerId([0-9]+)', async (req, res) => {
       return res.status(404).send(`Customer with the customerId of ${customerId} not found :(`); // needs to be handled by front-end somehow
     }
   } catch (error) {
-    errorHandler(res, error);
+    handleError(res, error);
+  }
+});
+
+// GET api/v1/customers/:customerId/orders
+// Get all of a customer's orders
+// Frontend response: object
+router.get('/:customerId([0-9]+)/orders', async (req, res) => {
+  try {
+    const customerId = req.params.customerId;
+    const customer = await Customer.findByPk(customerId);
+
+    // Check if the customer exists
+    if (_.isEmpty(customer)) {
+      return res.status(404).send(`Customer with the customerId of ${customerId} not found :(`); // needs to be handled by front-end somehow
+    }
+
+    // Get the customer's orders
+    const orders = await Order.findAll({
+      where: {
+        customerId,
+      },
+    });
+    return res.json(orders);
+  } catch (error) {
+    handleError(res, error);
   }
 });
 
@@ -81,7 +106,7 @@ router.get('/search', async (req, res) => {
       return res.status(404).json();
     }
   } catch (error) {
-    errorHandler(res, error);
+    handleError(res, error);
   }
 });
 
@@ -164,7 +189,7 @@ router.post('/', validateCustomer, async (req, res) => {
 
     return res.status(201).send(result);
   } catch (error) {
-    errorHandler(res, error);
+    handleError(res, error);
   }
 });
 
@@ -190,7 +215,7 @@ router.put('/:customerId([0-9]+)', async (req, res) => {
     console.log(`Customer id ${req.params.customerId} updated`);
     return res.json(customer);
   } catch (error) {
-    errorHandler(res, error);
+    handleError(res, error);
   }
 });
 
@@ -206,7 +231,7 @@ router.patch('/:customerId([0-9]+)', async (req, res) => {
     console.log(`Customer id ${req.params.customerId} updated`);
     return res.status(200).json(customer);
   } catch (error) {
-    errorHandler(res, error);
+    handleError(res, error);
   }
 });
 
@@ -223,12 +248,12 @@ router.delete('/:customerId([0-9]+)', async (req, res) => {
     console.log(`Customer ${req.params.customerId} deleted.`);
     return res.status(204).send(''); // Customer deleleted, no response required
   } catch (error) {
-    errorHandler(res, error);
+    handleError(res, error);
   }
 });
 
-function errorHandler(res, error) {
-  console.log(error);
+// Error handler
+function handleError(res, error) {
   return res.status(500).send(`Customer endpoint error: ${error.message}`);
 }
 

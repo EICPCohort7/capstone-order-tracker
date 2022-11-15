@@ -38,7 +38,7 @@ router.get('/:addressId([0-9]+)', async (req, res) => {
       return res.status(400).send(`Address with the addressId of ${addressId} not found :(`); // needs to be handled by front-end somehow
     }
   } catch (error) {
-    errorHandler(res, error);
+    handleError(res, error);
   }
 });
 
@@ -56,11 +56,12 @@ router.post('/', async (req, res) => {
     }
     return res.status(201).json(addAddress);
   } catch (error) {
-    errorHandler(res, error);
+    handleError(res, error);
   }
 });
 
-function errorHandler(res, error) {
+// Error handler
+function handleError(res, error) {
   return res.status(500).send(`Address endpoint error: ${error.message}`);
 }
 

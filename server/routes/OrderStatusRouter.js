@@ -3,10 +3,6 @@ import { OrderStatus } from '../orm/models/index.js';
 import { ValidationError } from 'sequelize';
 let router = express.Router();
 
-function handleError(res, error) {
-  return res.status(500).send('Order Status endpoint error:', error.message);
-}
-
 // Frontend response
 // findAll() returns an array of objects
 // findByPk returns an object
@@ -103,5 +99,10 @@ router.delete('/:orderStatusCode([0-9]+)', async (req, res) => {
     handleError(res, error);
   }
 });
+
+// Error handler
+function handleError(res, error) {
+  return res.status(500).send('Order Status endpoint error:', error.message);
+}
 
 export default router;

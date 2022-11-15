@@ -15,6 +15,7 @@ const __dirname = dirname(__filename);
 let { user, password, host, port, schema, useSSL } = getConnectionConfig();
 
 let dbConnectionString = `mysql://${user}:${password}@${host}:${port}/${schema}`;
+console.log(dbConnectionString);
 
 let sequelizeConfig = {
   logging: (...msg) => console.log(chalk.gray(msg.slice(0, -1))),
