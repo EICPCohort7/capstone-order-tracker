@@ -86,9 +86,9 @@ router.get('/search', async (req, res) => {
 });
 
 // POST api/v1/customers/
-// Create new customer
+// Create new customer - also creates a new address if the new customer doesn't have an address
+// that already exists
 // Frontend response: object
-// needs modifications
 router.post('/', validateCustomer, async (req, res) => {
   const errors = validationResult(req);
 
@@ -145,7 +145,6 @@ router.post('/', validateCustomer, async (req, res) => {
     }
 
     // create the new Customer
-    console.log('here1');
     const newCustomer = Customer.build({
       firstName: req.body.firstName,
       middleInitial: req.body.middleInitial || null,
@@ -155,11 +154,9 @@ router.post('/', validateCustomer, async (req, res) => {
       customerNotes: req.body.customerNotes || null,
       billingAddressId: actualAddressId,
     });
-    console.log('here2');
 
     result = await newCustomer.save();
 
-    console.log('here3');
     if (result instanceof ValidationError) {
       console.error('Validation failed:', result);
       throw result;
