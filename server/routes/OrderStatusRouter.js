@@ -1,15 +1,17 @@
+/**
+ * OrderStatus router for handling address related requests from client
+ */
+
 import express from 'express';
 import { OrderStatus } from '../orm/models/index.js';
 import { ValidationError } from 'sequelize';
 let router = express.Router();
 
-// Frontend response
-// findAll() returns an array of objects
-// findByPk returns an object
-
-// GET api/v1/orderstatuses
-// Get all of the system's order statuses
-// Frontend response: array of objects
+/*
+GET api/v1/orderstatuses
+Get all of the system's order statuses
+Frontend response: array of objects
+*/
 router.get('/', async (req, res) => {
   try {
     return res.json(await OrderStatus.findAll());
@@ -18,9 +20,11 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET api/v1/orderstatuses/:orderStatusCode
-// Get order status by orderStatusCode
-// Frontend response: object
+/*
+GET api/v1/orderstatuses/:orderStatusCode
+Get order status by orderStatusCode
+Frontend response: object
+*/
 router.get('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
     let orderStatusCode = req.params.orderStatusCode;
@@ -33,9 +37,11 @@ router.get('/:orderStatusCode([0-9]+)', async (req, res) => {
   }
 });
 
-// POST api/v1/orderstatuses
-// Create new order status
-// Frontend response: object
+/*
+POST api/v1/orderstatuses
+Create new order status
+Frontend response: object
+*/
 router.post('/', async (req, res) => {
   try {
     let newOrderStatus = OrderStatus.build({ ...req.body });
@@ -50,9 +56,11 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PUT api/v1/orderstatuses/:orderStatusCode
-// Replace an already existing order status by order status code
-// Frontend response: object
+/*
+PUT api/v1/orderstatuses/:orderStatusCode
+Replace an already existing order status by order status code
+Frontend response: object
+*/
 router.put('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
     let orderStatus = await OrderStatus.findByPk(req.params.orderStatusCode);
@@ -68,9 +76,11 @@ router.put('/:orderStatusCode([0-9]+)', async (req, res) => {
   }
 });
 
-// PATCH api/orderstatuses/:orderStatusCode
-// Edit an already existing order status by order status code
-// Frontend response: object
+/*
+PATCH api/orderstatuses/:orderStatusCode
+Edit an already existing order status by order status code
+Frontend response: object
+*/
 router.patch('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
     let orderStatus = await OrderStatus.findByPk(req.params.orderStatusCode);
@@ -84,9 +94,11 @@ router.patch('/:orderStatusCode([0-9]+)', async (req, res) => {
   }
 });
 
-// DELETE api/orderstatuses/:orderStatusCode
-// Delete an orderStatus by orderStatusCode
-// Frontend response: message string
+/*
+DELETE api/orderstatuses/:orderStatusCode
+Delete an orderStatus by orderStatusCode
+Frontend response: message string
+*/
 router.delete('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
     let orderStatus = await OrderStatus.findByPk(req.params.orderStatusCode);
@@ -100,7 +112,6 @@ router.delete('/:orderStatusCode([0-9]+)', async (req, res) => {
   }
 });
 
-// Error handler
 function handleError(res, error) {
   return res.status(500).send('Order Status endpoint error:', error.message);
 }
