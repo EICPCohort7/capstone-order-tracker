@@ -25,6 +25,12 @@ router.get('/', async (req, res) => {
     let activeCustomers = await Customer.findAll({
       where: { isActive: true },
     });
+
+    // Iterate the activeCustomers array and append relevant address object to each
+    for (let index = 0; index < activeCustomers.length; index++) {
+      let customerAddress = await activeCustomers[index].getAddress();
+      _.merge(activeCustomers[index].dataValues, { address: customerAddress });
+    }
     return res.status(200).json(activeCustomers);
   } catch (error) {
     return errorHandler(res, error);
