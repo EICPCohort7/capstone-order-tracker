@@ -82,6 +82,9 @@ router.get('/search', async (req, res) => {
 // A new customer with a new address, and a new customer with an existing address all work (the first time).
 // Afterwards, new addresses will be added to the database, but not the customer.
 
+// Update (Ben) - The bug has been resolved. It's because email needs to be unique amongst every customer so
+// doing POST requests without changing the email caused this. I added in a check to make sure the email is unique.
+
 // POST api/v1/customers/
 // Create new customer (and address if neccesary)
 // JSON format (for Postman/testing):
@@ -97,20 +100,23 @@ router.get('/search', async (req, res) => {
 // }
 router.post('/', async (req, res) => {
   try {
-    // create the Address
-    let addAddress = Address.build({ ...req.body.address });
-    if (addAddress instanceof ValidationError) {
-      console.error('Validation failed:', addAddress);
-      throw addAddress;
+    // check if a customer with that email already exists
+    let result = await Customer.findAll({
+      where: {
+        email: req.body.email,
+      },
+    });
+    if (result.length) {
+      return res.status(404).send(`Customer with email ${req.body.email} already exists`); // need to handle this in a better way
     }
-    // Check if Address already exists
-    let street = addAddress.dataValues.street;
-    let aptNum = addAddress.dataValues.aptNum || null;
-    let city = addAddress.dataValues.city;
-    let state = addAddress.dataValues.state || null;
-    let zip = addAddress.dataValues.zip;
-    let country = addAddress.dataValues.country;
-    let existingAddress = await Address.findOne({
+    // check if address already exists
+    const street = req.body.address.street;
+    const aptNum = req.body.address.aptNum || null;
+    const city = req.body.address.city;
+    const state = req.body.address.state || null;
+    const zip = req.body.address.zip;
+    const country = req.body.address.country;
+    const existingAddress = await Address.findOne({
       where: {
         street,
         aptNum,
@@ -120,21 +126,48 @@ router.post('/', async (req, res) => {
         country,
       },
     });
-    // if Address exists: use search result
+
+    let actualAddressId;
+
+    // address already exists
     if (existingAddress !== null) {
-      req.body.billingAddressId = existingAddress.dataValues.addressId;
-    // otherwise: create new Address
-    } else {
-      let newAddress = await addAddress.save();
-      req.body.billingAddressId = newAddress.dataValues.addressId;
+      actualAddressId = existingAddress.dataValues.addressId;
+    } else { // address doesn't already exist
+      const newAddress = Address.build({ ...req.body.address }); // create new Address
+      if (newAddress instanceof ValidationError) {
+        console.error('Validation failed:', newAddress);
+        throw newAddress;
+      }
+      result = await newAddress.save();
+
+      if (result instanceof ValidationError) {
+        console.error('Validation failed:', result);
+        throw result;
+      }
+      actualAddressId = newAddress.dataValues.addressId;
     }
+
     // create the new Customer
-    let addCustomer = Customer.build({ ...req.body });
-    let result = await addCustomer.save();
+    console.log('here1');
+    const newCustomer = Customer.build({
+      firstName: req.body.firstName,
+      middleInitial: req.body.middleInitial || null,
+      lastName: req.body.lastName,
+      phone: req.body.phone,
+      email: req.body.email,
+      customerNotes: req.body.customerNotes || null,
+      billingAddressId: actualAddressId,
+    });
+    console.log('here2');
+
+    result = await newCustomer.save();
+
+    console.log('here3');
     if (result instanceof ValidationError) {
       console.error('Validation failed:', result);
       throw result;
     }
+
     return res.status(201).send(result);
   } catch (error) {
     errorHandler(res, error);
@@ -197,6 +230,7 @@ router.delete('/:customerId([0-9]+)', async (req, res) => {
 });
 
 function errorHandler(res, error) {
+  console.log(error);
   return res.status(500).send(`Customer endpoint error: ${error.message}`);
 }
 
