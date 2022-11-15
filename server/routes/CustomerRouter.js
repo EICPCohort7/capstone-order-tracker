@@ -6,7 +6,7 @@
  */
 import express from 'express';
 import { ValidationError } from 'sequelize';
-import { Customer } from '../orm/models/index.js';
+import { Customer, Address } from '../orm/models/index.js';
 import { validationResult } from 'express-validator';
 import { validateCustomer } from './validators/CustomerValidator.js';
 
@@ -97,14 +97,75 @@ router.post('/', validateCustomer, async (req, res) => {
   }
 
   try {
-    let addCustomer = Customer.build({ ...req.body });
-    let result = await addCustomer.save();
+    // check if a customer with that email already exists
+    let result = await Customer.findAll({
+      where: {
+        email: req.body.email,
+      },
+    });
+    if (result.length) {
+      return res.status(404).send(`Customer with email ${req.body.email} already exists`); // need to handle this in a better way
+    }
+    // check if address already exists
+    const street = req.body.address.street;
+    const aptNum = req.body.address.aptNum || null;
+    const city = req.body.address.city;
+    const state = req.body.address.state || null;
+    const zip = req.body.address.zip;
+    const country = req.body.address.country;
+    const existingAddress = await Address.findOne({
+      where: {
+        street,
+        aptNum,
+        city,
+        state,
+        zip,
+        country,
+      },
+    });
 
+    let actualAddressId;
+
+    // address already exists
+    if (existingAddress !== null) {
+      actualAddressId = existingAddress.dataValues.addressId;
+    } else { // address doesn't already exist
+      const newAddress = Address.build({ ...req.body.address }); // create new Address
+      if (newAddress instanceof ValidationError) {
+        console.error('Validation failed:', newAddress);
+        throw newAddress;
+      }
+      result = await newAddress.save();
+
+      if (result instanceof ValidationError) {
+        console.error('Validation failed:', result);
+        throw result;
+      }
+      actualAddressId = newAddress.dataValues.addressId;
+    }
+
+    // create the new Customer
+    console.log('here1');
+    const newCustomer = Customer.build({
+      firstName: req.body.firstName,
+      middleInitial: req.body.middleInitial || null,
+      lastName: req.body.lastName,
+      phone: req.body.phone,
+      email: req.body.email,
+      customerNotes: req.body.customerNotes || null,
+      billingAddressId: actualAddressId,
+    });
+    console.log('here2');
+
+    result = await newCustomer.save();
+
+    console.log('here3');
     if (result instanceof ValidationError) {
       console.error('Validation failed:', result);
       throw result;
     }
-    return res.status(201).json(addCustomer);
+
+    return res.status(201).send(result);
   } catch (error) {
     errorHandler(res, error);
   }
@@ -170,6 +231,7 @@ router.delete('/:customerId([0-9]+)', async (req, res) => {
 });
 
 function errorHandler(res, error) {
+  console.log(error);
   return res.status(500).send(`Customer endpoint error: ${error.message}`);
 }
 
