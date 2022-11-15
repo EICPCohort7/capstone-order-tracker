@@ -25,7 +25,6 @@ jobs:
     
     - run: npx eslint . --ext .js,.jsx,.ts,.tsx
     
-    - run: npm run test:mocha
     - run: npm run coverage:mocha
     
     - name: Analyze with SonarCloud
