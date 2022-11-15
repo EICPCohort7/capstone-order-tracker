@@ -11,7 +11,6 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -20,21 +19,17 @@ jobs:
       with:
         node-version: 16
     - run: npm install
-    
     - run: npm run build --if-present
-    
     - run: npm run test:mocha
-  
     # Static code analysis: Eslint. Checks programmatic and stylistic errors
     - run: npx eslint . --ext .js,.jsx,.ts,.tsx
   
   Analysis:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0
       - name: Analyze with SonarCloud
         uses: SonarSource/sonarcloud-github-action@master
         env:
