@@ -110,7 +110,7 @@ paths:
     delete:
       description: "Delete a draft order by order_id"
       requestBody:
-        required: false
+        required: true
         content:
           application/json:
            schema:

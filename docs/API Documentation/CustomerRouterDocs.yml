@@ -81,7 +81,7 @@ paths:
           description: Request successful but no customer found with matching customer_id
 
     put:
-      description: "Modify existing customer referenced by order_id."
+      description: "Modify existing customer referenced by customer_id."
       parameters:
         - name: customer_id
           description: The code of the customer to be modified.
@@ -104,7 +104,7 @@ paths:
     delete:
       description: "Delete a customer by customer_id"
       requestBody:
-        required: false
+        required: true
         content:
           application/json:
            schema:
