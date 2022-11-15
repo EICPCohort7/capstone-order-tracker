@@ -8,9 +8,9 @@ import { ValidationError } from 'sequelize';
 let router = express.Router();
 
 /*
-GET api/v1/orderstatuses
-Get all of the system's order statuses
-Frontend response: array of objects
+ * GET api/v1/orderstatuses
+ * Get all of the system's order statuses
+ * Frontend response: array of objects
 */
 router.get('/', async (req, res) => {
   try {
@@ -21,9 +21,9 @@ router.get('/', async (req, res) => {
 });
 
 /*
-GET api/v1/orderstatuses/:orderStatusCode
-Get order status by orderStatusCode
-Frontend response: object
+ * GET api/v1/orderstatuses/:orderStatusCode
+ * Get order status by orderStatusCode
+ * Frontend response: object
 */
 router.get('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
@@ -38,9 +38,9 @@ router.get('/:orderStatusCode([0-9]+)', async (req, res) => {
 });
 
 /*
-POST api/v1/orderstatuses
-Create new order status
-Frontend response: object
+ * POST api/v1/orderstatuses
+ * Create new order status
+ * Frontend response: object
 */
 router.post('/', async (req, res) => {
   try {
@@ -57,9 +57,9 @@ router.post('/', async (req, res) => {
 });
 
 /*
-PUT api/v1/orderstatuses/:orderStatusCode
-Replace an already existing order status by order status code
-Frontend response: object
+ * PUT api/v1/orderstatuses/:orderStatusCode
+ * Replace an already existing order status by order status code
+ * Frontend response: object
 */
 router.put('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
@@ -77,9 +77,9 @@ router.put('/:orderStatusCode([0-9]+)', async (req, res) => {
 });
 
 /*
-PATCH api/orderstatuses/:orderStatusCode
-Edit an already existing order status by order status code
-Frontend response: object
+ * PATCH api/orderstatuses/:orderStatusCode
+ * Edit an already existing order status by order status code
+ * Frontend response: object
 */
 router.patch('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
@@ -95,9 +95,9 @@ router.patch('/:orderStatusCode([0-9]+)', async (req, res) => {
 });
 
 /*
-DELETE api/orderstatuses/:orderStatusCode
-Delete an orderStatus by orderStatusCode
-Frontend response: message string
+ * DELETE api/orderstatuses/:orderStatusCode
+ * Delete an orderStatus by orderStatusCode
+ * Frontend response: message string
 */
 router.delete('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {

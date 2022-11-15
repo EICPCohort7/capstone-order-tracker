@@ -8,9 +8,9 @@ import { ValidationError } from 'sequelize';
 let router = express.Router();
 
 /*
-GET api/v1/orders
-Get all of the system's orders
-Frontend response: array of objects
+ * GET api/v1/orders
+ * Get all of the system's orders
+ * Frontend response: array of objects
 */
 router.get('/', async (req, res) => {
   try {
@@ -22,9 +22,9 @@ router.get('/', async (req, res) => {
 });
 
 /*
-GET api/v1/orders/:orderId
-Get order by order ID
-Frontend response: object
+ * GET api/v1/orders/:orderId
+ * Get order by order ID
+ * Frontend response: object
 */
 router.get('/:orderId([0-9]+)', async (req, res) => {
   try {
@@ -39,9 +39,9 @@ router.get('/:orderId([0-9]+)', async (req, res) => {
 });
 
 /*
-POST api/v1/orders
-Create new order
-Frontend response: object
+ * POST api/v1/orders
+ * Create new order
+ * Frontend response: object
 */
 router.post('/', async (req, res) => {
   try {
@@ -58,9 +58,9 @@ router.post('/', async (req, res) => {
 });
 
 /*
-PUT api/v1/orders/:orderId
-Replace an already existing order by order ID
-Frontend response: object
+ * PUT api/v1/orders/:orderId
+ * Replace an already existing order by order ID
+ * Frontend response: object
 */
 router.put('/:orderId([0-9]+)', async (req, res) => {
   try {
@@ -82,9 +82,9 @@ router.put('/:orderId([0-9]+)', async (req, res) => {
 });
 
 /*
-PATCH api/orders/:orderId
-Edit an already existing order by order ID
-Frontend response: object
+ * PATCH api/orders/:orderId
+ * Edit an already existing order by order ID
+ * Frontend response: object
 */
 router.patch('/:orderId([0-9]+)', async (req, res) => {
   try {
@@ -100,9 +100,9 @@ router.patch('/:orderId([0-9]+)', async (req, res) => {
 });
 
 /*
-DELETE api/orders/:orderId
-Delete a draft order by orderId (shouldn't allow for deletion of live orders)
-Frontend response: message string
+ * DELETE api/orders/:orderId
+ * Delete a draft order by orderId (shouldn't allow for deletion of live orders)
+ * Frontend response: message string
 */
 router.delete('/:orderId([0-9]+)', async (req, res) => {
   try {
