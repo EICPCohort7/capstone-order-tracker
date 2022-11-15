@@ -18,7 +18,7 @@
           class="form-control"
           placeholder="Email"
         >
-        <!-- Search button for the email field -->
+        <!--Search button for the email field-->
         <button
           type="button"
           class="btn btn-outline-danger"
@@ -170,6 +170,8 @@
         <tr
           v-for="customer in customers"
           :key="customer.id"
+          class="clickable-row"
+          data-href=""
         >
           <td scope="row">{{ customer.customerId }}</td>
           <td>{{ customer.firstName }}</td>
@@ -182,6 +184,45 @@
     </table>
   </div>
   <div />
+  <!-- Modal for customer information-->
+
+  <button
+    id="show-modal1"
+    class="btn btn-outline-danger"
+    @click="showModal = true"
+  >
+    Customer Information
+  </button>
+
+  <Teleport to="body">
+    <!-- use the modal component, pass in the prop -->
+
+    <Modal
+      :show="showModal"
+      @close="showModal = false"
+    >
+      <template #header>
+        <h3>Customer Information</h3>
+      </template>
+
+      <template #body>
+        <div>
+          <p>Customer ID:</p>
+          <p>First name:</p>
+          <p>Last name:</p>
+          <p>Phone Number:</p>
+          <p>Email:</p>
+          <p>Street Address:</p>
+          <p>Apartment Number:</p>
+          <p>City:</p>
+          <p>State/Province:</p>
+          <p>Zip/Postal Code:</p>
+          <p>Country:</p>
+          <p>Customer Notes:</p>
+        </div>
+      </template>
+    </Modal>
+  </Teleport>
 </template>
 
 <script>
@@ -192,6 +233,7 @@ export default {
 
   components: {
     Modal,
+
   },
   data() {
     return {
@@ -230,7 +272,10 @@ export default {
     },
 
     async getEmail() {
-      let customers = await axios.get(`http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`)
+      let customers = await axios
+        .get(
+          `http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`
+        )
         .catch((errors) => {
           console.log(errors); // Errors
         });
