@@ -18,11 +18,10 @@ jobs:
         node-version: 16
     - run: npm install
     
-    # webpack.config has files we are missing at the moment
-    # - run: npm run build --if-present
+    - run: npm run build --if-present
     
     - run: npm run test:mocha
   
     # Static code analysis: Eslint. Checks programmatic and stylistic errors
     - run: npx eslint . --ext .js,.jsx,.ts,.tsx
-    
+
