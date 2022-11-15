@@ -77,27 +77,10 @@ router.get('/search', async (req, res) => {
   }
 });
 
-// BUG!!!
-// POST will only work once, and then returns 500 (Customer endpoint error: Validation error) until the MySQL server is reset.
-// A new customer with a new address, and a new customer with an existing address all work (the first time).
-// Afterwards, new addresses will be added to the database, but not the customer.
-
-// Update (Ben) - The bug has been resolved. It's because email needs to be unique amongst every customer so
-// doing POST requests without changing the email caused this. I added in a check to make sure the email is unique.
-
 // POST api/v1/customers/
-// Create new customer (and address if neccesary)
-// JSON format (for Postman/testing):
-// {
-//   "firstName":"D",
-//   "middleInitial":"E",
-//   ...
-//   "address" : {
-//     "street": "1st",
-//     "aptNum": "123",
-//     ...
-//   }
-// }
+// Create new customer
+// If the customer has a new address, a new address will also get created.
+// If the customer's address already exists, a new address will not get created.
 router.post('/', async (req, res) => {
   try {
     // check if a customer with that email already exists
