@@ -6,14 +6,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "webpack",
-    "build:watch": "webpack --watch",
     "server:start": "node ./server/bin/www.js",
     "server:watch": "nodemon ./server/bin/www.js",
+    "start": "node ./server/bin/www.js",
     "test:mocha": "mocha",
-    "vue:serve": "vue-cli-service serve",
-    "vue:build": "vue-cli-service build",
-    "vue:lint": "vue-cli-service lint"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "keywords": [],
   "author": "",
@@ -72,22 +71,8 @@
     "eslint-plugin-vue": "^8.0.3",
     "sass": "^1.56.1"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "rules": {
-      "vue/multi-word-component-names": 0
-    }
-  },
+
+
   "browserslist": [
     "> 1%",
     "last 2 versions",

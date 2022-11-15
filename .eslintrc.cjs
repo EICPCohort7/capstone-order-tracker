@@ -6,9 +6,10 @@ module.exports = {
     jest: true,
     mocha: true,
   },
-  extends: ['standard'],
-  parser: '@babel/eslint-parser',
+  extends: ['plugin:vue/vue3-recommended', 'standard'],
+  parser: 'vue-eslint-parser',
   parserOptions: {
+    parser: '@babel/eslint-parser',
     ecmaVersion: 'latest',
     sourceType: 'module',
     requireConfigFile: false,
@@ -27,5 +28,6 @@ module.exports = {
     'prefer-const': 'off',
     semi: ['error', 'always'],
     'space-before-function-paren': ['error', { named: 'never' }],
+    'vue/singleline-html-element-content-newline': 'off',
   },
 };

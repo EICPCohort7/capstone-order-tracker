@@ -1,6 +1,10 @@
 <template>
   <div class="customer">
-    <img class="img" src="../assets/tjx-logo.png" alt="TJX logo" />
+    <img
+      class="img"
+      src="../assets/tjx-logo.png"
+      alt="TJX logo"
+    >
 
     <h1>Customer Information</h1>
   </div>
@@ -8,20 +12,24 @@
     <form id="searching">
       <div class="form-group">
         <input
+          id="email"
           v-model="emailValue"
           type="search"
           class="form-control"
-          id="email"
           placeholder="Email"
-        />
+        >
         <!--Search button for the email field-->
-        <button type="button" class="btn btn-outline-danger" v-on:click="getEmail">
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          @click="getEmail"
+        >
           Search
         </button>
         <button
           type="button"
           class="btn btn-outline-danger"
-          v-on:click="getCustomers"
+          @click="getCustomers"
         >
           Get All
         </button>
@@ -40,7 +48,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="customer in customers" :key="customer.id">
+        <tr
+          v-for="customer in customers"
+          :key="customer.id"
+        >
           <!--Change these to proper fields-->
           <td scope="row">{{ customer.customerId }}</td>
           <td>{{ customer.firstName }}</td>
@@ -52,52 +63,45 @@
       </tbody>
     </table>
   </div>
-  
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
+  name: 'App',
   data() {
     return {
       customers: [],
     };
   },
- 
 
   mounted: async function () {
-      let customers= await axios.get(`http://localhost:3000/api/v1/customers/`)
-      .catch((errors)=> {
-          console.log(errors); // Errors
-        });
-      this.customers = customers.data;
+    let customers = await axios.get('http://localhost:3000/api/v1/customers/')
+      .catch((errors) => {
+        console.log(errors); // Errors
+      });
+    this.customers = customers.data;
   },
-  name: "App",
   methods: {
     // The get method called by the function
-    
+
     async getCustomers() {
-      
-      let customers= await axios.get(`http://localhost:3000/api/v1/customers/`)
-      .catch((errors)=> {
+      let customers = await axios.get('http://localhost:3000/api/v1/customers/')
+        .catch((errors) => {
           console.log(errors); // Errors
         });
       this.customers = customers.data;
-
     },
 
     async getEmail() {
-      
-      let customers= await axios.get(`http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`)
-      .catch((errors)=> {
+      let customers = await axios.get(`http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`)
+        .catch((errors) => {
           console.log(errors); // Errors
         });
       this.customers = customers.data;
-
-    }
-
+    },
 
   },
 };
-</script> 
+</script>
