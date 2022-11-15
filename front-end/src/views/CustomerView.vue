@@ -1,10 +1,6 @@
 <template>
   <div class="customer">
-    <img
-      class="img"
-      src="../assets/tjx-logo.png"
-      alt="TJX logo"
-    >
+    <img class="img" src="../assets/tjx-logo.png" alt="TJX logo" />
 
     <h1>Customer Information</h1>
   </div>
@@ -16,42 +12,21 @@
           v-model="emailValue"
           type="search"
           class="form-control"
-          placeholder="Email"
-        >
+          placeholder="Email" />
         <!--Search button for the email field-->
-        <button
-          type="button"
-          class="btn btn-outline-danger"
-          @click="getEmail"
-        >
-          Search
-        </button>
-        <button
-          type="button"
-          class="btn btn-outline-danger"
-          @click="getCustomers"
-        >
-          Get All
-        </button>
+        <button type="button" class="btn btn-outline-danger" @click="getEmail">Search</button>
+        <button type="button" class="btn btn-outline-danger" @click="getCustomers">Get All</button>
       </div>
     </form>
     <!--Modal-->
-    <button
-      id="show-modal"
-      class="btn btn-outline-danger"
-      @click="showModal = true"
-    >
+    <button id="show-modal" class="btn btn-outline-danger" @click="showModal = true">
       New Customer
     </button>
 
     <Teleport to="body">
       <!-- use the modal component, pass in the prop -->
 
-      <modal
-        :show="showModal"
-        @close="showModal = false"
-        @form-submit="createCustomer"
-      >
+      <modal :show="showModal" @close="showModal = false" @form-submit="createCustomer">
         <template #header>
           <h3>Create a new Customer</h3>
         </template>
@@ -63,23 +38,20 @@
             type="text"
             class="form-control"
             placeholder="First Name (i.e. Jane)"
-            required
-          >
+            required />
           <input
             id="middleInitial"
             v-model="middleInitial"
             type="text"
             class="form-control"
-            placeholder="Middle Initial (i.e. M)"
-          >
+            placeholder="Middle Initial (i.e. M)" />
           <input
             id="lastName"
             v-model="lastName"
             type="text"
             class="form-control"
             placeholder="Last Name"
-            required
-          >
+            required />
           <input
             id="phone"
             v-model="phone"
@@ -87,69 +59,60 @@
             class="form-control"
             placeholder="Phone Number (i.e. 1234567890)"
             required
-            pattern="[0-9]{10}"
-          >
+            pattern="[0-9]{10}" />
           <input
             id="email"
             v-model="email"
             type="email"
             class="form-control"
             placeholder="Email"
-            required
-          >
+            required />
           <input
             id="streetAdd"
             v-model="streetAdd"
             type="text"
             class="form-control"
             placeholder="Street Address"
-            required
-          >
+            required />
           <input
             id="aptNum"
             v-model="aptNum"
             type="text"
             class="form-control"
-            placeholder="Apartment Number"
-          >
+            placeholder="Apartment Number" />
           <input
             id="city"
             v-model="city"
             type="text"
             class="form-control"
             placeholder="City"
-            required
-          >
+            required />
           <input
             id="state"
             v-model="stateProv"
             type="text"
             class="form-control"
-            placeholder="State/Province"
-          >
+            placeholder="State/Province" />
           <input
             id="zip"
             v-model="zip"
             type="text"
             class="form-control"
             placeholder="Zip/Postal Code"
-            required
-          >
+            required />
           <input
             id="country"
             v-model="country"
             type="text"
             class="form-control"
             placeholder="Country"
-            required
-          >
+            required />
           <input
             id="notes"
             v-model="customerNotes"
             type="text"
             class="form-control"
-            placeholder="Customer Notes"
-          >
+            placeholder="Customer Notes" />
         </template>
       </modal>
     </Teleport>
@@ -172,7 +135,7 @@
           :key="customer.id"
           class="clickable-row"
           data-href=""
-        >
+          @click="getInfo(customer.email)">
           <td scope="row">{{ customer.customerId }}</td>
           <td>{{ customer.firstName }}</td>
           <td>{{ customer.middleInitial }}</td>
@@ -184,39 +147,29 @@
     </table>
   </div>
   <!-- Modal for customer information-->
-  <button
-    id="show-modal1"
-    class="btn btn-outline-danger"
-    @click="showInfoModal = true"
-  >
-    Customer Information
-  </button>
 
   <Teleport to="body">
     <!-- use the modal component, pass in the prop -->
 
-    <CustomerInformationModal
-      :showing="showInfoModal"
-      @xout="showInfoModal = false"
-    >
+    <CustomerInformationModal :showing="showInfoModal" @xout="showInfoModal = false">
       <template #header>
         <h3>Customer Information</h3>
       </template>
 
       <template #body>
         <div>
-          <p>Customer ID:</p>
-          <p>First name:</p>
-          <p>Last name:</p>
-          <p>Phone Number:</p>
-          <p>Email:</p>
-          <p>Street Address:</p>
-          <p>Apartment Number:</p>
-          <p>City:</p>
-          <p>State/Province:</p>
-          <p>Zip/Postal Code:</p>
-          <p>Country:</p>
-          <p>Customer Notes:</p>
+          <p>Customer ID: {{ customerInfo[0].customerId }}</p>
+          <p>First name: {{ customerInfo[0].firstName }}</p>
+          <p>Last name: {{ customerInfo[0].lastName }}</p>
+          <p>Phone Number: {{ customerInfo[0].phone }}</p>
+          <p>Email: {{ customerInfo[0].email }}</p>
+          <p>Street Address: {{ customerInfo[0].customerId }}</p>
+          <p>Apartment Number: {{ customerInfo[0].customerId }}</p>
+          <p>City: {{ customerInfo[0].customerId }}</p>
+          <p>State/Province: {{ customerInfo[0].customerId }}</p>
+          <p>Zip/Postal Code: {{ customerInfo[0].customerId }}</p>
+          <p>Country: {{ customerInfo[0].customerId }}</p>
+          <p>Customer Notes: {{ customerInfo[0].customerNotes }}</p>
         </div>
       </template>
     </CustomerInformationModal>
@@ -233,7 +186,6 @@ export default {
   components: {
     Modal,
     CustomerInformationModal,
-
   },
   data() {
     return {
@@ -249,34 +201,29 @@ export default {
       products: [],
       showModal: false,
       showInfoModal: false,
+      customerInfo: [],
     };
   },
 
   mounted: async function () {
-    let customers = await axios
-      .get('http://localhost:3000/api/v1/customers/')
-      .catch((errors) => {
-        console.log(errors); // Errors
-      });
+    let customers = await axios.get('http://localhost:3000/api/v1/customers/').catch((errors) => {
+      console.log(errors); // Errors
+    });
     this.customers = customers.data;
   },
   methods: {
     // The get method called by the function
 
     async getCustomers() {
-      let customers = await axios
-        .get('http://localhost:3000/api/v1/customers/')
-        .catch((errors) => {
-          console.log(errors); // Errors
-        });
+      let customers = await axios.get('http://localhost:3000/api/v1/customers/').catch((errors) => {
+        console.log(errors); // Errors
+      });
       this.customers = customers.data;
     },
 
     async getEmail() {
       let customers = await axios
-        .get(
-          `http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`
-        )
+        .get(`http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`)
         .catch((errors) => {
           console.log(errors); // Errors
         });
@@ -298,6 +245,15 @@ export default {
           console.log(errors); // Errors
         });
       this.customers = this.getCustomers().data;
+    },
+    async getInfo(email) {
+      this.showInfoModal = true;
+      let customers = await axios
+        .get(`http://localhost:3000/api/v1/customers/search?email=${email}`)
+        .catch((errors) => {
+          console.log(errors); // Errors
+        });
+      this.customerInfo = customers.data;
     },
   },
 };
