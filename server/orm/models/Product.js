@@ -1,5 +1,5 @@
 /**
- * File for product model, to match db teams schema
+ * File for Product model, to match db teams schema
  */
 
 import { DataTypes } from 'sequelize';

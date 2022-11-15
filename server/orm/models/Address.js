@@ -1,8 +1,5 @@
 /**
- * File for address model, to match db teams schema
- */
-/**
- * Address controller handles address related requests and responses from router
+ * File for Address model, to match db teams schema
  */
 import { DataTypes } from 'sequelize';
 import { dbConnection } from '../capstone-connection.js';

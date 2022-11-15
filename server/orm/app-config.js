@@ -22,6 +22,14 @@ export function getConnectionConfig() {
     connectionConfig.host = process.env.AZURE_MYSQL_HOST;
     connectionConfig.port = process.env.AZURE_MYSQL_PORT;
     connectionConfig.schema = process.env.AZURE_MYSQL_DATABASE;
+  } else if (process.env.GITHUB_ACTIONS) {
+    connectionConfig.source = 'GITHUB_ACTIONS';
+    connectionConfig.user = process.env.DB_USER;
+    connectionConfig.password = process.env.DB_PASSWORD;
+    connectionConfig.host = process.env.DB_HOST;
+    connectionConfig.port = process.env.DB_PORT;
+    connectionConfig.schema = process.env.DB_SCHEMA;
+    connectionConfig.useSSL = process.env.DB_USE_SSL || connectionConfig.useSSL;
   } else {
     // Assume local config
     const __filename = fileURLToPath(import.meta.url);
