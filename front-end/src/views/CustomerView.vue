@@ -183,13 +183,11 @@
       </tbody>
     </table>
   </div>
-  <div />
   <!-- Modal for customer information-->
-
   <button
     id="show-modal1"
     class="btn btn-outline-danger"
-    @click="showModal = true"
+    @click="showInfoModal = true"
   >
     Customer Information
   </button>
@@ -197,9 +195,9 @@
   <Teleport to="body">
     <!-- use the modal component, pass in the prop -->
 
-    <Modal
-      :show="showModal"
-      @close="showModal = false"
+    <CustomerInformationModal
+      :showing="showInfoModal"
+      @xout="showInfoModal = false"
     >
       <template #header>
         <h3>Customer Information</h3>
@@ -221,18 +219,20 @@
           <p>Customer Notes:</p>
         </div>
       </template>
-    </Modal>
+    </CustomerInformationModal>
   </Teleport>
 </template>
 
 <script>
 import axios from 'axios';
 import Modal from '../components/ModalForm.vue';
+import CustomerInformationModal from '../components/CustomerInformationModal.vue';
 export default {
   name: 'App',
 
   components: {
     Modal,
+    CustomerInformationModal,
 
   },
   data() {
@@ -248,6 +248,7 @@ export default {
       orders: [],
       products: [],
       showModal: false,
+      showInfoModal: false,
     };
   },
 
