@@ -1,10 +1,13 @@
-name: Node Build, Testing, Linting & Formatting CI
+name: CI pipeline
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    
+permissions:
+  pull-requests: read # allows SonarCloud to decorate PRs with analysis results
 
 jobs:
   build:
@@ -24,4 +27,17 @@ jobs:
   
     # Static code analysis: Eslint. Checks programmatic and stylistic errors
     - run: npx eslint . --ext .js,.jsx,.ts,.tsx
+  
+  Analysis:
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Analyze with SonarCloud
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args:
+            -Dsonar.projectKey=EICPCohort7_capstone-order-tracker
+            -Dsonar.organization=eicpcohort7-1
