@@ -23,14 +23,15 @@
           id="emailBtn"
           type="button"
           class="btn btn-outline-danger"
-          @click="getEmail"
+          @click="getEmail()"
         >
           Search
         </button>
         <button
+          id="getAll"
           type="button"
           class="btn btn-outline-danger"
-          @click="getCustomers"
+          @click="getCustomers()"
         >
           Get All
         </button>
@@ -232,6 +233,7 @@ export default {
   data() {
     return {
       customers: [],
+      emailValue: '',
       firstName: '',
       middleInitial: '',
       lastName: '',
@@ -257,6 +259,7 @@ export default {
     // The get method called by the function
 
     async getCustomers() {
+      this.$emit('flag');
       let customers = await axios.get('http://localhost:3000/api/v1/customers/').catch((errors) => {
         console.log(errors); // Errors
       });
