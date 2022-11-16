@@ -328,6 +328,33 @@ export default {
           console.log(errors); // Errors
         });
       this.customerOrders = orders.data;
+      this.formatAllCustomerOrders(orders.data);
+    },
+    async formatACustomerOrder(ogOrder) {
+      let statusDescriptionResponse = await axios
+        .get(`http://localhost:3000/api/v1/orderstatuses/${ogOrder.orderStatusCode}`)
+        .catch((errors) => {
+          console.log(errors); // Errors
+        });
+      let orderStatus = statusDescriptionResponse.data.orderStatusDescription;
+      let newOrder = {
+        orderId: ogOrder.orderId,
+        customerId: ogOrder.customerId,
+        orderNotes: ogOrder.orderNotes,
+        orderPlaced: ogOrder.orderPlaced,
+        orderStatusCode: orderStatus,
+        shippingAddressId: ogOrder.shippingAddressId,
+      };
+      console.log(newOrder);
+      return newOrder;
+    },
+    formatAllCustomerOrders(ogOrders) {
+      let formattedOrders = [];
+      for (const order of ogOrders) {
+        let formattedOrder = this.formatACustomerOrder(order);
+        formattedOrders.push(formattedOrder);
+      }
+      console.log(formattedOrders);
     },
   },
 };
