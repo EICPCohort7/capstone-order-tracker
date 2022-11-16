@@ -23,7 +23,7 @@ module.exports = {
         objects: 'always-multiline',
       },
     ],
-    'no-unused-vars': ['warn', { destructuredArrayIgnorePattern: '^_' }],
+    //'no-unused-vars': ['warn', { destructuredArrayIgnorePattern: '^_' }],
     'object-property-newline': ['error', { allowAllPropertiesOnSameLine: false }],
     'prefer-const': 'off',
     semi: ['error', 'always'],
