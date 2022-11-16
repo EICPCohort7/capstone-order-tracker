@@ -172,7 +172,7 @@
           :key="customer.id"
           class="clickable-row"
           data-href=""
-          @click="getInfo(customer.email)"
+          @click="getInfo(customer.email, customer.customerId)"
         >
           <td scope="row">{{ customer.customerId }}</td>
           <td>{{ customer.firstName }}</td>
@@ -222,11 +222,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td scope="row">{{ 1 }}</td>
-                  <td>{{ "1/1/2022" }}</td>
-                  <td>{{ 1 }}</td>
-                  <td>{{ "N/A" }}</td>
+                <tr
+                  v-for="order in customerOrders"
+                  :key="order.id"
+                >
+                  <td scope="row">{{ order.orderId }}</td>
+                  <td>{{ order.orderPlaced }}</td>
+                  <td>{{ order.orderStatusCode }}</td>
+                  <td>{{ order.orderNotes }}</td>
                 </tr>
               </tbody>
             </table>
@@ -263,6 +266,7 @@ export default {
       showModal: false,
       showInfoModal: false,
       customerInfo: [],
+      customerOrders: [],
     };
   },
 
@@ -307,7 +311,7 @@ export default {
         });
       this.customers = this.getCustomers().data;
     },
-    async getInfo(email) {
+    async getInfo(email, id) {
       this.showInfoModal = true;
       let customers = await axios
         .get(`http://localhost:3000/api/v1/customers/search?email=${email}`)
@@ -315,6 +319,15 @@ export default {
           console.log(errors); // Errors
         });
       this.customerInfo = customers.data;
+      this.getCustomerOrders(id);
+    },
+    async getCustomerOrders(id) {
+      let orders = await axios
+        .get(`http://localhost:3000/api/v1/customers/${id}/orders`)
+        .catch((errors) => {
+          console.log(errors); // Errors
+        });
+      this.customerOrders = orders.data;
     },
   },
 };
