@@ -43,5 +43,5 @@ jobs:
         args:
           -Dsonar.projectKey=EICPCohort7_capstone-order-tracker
           -Dsonar.organization=eicpcohort7-1
-          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+          -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
 
