@@ -13,4 +13,11 @@ describe('Customer View', () => {
     const rows = wrapper.findAll('tbody tr');
     expect(rows).toHaveLength(2);
   });
+  it('should execute the get by email function when clicked', async () => {
+    const wrapper = mount(CustomerView);
+    const spyClose = jest.spyOn(CustomerView.methods, 'getEmail');
+    const button = wrapper.find('button');
+    await button.trigger('click');
+    expect(spyClose).toBeCalled();
+  });
 });
