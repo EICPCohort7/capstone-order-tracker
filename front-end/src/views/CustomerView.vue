@@ -172,6 +172,7 @@
           :key="customer.id"
           class="clickable-row"
           data-href=""
+          @click="getInfo(customer.email)"
         >
           <td scope="row">{{ customer.customerId }}</td>
           <td>{{ customer.firstName }}</td>
@@ -183,23 +184,14 @@
       </tbody>
     </table>
   </div>
-  <div />
   <!-- Modal for customer information-->
-
-  <button
-    id="show-modal1"
-    class="btn btn-outline-danger"
-    @click="showModal = true"
-  >
-    Customer Information
-  </button>
 
   <Teleport to="body">
     <!-- use the modal component, pass in the prop -->
 
-    <Modal
-      :show="showModal"
-      @close="showModal = false"
+    <CustomerInformationModal
+      :showing="showInfoModal"
+      @xout="showInfoModal = false"
     >
       <template #header>
         <h3>Customer Information</h3>
@@ -207,33 +199,34 @@
 
       <template #body>
         <div>
-          <p>Customer ID:</p>
-          <p>First name:</p>
-          <p>Last name:</p>
-          <p>Phone Number:</p>
-          <p>Email:</p>
-          <p>Street Address:</p>
-          <p>Apartment Number:</p>
-          <p>City:</p>
-          <p>State/Province:</p>
-          <p>Zip/Postal Code:</p>
-          <p>Country:</p>
-          <p>Customer Notes:</p>
+          <p>Customer ID: {{ customerInfo[0].customerId }}</p>
+          <p>First name: {{ customerInfo[0].firstName }}</p>
+          <p>Last name: {{ customerInfo[0].lastName }}</p>
+          <p>Phone Number: {{ customerInfo[0].phone }}</p>
+          <p>Email: {{ customerInfo[0].email }}</p>
+          <p>Street Address: {{ customerInfo[0].customerId }}</p>
+          <p>Apartment Number: {{ customerInfo[0].customerId }}</p>
+          <p>City: {{ customerInfo[0].customerId }}</p>
+          <p>State/Province: {{ customerInfo[0].customerId }}</p>
+          <p>Zip/Postal Code: {{ customerInfo[0].customerId }}</p>
+          <p>Country: {{ customerInfo[0].customerId }}</p>
+          <p>Customer Notes: {{ customerInfo[0].customerNotes }}</p>
         </div>
       </template>
-    </Modal>
+    </CustomerInformationModal>
   </Teleport>
 </template>
 
 <script>
 import axios from 'axios';
 import Modal from '../components/ModalForm.vue';
+import CustomerInformationModal from '../components/CustomerInformationModal.vue';
 export default {
   name: 'App',
 
   components: {
     Modal,
-
+    CustomerInformationModal,
   },
   data() {
     return {
@@ -248,34 +241,30 @@ export default {
       orders: [],
       products: [],
       showModal: false,
+      showInfoModal: false,
+      customerInfo: [],
     };
   },
 
   mounted: async function () {
-    let customers = await axios
-      .get('http://localhost:3000/api/v1/customers/')
-      .catch((errors) => {
-        console.log(errors); // Errors
-      });
+    let customers = await axios.get('http://localhost:3000/api/v1/customers/').catch((errors) => {
+      console.log(errors); // Errors
+    });
     this.customers = customers.data;
   },
   methods: {
     // The get method called by the function
 
     async getCustomers() {
-      let customers = await axios
-        .get('http://localhost:3000/api/v1/customers/')
-        .catch((errors) => {
-          console.log(errors); // Errors
-        });
+      let customers = await axios.get('http://localhost:3000/api/v1/customers/').catch((errors) => {
+        console.log(errors); // Errors
+      });
       this.customers = customers.data;
     },
 
     async getEmail() {
       let customers = await axios
-        .get(
-          `http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`
-        )
+        .get(`http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`)
         .catch((errors) => {
           console.log(errors); // Errors
         });
@@ -297,6 +286,15 @@ export default {
           console.log(errors); // Errors
         });
       this.customers = this.getCustomers().data;
+    },
+    async getInfo(email) {
+      this.showInfoModal = true;
+      let customers = await axios
+        .get(`http://localhost:3000/api/v1/customers/search?email=${email}`)
+        .catch((errors) => {
+          console.log(errors); // Errors
+        });
+      this.customerInfo = customers.data;
     },
   },
 };

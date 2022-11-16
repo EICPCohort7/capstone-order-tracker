@@ -1,7 +1,7 @@
 <script>
 export default {
   props: {
-    show: Boolean,
+    showing: Boolean,
   },
   methods: {
     onSubmit() {
@@ -15,7 +15,7 @@ export default {
   <form @submit.prevent="onSubmit">
     <Transition name="modal">
       <div
-        v-if="show"
+        v-if="showing"
         class="modal-mask"
       >
         <div class="modal-wrapper">
@@ -24,7 +24,7 @@ export default {
               <slot name="header">default header</slot>
               <button
                 class="btn"
-                @click.prevent="$emit('close')"
+                @click.prevent="$emit('xout')"
               >
                 X
               </button>
@@ -38,10 +38,10 @@ export default {
               <slot name="btn">
                 <button
                   class="btn btn-outline-danger"
-                  type="submit"
-                  value="Submit"
+                  type="button"
+                  value="Edit"
                 >
-                  Submit
+                  Edit User
                 </button>
               </slot>
             </div>
@@ -50,39 +50,6 @@ export default {
       </div>
     </Transition>
   </form>
-
-  <template>
-    <Transition name="modal1">
-      <div
-        v-if="show"
-        class="modal-mask"
-      >
-        <div class="modal-wrapper">
-          <div class="modal-container">
-            <div class="modal-header">
-              <slot name="header">default header</slot>
-            </div>
-
-            <div class="modal-body">
-              <slot name="body">default body</slot>
-            </div>
-
-            <div class="modal-footer">
-              <slot name="footer">
-                default footer
-                <button
-                  class="modal-default-button"
-                  @click="$emit('close')"
-                >
-                  OK
-                </button>
-              </slot>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Transition>
-  </template>
 </template>
 
 <style>
