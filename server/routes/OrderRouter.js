@@ -11,7 +11,7 @@ let router = express.Router();
  * GET api/v1/orders
  * Get all of the system's orders
  * Frontend response: array of objects
-*/
+ */
 router.get('/', async (req, res) => {
   try {
     let orders = await Order.findAll();
@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
  * GET api/v1/orders/:orderId
  * Get order by order ID
  * Frontend response: object
-*/
+ */
 router.get('/:orderId([0-9]+)', async (req, res) => {
   try {
     let orderId = req.params.orderId;
@@ -42,7 +42,7 @@ router.get('/:orderId([0-9]+)', async (req, res) => {
  * POST api/v1/orders
  * Create new order
  * Frontend response: object
-*/
+ */
 router.post('/', async (req, res) => {
   try {
     let newOrder = Order.build({ ...req.body });
@@ -61,7 +61,7 @@ router.post('/', async (req, res) => {
  * PUT api/v1/orders/:orderId
  * Replace an already existing order by order ID
  * Frontend response: object
-*/
+ */
 router.put('/:orderId([0-9]+)', async (req, res) => {
   try {
     let order = await Order.findByPk(req.params.orderId);
@@ -85,7 +85,7 @@ router.put('/:orderId([0-9]+)', async (req, res) => {
  * PATCH api/orders/:orderId
  * Edit an already existing order by order ID
  * Frontend response: object
-*/
+ */
 router.patch('/:orderId([0-9]+)', async (req, res) => {
   try {
     let order = await Order.findByPk(req.params.orderId);
@@ -103,7 +103,7 @@ router.patch('/:orderId([0-9]+)', async (req, res) => {
  * DELETE api/orders/:orderId
  * Delete a draft order by orderId (shouldn't allow for deletion of live orders)
  * Frontend response: message string
-*/
+ */
 router.delete('/:orderId([0-9]+)', async (req, res) => {
   try {
     let order = await Order.findByPk(req.params.orderId);
