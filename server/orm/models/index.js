@@ -11,7 +11,10 @@ import OrderDetails from './OrderDetails.js';
 
 // Customer/Address - one to many
 Address.hasMany(Customer, { foreignKey: 'billingAddressId' });
-Customer.hasOne(Address, { foreignKey: 'addressId' });
+Customer.hasOne(Address, {
+  foreignKey: 'addressId',
+  as: 'address',
+});
 
 // Address/Order - one to many
 Address.hasMany(Order, { foreignKey: 'shippingAddressId' });
