@@ -10,7 +10,7 @@ router.post('/register', async (req, res) => {
   let password = req.body.password;
   try {
     await createUserWithEmailAndPassword(auth, email, password);
-    return res.status(200).json('Responded with 200: User registered successfully');
+    return res.status(201).json('Responded with 200: User registered successfully');
   } catch (error) {
     // Submitted credential issue.
     return res.status(401).json(`Responded with 401 - ${error.code} + ${error.message}`);
