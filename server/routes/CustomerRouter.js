@@ -38,7 +38,7 @@ router.get('/', async (req, res) => {
  */
 router.get('/all/', async (req, res) => {
   try {
-    let result = await Customer.findAll();
+    let result = await Customer.findAll({ include: Address });
     return res.status(200).json(result);
   } catch (error) {
     handleError(error);
@@ -57,7 +57,6 @@ router.get('/:customerId([0-9]+)', async (req, res) => {
 
     let customerAddress = await customer.getAddress();
 
-    console.log(customerAddress);
     _.merge(customer.dataValues, { address: customerAddress });
 
     // Use lodash library to check if returned JSON is empty
