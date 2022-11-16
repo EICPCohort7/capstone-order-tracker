@@ -115,7 +115,6 @@ router.patch('/:orderDetailsId([0-9]+)', async (req, res) => {
  */
 router.delete('/:orderDetailsId([0-9]+)', async (req, res) => {
   try {
-    const orderDetailsId = req.params.orderDetailsId;
     const orderDetails = await OrderDetails.findByPk(req.params.orderDetailsId);
     if (!orderDetails) {
       return res
@@ -135,7 +134,7 @@ router.delete('/:orderDetailsId([0-9]+)', async (req, res) => {
  * Error handler
  */
 function handleError(res, error) {
-  return res.status(500).send('Order detail endpoint error: ', error.message);
+  return res.status(500).send(`Order details endpoint error: ${error.message}`);
 }
 
 export default router;
