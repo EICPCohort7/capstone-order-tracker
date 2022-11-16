@@ -17,4 +17,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('json spaces', 2);
 
+console.log("DEMO");
+
 export default app;
