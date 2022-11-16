@@ -1,6 +1,6 @@
 const hello = () => {
-  const first = 'hello';
-  return first + ' world';
+  const first = 'hello world';
+  return first;
 };
 
 export default hello;

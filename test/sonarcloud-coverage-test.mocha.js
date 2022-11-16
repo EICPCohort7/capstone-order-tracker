@@ -4,6 +4,6 @@ import { expect } from 'chai';
 describe('Test coverage', () => {
   it('Smoke test', async () => {
     let result = hello;
-    expect(result).to.equal('hello world');
+    expect(result).to.be.a('function');
   });
 });
