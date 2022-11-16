@@ -64,12 +64,8 @@ router.get('/:customerId([0-9]+)', async (req, res) => {
     let customer = await Customer.findByPk(customerId);
 
     let customerAddress = await customer.getAddress();
-    // console.log('Customer ', customer);
-    console.log('Customer address ', customerAddress);
-    ///const customerCopy = { ...customer };
-    // console.log('Customer copy ', customerCopy);
-    customer.dataValues.address = customerAddress.dataValues;
-    //_.merge(customer.dataValues, { address: customerAddress });
+
+    _.merge(customer.dataValues, { address: customerAddress });
 
     // Use lodash library to check if returned JSON is empty
     if (!_.isEmpty(customer)) {
@@ -184,10 +180,8 @@ router.post('/', validateCustomer, async (req, res) => {
 
     // address already exists
     if (existingAddress !== null) {
-      console.log('here1');
       actualAddressId = existingAddress.dataValues.addressId;
     } else {
-      console.log('here2');
       // address doesn't already exist
       const newAddress = Address.build({ ...req.body.address }); // create new Address
       if (newAddress instanceof ValidationError) {
@@ -202,7 +196,6 @@ router.post('/', validateCustomer, async (req, res) => {
       }
       actualAddressId = newAddress.dataValues.addressId;
     }
-    console.log('Actual address id ', actualAddressId);
 
     // create the new Customer
     const newCustomer = Customer.build({
@@ -297,7 +290,6 @@ router.delete('/:customerId([0-9]+)', async (req, res) => {
  * Error handler
  */
 function handleError(res, error) {
-  console.log(error);
   return res.status(500).send(`Customer endpoint error: ${error.message}`);
 }
 
