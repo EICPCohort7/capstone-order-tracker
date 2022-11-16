@@ -35,7 +35,7 @@ router.get('/:addressId([0-9]+)', async (req, res) => {
     if (!_.isEmpty(address)) {
       return res.status(201).send(address);
     } else {
-      return res.status(400).send(`Address with the addressId of ${addressId} not found :(`); // needs to be handled by front-end somehow
+      return res.status(400).send('Address with the specified not found :('); // needs to be handled by front-end somehow
     }
   } catch (error) {
     handleError(res, error);
@@ -66,7 +66,7 @@ router.post('/', async (req, res) => {
  * Error handler
  */
 function handleError(res, error) {
-  return res.status(500).send(`Address endpoint error: ${error.message}`);
+  return res.status(500).send('Address endpoint error: ', error.message);
 }
 
 export default router;

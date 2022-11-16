@@ -31,7 +31,7 @@ router.get('/:orderStatusCode([0-9]+)', async (req, res) => {
     let orderStatus = await OrderStatus.findByPk(orderStatusCode);
     if (orderStatus) return res.json(orderStatus);
 
-    return res.status(404).send(`Order Status Code ${orderStatusCode} not found`);
+    return res.status(404).send('Order Status Code not found');
   } catch (error) {
     handleError(res, error);
   }
@@ -64,13 +64,14 @@ router.post('/', async (req, res) => {
 router.put('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
     let orderStatus = await OrderStatus.findByPk(req.params.orderStatusCode);
-    if (!orderStatus)
-      return res.status(404).send(`Order Status Code ${req.params.orderStatusCode} not found`);
+    if (!orderStatus) {
+      return res.status(404).send('Order Status Code not found');
+    }
 
     orderStatus.orderStatusDescription = req.body.orderStatusDescription || null;
 
     await orderStatus.update({ ...req.body });
-    console.log(`Order Status Code ${req.params.orderStatusCode} updated`);
+    console.log('Order Status Code updated');
     return res.json(orderStatus);
   } catch (error) {
     handleError(res, error);
@@ -85,11 +86,12 @@ router.put('/:orderStatusCode([0-9]+)', async (req, res) => {
 router.patch('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
     let orderStatus = await OrderStatus.findByPk(req.params.orderStatusCode);
-    if (!orderStatus)
-      return res.status(404).send(`Order Status Code ${req.params.orderStatusCode} not found`);
+    if (!orderStatus) {
+      return res.status(404).send('Order Status Code not found');
+    }
 
     await orderStatus.update({ ...req.body });
-    console.log(`Order Status Code ${req.params.orderStatusCode} updated`);
+    console.log('Order Status Code updated');
     return res.json(orderStatus);
   } catch (error) {
     handleError(res, error);
@@ -104,11 +106,12 @@ router.patch('/:orderStatusCode([0-9]+)', async (req, res) => {
 router.delete('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
     let orderStatus = await OrderStatus.findByPk(req.params.orderStatusCode);
-    if (!orderStatus)
-      return res.status(404).send(`Order Status Code ${req.params.orderStatusCode} not found`);
+    if (!orderStatus) {
+      return res.status(404).send('Order Status Code not found');
+    }
 
     await orderStatus.destroy();
-    console.log(`Order Status ${req.params.orderStatusCode} deleted.`);
+    console.log('Order Status deleted.');
     return res.status(204).send('');
   } catch (error) {
     handleError(res, error);
