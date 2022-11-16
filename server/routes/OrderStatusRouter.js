@@ -4,7 +4,7 @@ import { ValidationError } from 'sequelize';
 let router = express.Router();
 
 function handleError(res, error) {
-  return res.status(500).send('Order Status endpoint error:', error.message);
+  return res.status(500).send(`Order status endpoint error: ${error.message}`);
 }
 
 // Frontend response
@@ -60,8 +60,9 @@ router.post('/', async (req, res) => {
 router.put('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
     let orderStatus = await OrderStatus.findByPk(req.params.orderStatusCode);
-    if (!orderStatus)
+    if (!orderStatus) {
       return res.status(404).send(`Order Status Code ${req.params.orderStatusCode} not found`);
+    }
 
     orderStatus.orderStatusDescription = req.body.orderStatusDescription || null;
 
@@ -79,8 +80,9 @@ router.put('/:orderStatusCode([0-9]+)', async (req, res) => {
 router.patch('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
     let orderStatus = await OrderStatus.findByPk(req.params.orderStatusCode);
-    if (!orderStatus)
+    if (!orderStatus) {
       return res.status(404).send(`Order Status Code ${req.params.orderStatusCode} not found`);
+    }
 
     await orderStatus.update({ ...req.body });
     console.log(`Order Status Code ${req.params.orderStatusCode} updated`);
@@ -96,8 +98,9 @@ router.patch('/:orderStatusCode([0-9]+)', async (req, res) => {
 router.delete('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
     let orderStatus = await OrderStatus.findByPk(req.params.orderStatusCode);
-    if (!orderStatus)
+    if (!orderStatus) {
       return res.status(404).send(`Order Status Code ${req.params.orderStatusCode} not found`);
+    }
 
     await orderStatus.destroy();
     console.log(`Order Status ${req.params.orderStatusCode} deleted.`);

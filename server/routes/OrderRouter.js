@@ -4,7 +4,7 @@ import { ValidationError } from 'sequelize';
 let router = express.Router();
 
 function handleError(res, error) {
-  return res.status(500).send('Order endpoint error:', error.message);
+  return res.status(500).send(`Order endpoint error: ${error.message}`);
 }
 
 // Frontend response

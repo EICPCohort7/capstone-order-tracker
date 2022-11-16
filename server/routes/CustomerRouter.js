@@ -6,7 +6,7 @@
  */
 import express from 'express';
 import { ValidationError } from 'sequelize';
-import { Customer } from '../orm/models/index.js';
+import { Customer, Address } from '../orm/models/index.js';
 import { validationResult } from 'express-validator';
 import { validateCustomer } from './validators/CustomerValidator.js';
 
@@ -24,13 +24,9 @@ router.get('/', async (req, res) => {
   try {
     let activeCustomers = await Customer.findAll({
       where: { isActive: true },
+      include: Address,
     });
 
-    // Iterate the activeCustomers array and append relevant address object to each
-    for (let index = 0; index < activeCustomers.length; index++) {
-      let customerAddress = await activeCustomers[index].getAddress();
-      _.merge(activeCustomers[index].dataValues, { address: customerAddress });
-    }
     return res.status(200).json(activeCustomers);
   } catch (error) {
     return errorHandler(res, error);
@@ -56,6 +52,11 @@ router.get('/:customerId([0-9]+)', async (req, res) => {
   try {
     let customerId = req.params.customerId;
     let customer = await Customer.findByPk(customerId);
+
+    let customerAddress = await customer.getAddress();
+
+    console.log(customerAddress);
+    _.merge(customer.dataValues, { address: customerAddress });
 
     // Use lodash library to check if returned JSON is empty
     if (!_.isEmpty(customer)) {
