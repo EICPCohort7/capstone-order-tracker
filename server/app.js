@@ -9,6 +9,7 @@ import productRouter from './routes/ProductRouter.js';
 import orderRouter from './routes/OrderRouter.js';
 import orderDetailsRouter from './routes/OrderDetailsRouter.js';
 import orderStatusRouter from './routes/OrderStatusRouter.js';
+import credentialRouter from './routes/credential-routes/credentialRouter.js';
 import cors from 'cors';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -33,5 +34,6 @@ app.use('/api/v1/products', productRouter);
 app.use('/api/v1/orders', orderRouter);
 app.use('/api/v1/orderdetails', orderDetailsRouter);
 app.use('/api/v1/orderstatuses', orderStatusRouter);
+app.use('/api/v1/', credentialRouter);
 
 export default app;

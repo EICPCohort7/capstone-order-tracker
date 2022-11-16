@@ -28,7 +28,11 @@ router.get('/:orderDetailsId([0-9]+)', async (req, res) => {
     const orderDetailsId = req.params.orderDetailsId;
     const orderDetails = await OrderDetails.findByPk(orderDetailsId);
     if (!orderDetails) {
-      return res.status(404).send(`Failed GET request for order detail with ID ${orderDetailsId}. Must handle this on the frontend.`); // needs to be handled by front-end somehow
+      return res
+        .status(404)
+        .send(
+          `Failed GET request for order detail with ID ${orderDetailsId}. Must handle this on the frontend.`
+        ); // needs to be handled by front-end somehow
     } else {
       return res.send(orderDetails);
     }
@@ -66,7 +70,11 @@ router.put('/:orderDetailsId([0-9]+)', async (req, res) => {
     const orderDetailsId = req.params.orderDetailsId;
     const orderDetails = await OrderDetails.findByPk(orderDetailsId);
     if (!orderDetails) {
-      return res.status(404).send(`Failed PUT request for order detail with ID ${orderDetailsId}. Must handle this on the frontend.`);
+      return res
+        .status(404)
+        .send(
+          `Failed PUT request for order detail with ID ${orderDetailsId}. Must handle this on the frontend.`
+        );
     }
     orderDetails.orderId = req.body.orderId || orderDetails.orderId;
     orderDetails.productId = req.body.productId || orderDetails.productId;
@@ -90,7 +98,11 @@ router.patch('/:orderDetailsId([0-9]+)', async (req, res) => {
     const orderDetailsId = req.params.orderDetailsId;
     const orderDetails = await OrderDetails.findByPk(orderDetailsId);
     if (!orderDetails) {
-      return res.status(404).send(`Failed PATCH request for order detail with ID ${orderDetailsId}. Must handle this on the frontend.`);
+      return res
+        .status(404)
+        .send(
+          `Failed PATCH request for order detail with ID ${orderDetailsId}. Must handle this on the frontend.`
+        );
     }
     await orderDetails.update({ ...req.body });
     console.log(`Order detail ID ${orderDetailsId} successfully updated with PATCH request`);
@@ -110,7 +122,11 @@ router.delete('/:orderDetailsId([0-9]+)', async (req, res) => {
     const orderDetailsId = req.params.orderDetailsId;
     const orderDetails = await OrderDetails.findByPk(req.params.orderDetailsId);
     if (!orderDetails) {
-      return res.status(404).send(`Failed DELETE request for order detail with ID ${orderDetailsId}. Must handle this on the frontend.`);
+      return res
+        .status(404)
+        .send(
+          `Failed DELETE request for order detail with ID ${orderDetailsId}. Must handle this on the frontend.`
+        );
     }
 
     await orderDetails.destroy();
@@ -123,7 +139,7 @@ router.delete('/:orderDetailsId([0-9]+)', async (req, res) => {
 
 /**
  * Error handler
-*/
+ */
 function handleError(res, error) {
   return res.status(500).send('Order detail endpoint error: ', error.message);
 }
