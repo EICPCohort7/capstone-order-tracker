@@ -38,10 +38,10 @@ export default {
               <slot name="btn">
                 <button
                   class="btn btn-outline-danger"
-                  type="submit"
-                  value="Submit"
+                  type="button"
+                  value="Edit"
                 >
-                  Submit
+                  Edit User
                 </button>
               </slot>
             </div>
