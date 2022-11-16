@@ -104,17 +104,19 @@ router.get('/:customerId([0-9]+)/orders', async (req, res) => {
  */
 router.get('/search', async (req, res) => {
   console.log('Query string', req.query);
-  let criteria = new URLSearchParams(req.query);
-  let email = criteria.get('email');
+  const criteria = new URLSearchParams(req.query);
+  const email = criteria.get('email');
 
   try {
     if (email) {
-      let result = await Customer.findAll({
-        where: {
-          email,
-        },
+      const customer = await Customer.findAll({
+        where: { email },
+        include: Address,
       });
-      if (result.length) return res.json(result);
+
+      if (customer.length) {
+        return res.json(customer);
+      }
       return res.status(404).json();
     }
   } catch (error) {
