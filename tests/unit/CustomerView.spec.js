@@ -16,8 +16,8 @@ describe('Customer View', () => {
   it('should execute the get by email function when clicked', async () => {
     const wrapper = mount(CustomerView);
     const spyClose = jest.spyOn(CustomerView.methods, 'getEmail');
-    const button = wrapper.find('button');
-    await button.trigger('click');
+    await wrapper.find('input[id=email]').setValue('name@mail.com');
+    await wrapper.find('button').trigger('click');
     expect(spyClose).toBeCalled();
   });
 });
