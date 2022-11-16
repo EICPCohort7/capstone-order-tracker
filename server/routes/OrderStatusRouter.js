@@ -64,8 +64,9 @@ router.post('/', async (req, res) => {
 router.put('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
     let orderStatus = await OrderStatus.findByPk(req.params.orderStatusCode);
-    if (!orderStatus)
+    if (!orderStatus) {
       return res.status(404).send(`Order Status Code ${req.params.orderStatusCode} not found`);
+    }
 
     orderStatus.orderStatusDescription = req.body.orderStatusDescription || null;
 
@@ -85,8 +86,9 @@ router.put('/:orderStatusCode([0-9]+)', async (req, res) => {
 router.patch('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
     let orderStatus = await OrderStatus.findByPk(req.params.orderStatusCode);
-    if (!orderStatus)
+    if (!orderStatus) {
       return res.status(404).send(`Order Status Code ${req.params.orderStatusCode} not found`);
+    }
 
     await orderStatus.update({ ...req.body });
     console.log(`Order Status Code ${req.params.orderStatusCode} updated`);
@@ -104,8 +106,9 @@ router.patch('/:orderStatusCode([0-9]+)', async (req, res) => {
 router.delete('/:orderStatusCode([0-9]+)', async (req, res) => {
   try {
     let orderStatus = await OrderStatus.findByPk(req.params.orderStatusCode);
-    if (!orderStatus)
+    if (!orderStatus) {
       return res.status(404).send(`Order Status Code ${req.params.orderStatusCode} not found`);
+    }
 
     await orderStatus.destroy();
     console.log(`Order Status ${req.params.orderStatusCode} deleted.`);
