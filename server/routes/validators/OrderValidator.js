@@ -7,20 +7,22 @@ export const validateOrder = [
       checkNull: true,
       checkFalsy: true,
     })
+    .not().isString()
     .isInt(),
   check('orderStatusCode')
     .exists({
       checkNull: true,
       checkFalsy: true,
     })
+    .not().isString()
+    .isInt()
     .isIn([1, 2, 3, 4, 5]),
-  // check('orderPlaced')
-  //   .isLength({ max: 1 }), // isDate?
   check('orderNotes')
     .if(body('orderNotes').exists())
     .isLength({
       max: 1024,
     }),
   check('shippingAddressId')
+    .not().isString()
     .isInt(),
 ];
