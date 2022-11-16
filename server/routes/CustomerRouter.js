@@ -6,7 +6,7 @@
  */
 import express from 'express';
 import { ValidationError } from 'sequelize';
-import { Customer, Address, Order, Address } from '../orm/models/index.js';
+import { Customer, Address, Order } from '../orm/models/index.js';
 import { validationResult } from 'express-validator';
 import { validateCustomer } from './validators/CustomerValidator.js';
 
