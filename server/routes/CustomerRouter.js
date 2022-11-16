@@ -57,7 +57,7 @@ router.get('/:customerId([0-9]+)', async (req, res) => {
     if (!_.isEmpty(customer)) {
       return res.status(200).send(customer);
     } else {
-      return res.status(404).send(`Customer with the customerId of ${customerId} not found :(`); // needs to be handled by front-end somehow
+      return res.status(404).send('Customer with the passed customerId not found'); // needs to be handled by front-end somehow
     }
   } catch (error) {
     handleError(res, error);
@@ -76,7 +76,7 @@ router.get('/:customerId([0-9]+)/orders', async (req, res) => {
 
     // Check if the customer exists
     if (_.isEmpty(customer)) {
-      return res.status(404).send(`Customer with the customerId of ${customerId} not found :(`); // needs to be handled by front-end somehow
+      return res.status(404).send('Customer with the passed customerId not found'); // needs to be handled by front-end somehow
     }
 
     // Get the customer's orders
@@ -137,7 +137,7 @@ router.post('/', validateCustomer, async (req, res) => {
       },
     });
     if (result.length) {
-      return res.status(404).send(`Customer with email ${req.body.email} already exists`); // need to handle this in a better way
+      return res.status(404).send('Customer with the passed email already exists'); // need to handle this in a better way
     }
     // check if address already exists
     const street = req.body.address.street;
@@ -210,7 +210,7 @@ router.post('/', validateCustomer, async (req, res) => {
 router.put('/:customerId([0-9]+)', async (req, res) => {
   try {
     let customer = await Customer.findByPk(req.params.customerId);
-    if (!customer) return res.status(404).send(`Customer ID ${req.params.customerId} not found`);
+    if (!customer) return res.status(404).send('Passed customer ID not found');
 
     // PUT _replaces_ the record, whereas PATCH merges the record
     customer.firstName = req.body.firstName || customer.firstName;
@@ -238,7 +238,7 @@ router.put('/:customerId([0-9]+)', async (req, res) => {
 router.patch('/:customerId([0-9]+)', async (req, res) => {
   try {
     let customer = await Customer.findByPk(req.params.customerId);
-    if (!customer) return res.status(404).send(`Customer ID ${req.params.customerId} not found`);
+    if (!customer) return res.status(404).send('Passed customer ID not found');
 
     await customer.update({ ...req.body });
     console.log(`Customer id ${req.params.customerId} updated`);
@@ -258,7 +258,7 @@ router.delete('/:customerId([0-9]+)', async (req, res) => {
   try {
     let customerId = req.params.customerId;
     let customer = await Customer.findByPk(customerId);
-    if (!customer) return res.status(404).send(`Customer ID ${req.params.customerId} not found`);
+    if (!customer) return res.status(404).send('Passed customer ID not found');
     await customer.destroy();
     console.log(`Customer ${req.params.customerId} deleted.`);
     return res.status(204).send(''); // Customer deleleted, no response required
@@ -271,7 +271,7 @@ router.delete('/:customerId([0-9]+)', async (req, res) => {
  * Error handler
  */
 function handleError(res, error) {
-  return res.status(500).send(`Customer endpoint error: ${error.message}`);
+  return res.status(500).send('Customer endpoint error');
 }
 
 export default router;
