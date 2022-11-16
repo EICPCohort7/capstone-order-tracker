@@ -33,9 +33,7 @@ router.get('/:productId([0-9]+)', async (req, res) => {
     if (!product) {
       return res
         .status(404)
-        .send(
-          `Failed GET request for product with ID ${productId}. Must handle this on the frontend.`
-        ); // needs to be handled by front-end somehow
+        .send('Failed GET request for product with ID. Must handle this on the frontend.'); // needs to be handled by front-end somehow
     } else {
       return res.send(product);
     }
@@ -83,9 +81,7 @@ router.put('/:productId([0-9]+)', async (req, res) => {
     if (!product) {
       return res
         .status(404)
-        .send(
-          `Failed PUT request for product with ID ${productId}. Must handle this on the frontend.`
-        );
+        .send('Failed PUT request for product with ID. Must handle this on the frontend.');
     }
     product.productSku = req.body.productSku || product.productSku;
     product.productPrice = req.body.productPrice || product.productPrice;
@@ -94,7 +90,7 @@ router.put('/:productId([0-9]+)', async (req, res) => {
     product.productDescription = req.body.productDescription || null;
 
     await product.update({ ...req.body });
-    console.log(`Product ID ${productId} successfully updated with PUT request`);
+    console.log('Product successfully updated with PUT request');
     return res.json(product);
   } catch (error) {
     handleError(res, error);
@@ -113,12 +109,10 @@ router.patch('/:productId([0-9]+)', async (req, res) => {
     if (!product) {
       return res
         .status(404)
-        .send(
-          `Failed PATCH request for product with ID ${productId}. Must handle this on the frontend.`
-        );
+        .send('Failed PATCH request for product. Must handle this on the frontend.');
     }
     await product.update({ ...req.body });
-    console.log(`Product ID ${productId} successfully updated with PATCH request`);
+    console.log('Product ID successfully updated with PATCH request');
     return res.json(product);
   } catch (error) {
     handleError(res, error);
