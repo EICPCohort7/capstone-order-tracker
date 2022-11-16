@@ -22,7 +22,9 @@ router.get('/', async (req, res) => {
   try {
     let activeCustomers = await Customer.findAll({
       where: { isActive: true },
+      include: Address,
     });
+
     return res.status(200).json(activeCustomers);
   } catch (error) {
     return handleError(res, error);
@@ -36,7 +38,7 @@ router.get('/', async (req, res) => {
  */
 router.get('/all/', async (req, res) => {
   try {
-    let result = await Customer.findAll();
+    let result = await Customer.findAll({ include: Address });
     return res.status(200).json(result);
   } catch (error) {
     handleError(error);
@@ -52,6 +54,10 @@ router.get('/:customerId([0-9]+)', async (req, res) => {
   try {
     let customerId = req.params.customerId;
     let customer = await Customer.findByPk(customerId);
+
+    let customerAddress = await customer.getAddress();
+
+    _.merge(customer.dataValues, { address: customerAddress });
 
     // Use lodash library to check if returned JSON is empty
     if (!_.isEmpty(customer)) {

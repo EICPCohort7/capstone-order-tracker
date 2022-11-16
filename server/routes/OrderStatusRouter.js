@@ -12,6 +12,10 @@ let router = express.Router();
  * Get all of the system's order statuses
  * Frontend response: array of objects
  */
+function handleError(res, error) {
+  return res.status(500).send(`Order status endpoint error: ${error.message}`);
+}
+
 router.get('/', async (req, res) => {
   try {
     return res.json(await OrderStatus.findAll());
@@ -117,9 +121,5 @@ router.delete('/:orderStatusCode([0-9]+)', async (req, res) => {
     handleError(res, error);
   }
 });
-
-function handleError(res, error) {
-  return res.status(500).send('Order Status endpoint error:', error.message);
-}
 
 export default router;

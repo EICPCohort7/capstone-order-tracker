@@ -14,6 +14,10 @@ let router = express.Router();
  * Get all of the system's orders
  * Frontend response: array of objects
  */
+function handleError(res, error) {
+  return res.status(500).send(`Order endpoint error: ${error.message}`);
+}
+
 router.get('/', async (req, res) => {
   try {
     let orders = await Order.findAll();
@@ -124,9 +128,5 @@ router.delete('/:orderId([0-9]+)', async (req, res) => {
     handleError(res, error);
   }
 });
-
-function handleError(res, error) {
-  return res.status(500).send('Order endpoint error:', error.message);
-}
 
 export default router;
