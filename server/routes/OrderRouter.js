@@ -32,7 +32,7 @@ router.get('/:orderId([0-9]+)', async (req, res) => {
     let order = await Order.findByPk(orderId);
     if (order) return res.status(200).json(order);
 
-    return res.status(404).send(`Order ID ${orderId} not found`);
+    return res.status(404).send('Order ID not found');
   } catch (error) {
     handleError(res, error);
   }
@@ -65,7 +65,7 @@ router.post('/', async (req, res) => {
 router.put('/:orderId([0-9]+)', async (req, res) => {
   try {
     let order = await Order.findByPk(req.params.orderId);
-    if (!order) return res.status(404).send(`Order ID ${req.params.orderId} not found`);
+    if (!order) return res.status(404).send('Order ID not found');
 
     order.customerId = req.body.customerId || order.customerId;
     order.orderNotes = req.body.orderNotes || null;
@@ -74,7 +74,7 @@ router.put('/:orderId([0-9]+)', async (req, res) => {
     order.shippingAddressId = req.body.shippingAddressId || null;
 
     await order.update({ ...req.body });
-    console.log(`Order id ${req.params.orderId} updated`);
+    console.log('Order updated');
     return res.json(order);
   } catch (error) {
     handleError(res, error);
@@ -89,10 +89,10 @@ router.put('/:orderId([0-9]+)', async (req, res) => {
 router.patch('/:orderId([0-9]+)', async (req, res) => {
   try {
     let order = await Order.findByPk(req.params.orderId);
-    if (!order) return res.status(404).send(`Order ID ${req.params.orderId} not found`);
+    if (!order) return res.status(404).send('Order ID not found');
 
     await order.update({ ...req.body });
-    console.log(`Order id ${req.params.orderId} updated`);
+    console.log('Order id updated');
     return res.json(order);
   } catch (error) {
     handleError(res, error);
@@ -107,10 +107,10 @@ router.patch('/:orderId([0-9]+)', async (req, res) => {
 router.delete('/:orderId([0-9]+)', async (req, res) => {
   try {
     let order = await Order.findByPk(req.params.orderId);
-    if (!order) return res.status(404).send(`Order ID ${req.params.orderId} not found`);
+    if (!order) return res.status(404).send('Order ID not found');
 
     await order.destroy();
-    console.log(`Order ${req.params.orderId} deleted.`);
+    console.log('Order deleted.');
     return res.status(204).send('');
   } catch (error) {
     handleError(res, error);

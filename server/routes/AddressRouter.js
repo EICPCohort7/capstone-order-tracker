@@ -66,7 +66,7 @@ router.post('/', async (req, res) => {
  * Error handler
  */
 function handleError(res, error) {
-  return res.status(500).send(`Address endpoint error: ${error.message}`);
+  return res.status(500).send('Address endpoint error: ', error.message);
 }
 
 export default router;
