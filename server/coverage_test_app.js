@@ -1,2 +1,3 @@
-let hello = 'hello world';
-console.log(hello);
+const hello = 'hello world';
+
+export { hello };
