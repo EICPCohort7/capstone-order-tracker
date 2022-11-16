@@ -162,7 +162,8 @@ router.post('/', validateCustomer, async (req, res) => {
     // address already exists
     if (existingAddress !== null) {
       actualAddressId = existingAddress.dataValues.addressId;
-    } else { // address doesn't already exist
+    } else {
+      // address doesn't already exist
       const newAddress = Address.build({ ...req.body.address }); // create new Address
       if (newAddress instanceof ValidationError) {
         console.error('Validation failed:', newAddress);
@@ -268,7 +269,7 @@ router.delete('/:customerId([0-9]+)', async (req, res) => {
 
 /**
  * Error handler
-*/
+ */
 function handleError(res, error) {
   return res.status(500).send(`Customer endpoint error: ${error.message}`);
 }

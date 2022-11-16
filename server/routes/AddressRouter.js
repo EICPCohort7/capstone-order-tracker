@@ -35,7 +35,7 @@ router.get('/:addressId([0-9]+)', async (req, res) => {
     if (!_.isEmpty(address)) {
       return res.status(201).send(address);
     } else {
-      return res.status(400).send(`Address with the addressId of ${addressId} not found :(`); // needs to be handled by front-end somehow
+      return res.status(400).send('Address with the specified not found :('); // needs to be handled by front-end somehow
     }
   } catch (error) {
     handleError(res, error);
