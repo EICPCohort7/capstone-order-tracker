@@ -1,14 +1,18 @@
 /** Validator for checking customer constraints */
-import { check } from 'express-validator';
+import { body, check } from 'express-validator';
 
 export const validateCustomer = [
-  check('email').isEmail().exists({
-    checkNull: true,
-    checkFalsy: true,
-  }),
+  check('email')
+    .exists({
+      checkFalsy: true,
+    })
+    .isEmail()
+    .isLength({
+      min: 1,
+      max: 45,
+    }),
   check('firstName')
     .exists({
-      checkNull: true,
       checkFalsy: true,
     })
     .isLength({
@@ -16,29 +20,27 @@ export const validateCustomer = [
       max: 45,
     })
     .isAlpha(),
-  check('middleInitial').isLength({ max: 1 }).isAlpha(),
-  check('customerNotes').isLength({ max: 1024 }),
+  check('middleInitial')
+    .if(body('middleInitial').exists())
+    .isLength({ max: 1 })
+    .isAlpha(),
+  check('customerNotes')
+    .if(body('customerNotes').exists())
+    .isLength({
+      max: 1024,
+    }),
   check('lastName')
     .exists({
-      checkNull: true,
       checkFalsy: true,
     })
     .isLength({
+      min: 1,
       max: 45,
     })
     .isAlpha(),
-  check('phone').isMobilePhone().exists({
-    checkNull: true,
-    checkFalsy: true,
-  }),
-  check('billingAddressId')
+  check('phone')
     .exists({
-      checkNull: true,
       checkFalsy: true,
     })
-    .isInt(),
-  check('isActive').exists({
-    checkNull: true,
-    checkFalsy: true,
-  }),
+    .isMobilePhone(),
 ];

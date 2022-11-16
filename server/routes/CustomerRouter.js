@@ -279,7 +279,7 @@ router.delete('/:customerId([0-9]+)', async (req, res) => {
  * Error handler
  */
 function handleError(res, error) {
-  return res.status(500).send('Customer endpoint error', error.message);
+  return res.status(500).send(`Customer endpoint error: ${error.message}`);
 }
 
 export default router;
