@@ -15,7 +15,7 @@
     "format:prettier": "prettier --config .prettierrc.json \"**/*.{js, ts, css, less, scss}\" --write",
     "format:html": "js-beautify --config .jsbeautifyrc.json --type \"html\" --file \"**/*.html\" --replace",
     "prepare": "husky install",
-    "coverage:mocha": "nyc --all --reporter=lcov --reporter=text mocha"
+    "coverage:mocha": "nyc --reporter=lcov --reporter=text mocha"
   },
   "keywords": [],
   "author": "",

@@ -1,4 +1,4 @@
-import { hello } from '../server/coverage_test_app.js';
+import hello from '../server/coverage_test_app.js';
 import { expect } from 'chai';
 
 describe('Test coverage', () => {

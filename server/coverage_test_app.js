@@ -1,3 +1,6 @@
-const hello = 'hello world';
+const hello = () => {
+  const first = 'hello';
+  return first + ' world';
+};
 
-export { hello };
+export default hello;
