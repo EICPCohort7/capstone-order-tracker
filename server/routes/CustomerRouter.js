@@ -7,7 +7,7 @@
 import express from 'express';
 import { ValidationError } from 'sequelize';
 import { Customer, Address, Order } from '../orm/models/index.js';
-import { validationResult } from 'express-validator';
+import { body, validationResult } from 'express-validator';
 import { validateCustomer } from './validators/CustomerValidator.js';
 
 import _ from 'lodash';
@@ -264,6 +264,11 @@ router.patch('/:customerId([0-9]+)', async (req, res) => {
   try {
     let customer = await Customer.findByPk(req.params.customerId);
     if (!customer) return res.status(404).send('Passed customer ID not found');
+
+    if (req.body.address) {
+      let customerAddress = await customer.getAddress();
+      await customerAddress.update({ ...req.body.address });
+    }
 
     await customer.update({ ...req.body });
     console.log(`Customer id ${req.params.customerId} updated`);
