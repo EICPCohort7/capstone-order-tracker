@@ -94,8 +94,8 @@
             required
           >
           <input
-            id="streetAdd"
-            v-model="streetAdd"
+            id="street"
+            v-model="street"
             type="text"
             class="form-control"
             placeholder="Street Address"
@@ -118,7 +118,7 @@
           >
           <input
             id="state"
-            v-model="stateProv"
+            v-model="state"
             type="text"
             class="form-control"
             placeholder="State/Province"
@@ -132,7 +132,7 @@
             required
           >
           <input
-            id="country"
+            id="address.country"
             v-model="country"
             type="text"
             class="form-control"
@@ -168,7 +168,7 @@
           :key="customer.id"
           class="clickable-row"
           data-href=""
-          @click="getInfo(customer.email)"
+          @click="getInfo(customer.email, customer.customerId)"
         >
           <td scope="row">{{ customer.customerId }}</td>
           <td>{{ customer.firstName }}</td>
@@ -306,6 +306,30 @@
             >
           </p>
           <p>
+            Order History:
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Order ID</th>
+                  <th scope="col">Date Placed</th>
+                  <th scope="col">Order Status</th>
+                  <th scope="col">Order Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="order in customerOrders"
+                  :key="order.id"
+                >
+                  <td scope="row">{{ order.orderId }}</td>
+                  <td>{{ order.orderPlaced }}</td>
+                  <td>{{ order.orderStatusCode }}</td>
+                  <td>{{ order.orderNotes }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </p>
+          <p>
             Customer Notes: <input
               id="editedNotes"
               v-model="editedNotes"
@@ -336,7 +360,6 @@ import CustomerInformationModal from '../components/CustomerInformationModal.vue
 
 export default {
   name: 'App',
-
   components: {
     Modal,
     CustomerInformationModal,
@@ -356,6 +379,7 @@ export default {
       showModal: false,
       showInfoModal: false,
       customerInfo: [],
+      customerOrders: [],
       editedFirst: '',
       editedInitial: '',
       editedLast: '',
@@ -413,13 +437,14 @@ export default {
         });
       this.customers = this.getCustomers().data;
     },
-    async getInfo(email) {
+    async getInfo(email, id) {
       this.showInfoModal = true;
       let customers = await axios
         .get(`http://localhost:3000/api/v1/customers/search?email=${email}`)
         .catch((errors) => {
           console.log(errors); // Errors
         });
+      this.getCustomerOrders(id);
       this.customerInfo = customers.data;
       this.editedFirst = this.customerInfo[0].firstName;
       this.editedInitial = this.customerInfo[0].middleInitial;
@@ -458,6 +483,42 @@ export default {
           console.log(errors); // Errors
         });
       this.customers = this.getCustomers().data;
+      this.getCustomerOrders(id);
+    },
+    async getCustomerOrders(id) {
+      let orders = await axios
+        .get(`http://localhost:3000/api/v1/customers/${id}/orders`)
+        .catch((errors) => {
+          console.log(errors); // Errors
+        });
+      this.customerOrders = orders.data;
+      this.formatAllCustomerOrders(orders.data);
+    },
+    async formatACustomerOrder(ogOrder) {
+      let statusDescriptionResponse = await axios
+        .get(`http://localhost:3000/api/v1/orderstatuses/${ogOrder.orderStatusCode}`)
+        .catch((errors) => {
+          console.log(errors); // Errors
+        });
+      let orderStatus = statusDescriptionResponse.data.orderStatusDescription;
+      let newOrder = {
+        orderId: ogOrder.orderId,
+        customerId: ogOrder.customerId,
+        orderNotes: ogOrder.orderNotes,
+        orderPlaced: ogOrder.orderPlaced,
+        orderStatusCode: orderStatus,
+        shippingAddressId: ogOrder.shippingAddressId,
+      };
+      console.log(newOrder);
+      return newOrder;
+    },
+    formatAllCustomerOrders(ogOrders) {
+      let formattedOrders = [];
+      for (const order of ogOrders) {
+        let formattedOrder = this.formatACustomerOrder(order);
+        formattedOrders.push(formattedOrder);
+      }
+      console.log(formattedOrders);
     },
   },
 };
