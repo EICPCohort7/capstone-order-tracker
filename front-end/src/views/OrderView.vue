@@ -90,7 +90,7 @@ export default {
       let orders = await axios.get(`http://localhost:3000/api/v1/orders/${this.orderId}`)
         .catch((errors) => {
           console.log(errors); // Errors
-          alert(`Looks like there aren't any orders that match "${this.orderid}". Try again!`);
+          alert(`Looks like there aren't any orders that match "${this.orderId}". Try again!`);
         });
       this.orders = [orders.data];
     },

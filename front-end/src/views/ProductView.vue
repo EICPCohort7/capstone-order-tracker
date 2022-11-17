@@ -93,6 +93,7 @@ export default {
       let products = await axios.get(`http://localhost:3000/api/v1/products/${this.productId}`)
         .catch((errors) => {
           console.log(errors); // Errors
+          alert(`Looks like there aren't any products that match "${this.productId}". Try again!`);
         });
       this.products = [products.data];
     },
