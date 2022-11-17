@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { INTEGER } from 'sequelize';
-
+// order constructor
 let order = {
   orderId: INTEGER,
   customerId: INTEGER,
@@ -9,7 +9,11 @@ let order = {
   orderNotes: String,
   shippingAddyId: INTEGER,
 };
-
+/**
+ *
+ * @param {the count of orders} i
+ * @returns order
+ */
 function generateOrderData(i) {
   let orderTime = faker.date
     .between('2022-01-01T00:00:00.000Z', '2022-11-16T00:00:00.000Z')
@@ -36,7 +40,7 @@ function generateOrderData(i) {
   };
   return order;
 }
-
+// id starting place
 let idStart = 31;
 function printOrders(number) {
   for (let i = idStart; i <= number + idStart; i++) {

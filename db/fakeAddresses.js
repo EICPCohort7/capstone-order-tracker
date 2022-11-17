@@ -11,7 +11,11 @@ let address = {
   zip: String,
   country: String,
 };
-
+/**
+ *
+ * @param {the count AddressIds} i
+ * @returns address
+ */
 function generateAddressData(i) {
   address = {
     addressId: i,
@@ -20,12 +24,11 @@ function generateAddressData(i) {
     city: faker.address.city(),
     state: faker.address.stateAbbr(),
     zip: faker.address.zipCode().substring(0, 5),
-    // country: faker.helpers.arrayElement(['United States', 'United Kingdom', 'Canada']),
     country: faker.helpers.arrayElement(['US', 'UK', 'CAN']),
   };
   return address;
 }
-
+// id starting place
 let idStart = 11;
 function printAddresses(number) {
   for (let i = idStart; i <= number + idStart; i++) {

@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { INTEGER } from 'sequelize';
 
-// order Details constructor
+// order details constructor
 let orderDetails = {
   orderdetailsId: INTEGER,
   orderId: INTEGER,
@@ -9,6 +9,11 @@ let orderDetails = {
   productQuant: INTEGER,
 };
 
+/**
+ *
+ * @param {the count of orderDetails} i
+ * @returns orderDetails
+ */
 function generateOrderDetailsData(i) {
   orderDetails = {
     orderdetailsId: i,
@@ -18,7 +23,7 @@ function generateOrderDetailsData(i) {
   };
   return orderDetails;
 }
-
+// id starting place
 let idStart = 30;
 function printAddresses(number) {
   for (let i = idStart; i <= number + idStart; i++) {

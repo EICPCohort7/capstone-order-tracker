@@ -16,7 +16,7 @@ let customer = {
 
 /**
  *
- * @param {number of iteration bc db is AI customerIds} i
+ * @param {the count of customerIds} i
  * @returns customer with the fake data
  */
 function generateCustomerData(i) {
@@ -37,9 +37,6 @@ function generateCustomerData(i) {
       null,
     ]),
     billingAddyId: i,
-    // isActive: 1,
-    // faker.helpers.arrayElement(['free', 'basic', 'business'])
-    // faker.helpers.maybe<True>(callback: () => True, False {probability = .9}),
   };
   return customer;
 }

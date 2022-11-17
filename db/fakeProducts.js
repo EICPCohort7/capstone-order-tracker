@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { FLOAT, INTEGER } from 'sequelize';
 
+// product constructor
 let product = {
   productId: INTEGER,
   sku: INTEGER,
@@ -9,7 +10,11 @@ let product = {
   inventory: INTEGER,
   description: String,
 };
-
+/**
+ *
+ * @param {count of products} i
+ * @returns products
+ */
 function generateProductData(i) {
   // let item = faker.commerce
   let sku = `${faker.commerce.productName().substring(0, 3)}-${faker.color
@@ -25,7 +30,7 @@ function generateProductData(i) {
   };
   return product;
 }
-
+// id starting place
 let idStart = 31;
 function printProducts(number) {
   for (let i = idStart; i <= number + idStart; i++) {
