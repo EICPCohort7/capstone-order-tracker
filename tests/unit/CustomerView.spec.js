@@ -93,20 +93,17 @@ describe('Customer View', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should summon the customer information modal when you click on a record', async () => {
+  it('should summon the customer info when row is clicked', async () => {
+    const spy = jest.spyOn(CustomerView.methods, 'getInfo');
     const wrapper = mount(CustomerView);
-    // const modalForm = wrapper.findComponent(CustomerInformationModal);
-    wrapper.setData({ showInfoModal: false });
-    await wrapper.vm.$nextTick();
-
-    let button = wrapper.get('th');
+    wrapper.setData({
+      showModal: true,
+    });
+    await flushPromises();
+    let button = wrapper.find('td');
     await button.trigger('click');
-
-    // wrapper.find('.table__body__row').at(0).props().onMouseEnter();
-    // wrapper.update();
-    // wrapper.find('.row-actions-menu__trigger').simulate('click');
-
-    expect(wrapper.vm.showInfoModal).toBeTruthy();
+    await wrapper.vm.$nextTick();
+    expect(spy).toHaveBeenCalled();
   });
 
   // it('should send a full object representing a new customer to be posted', async () => {

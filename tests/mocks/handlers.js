@@ -8,6 +8,15 @@ let customers = [
     lastName: 'Customer',
     phone: '123-456-7890',
     email: 'fake@fakity.com',
+    address: {
+      street: 'street',
+      aptNum: 1,
+      city: 'city',
+      state: 'state',
+      zip: 'A1A 1A1',
+      country: 'Canada',
+    },
+    customerNotes: 'notes',
   },
   {
     customerId: 2,
@@ -16,6 +25,15 @@ let customers = [
     lastName: 'Customer',
     phone: '0987654321',
     email: 'not@really.com',
+    address: {
+      street: 'street',
+      aptNum: 1,
+      city: 'city',
+      state: 'state',
+      zip: 'A1A 1A1',
+      country: 'Canada',
+    },
+    customerNotes: 'notes',
   },
 ];
 export const handlers = [

@@ -34,7 +34,11 @@
       </div>
     </form>
     <!--Modal-->
-    <button id="show-modal" class="btn btn-outline-danger" @click="showModal = true">
+    <button
+      id="show-modal"
+      class="btn btn-outline-danger"
+      @click="showModal = true"
+    >
       New Customer
     </button>
 
@@ -57,20 +61,23 @@
             type="text"
             class="form-control"
             placeholder="First Name (i.e. Jane)"
-            required />
+            required
+          >
           <input
             id="middleInitial"
             v-model="middleInitial"
             type="text"
             class="form-control"
-            placeholder="Middle Initial (i.e. M)" />
+            placeholder="Middle Initial (i.e. M)"
+          >
           <input
             id="lastName"
             v-model="lastName"
             type="text"
             class="form-control"
             placeholder="Last Name"
-            required />
+            required
+          >
           <input
             id="phone"
             v-model="phone"
@@ -78,66 +85,78 @@
             class="form-control"
             placeholder="Phone Number (i.e. 1234567890)"
             required
-            pattern="[0-9]{10}" />
+            pattern="[0-9]{10}"
+          >
           <input
             id="email"
             v-model="email"
             type="email"
             class="form-control"
             placeholder="Email"
-            required />
+            required
+          >
           <input
             id="street"
             v-model="street"
             type="text"
             class="form-control"
             placeholder="Street Address"
-            required />
+            required
+          >
           <input
             id="aptNum"
             v-model="aptNum"
             type="text"
             class="form-control"
-            placeholder="Apartment Number" />
+            placeholder="Apartment Number"
+          >
           <input
             id="city"
             v-model="city"
             type="text"
             class="form-control"
             placeholder="City"
-            required />
+            required
+          >
           <input
             id="state"
             v-model="state"
             type="text"
             class="form-control"
-            placeholder="State/Province" />
+            placeholder="State/Province"
+          >
           <input
             id="zip"
             v-model="zip"
             type="text"
             class="form-control"
             placeholder="Zip/Postal Code"
-            required />
+            required
+          >
           <input
             id="address.country"
             v-model="country"
             type="text"
             class="form-control"
             placeholder="Country"
-            required />
+            required
+          >
           <input
             id="notes"
             v-model="customerNotes"
             type="text"
             class="form-control"
-            placeholder="Customer Notes" />
+            placeholder="Customer Notes"
+          >
         </template>
       </modal>
     </Teleport>
 
     <!--Data Table-->
-    <table id="customer-table" class="table table-striped">
+    <table
+      id="customer-table"
+      class="table table-striped"
+    >
       <thead>
         <tr>
           <th scope="col">Customer ID</th>
@@ -154,7 +173,8 @@
           :key="customer.id"
           class="clickable-row"
           data-href=""
-          @click="getInfo(customer.email)">
+          @click="getInfo(customer.email)"
+        >
           <td scope="row">{{ customer.customerId }}</td>
           <td>{{ customer.firstName }}</td>
           <td>{{ customer.middleInitial }}</td>
@@ -171,7 +191,10 @@
   <Teleport to="body">
     <!-- use the modal component, pass in the prop -->
 
-    <CustomerInformationModal :showing="showInfoModal" @xout="showInfoModal = false">
+    <CustomerInformationModal
+      :showing="showInfoModal"
+      @xout="showInfoModal = false"
+    >
       <template #header>
         <h3>Customer Information</h3>
       </template>
