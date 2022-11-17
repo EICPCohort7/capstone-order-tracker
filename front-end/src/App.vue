@@ -1,9 +1,21 @@
 <template>
-  <nav class="navbar navbar-light" style="background-color: #9b0c23">
-    <div v-if="$store.state.user" id="nav">
+  <nav
+    class="navbar navbar-light"
+    style="background-color: #9b0c23"
+  >
+    <div
+      v-if="$store.state.user"
+      id="nav"
+    >
       <!-- Navbar content -->
-      <a class="navbar-brand" href="#">
-        <img src="../src/assets/tjx-white.png" alt="" />
+      <a
+        class="navbar-brand"
+        href="#"
+      >
+        <img
+          src="../src/assets/tjx-white.png"
+          alt=""
+        >
       </a>
 
       <router-link to="/">Home</router-link>
@@ -13,7 +25,13 @@
       <router-link to="/order">Orders</router-link>
       |
       <router-link to="/product">Products</router-link>
-      <button class="btn btn-dark" @click="$store.dispatch('logout')" id="logout-button">Logout</button>
+      <button
+        id="logout-button"
+        class="btn btn-dark"
+        @click="$store.dispatch('logout')"
+      >
+        Logout
+      </button>
     </div>
   </nav>
 
