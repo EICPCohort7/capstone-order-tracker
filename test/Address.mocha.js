@@ -17,7 +17,7 @@ describe('Address Model', () => {
     expect(testAddress.city).to.equal('Toronto');
     expect(testAddress.state).to.equal('ON');
     expect(testAddress.zip).to.equal('K1K Z4Z');
-    expect(testAddress.country).to.equal('Canada');
+    expect(testAddress.country).to.equal('CAN');
   });
 
   it('should query an Address not in the database', async () => {

@@ -119,6 +119,9 @@ router.patch('/:productId([0-9]+)', async (req, res) => {
   }
 });
 
+/**
+ * Error handler
+ */
 function handleError(res, error) {
   return res.status(500).send(`Product endpoint error: ${error.message}`);
 }

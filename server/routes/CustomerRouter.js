@@ -7,7 +7,7 @@
 import express from 'express';
 import { ValidationError } from 'sequelize';
 import { Customer, Address, Order } from '../orm/models/index.js';
-import { body, validationResult } from 'express-validator';
+import { validationResult } from 'express-validator';
 import { validateCustomer } from './validators/CustomerValidator.js';
 
 import _ from 'lodash';
@@ -143,9 +143,20 @@ router.get('/search', async (req, res) => {
 
 /**
  * POST api/v1/customers/
- * Create new customer - also creates a new address if the new customer doesn't have an address
- * that already exists
+ * Create new customer
+ *    - Additionally creates a new address if the customer's address doesn't exist. In this sense,
+ *      this POST combines the functionality of POST for both customer and address.
  * Frontend response: object
+ * The request from the frontend must include both the address and customer data as seen below.
+ * The address data is stored in an object called "address".
+ *      {
+ *        "firstName": "Mike",
+ *        ...
+ *        "address": {
+ *            "street": "123 Main St",
+ *            ...
+ *        }
+ *      }
  */
 router.post('/', validateCustomer, async (req, res) => {
   const errors = validationResult(req);
@@ -257,8 +268,25 @@ router.put('/:customerId([0-9]+)', async (req, res) => {
 
 /**
  * PATCH api/v1/customers/:customerId
- * Edit an already existing customer by customerId
+ * Edit an already existing customer by customerId.
+ *    - Additionally provides the ability to edit the customer's address. In this sense,
+ *      this PATCH combines the functionality of PATCH for both customer and address.
  * Frontend response: object
+ * The request from the frontend can optionally include address information as seen below
+ * Only edit customer
+ *    {
+ *        "firstName": "Mike",
+ *        ...
+ *    }
+ * Edit both customer and address
+ *    {
+ *        "firstName": "Mike",
+ *        ...
+ *        "address": {
+ *            "street": "123 Main St",
+ *            ...
+ *        }
+ *    }
  */
 router.patch('/:customerId([0-9]+)', async (req, res) => {
   try {

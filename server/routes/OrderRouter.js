@@ -9,13 +9,6 @@ import { validationResult } from 'express-validator';
 import { validateOrder } from './validators/OrderValidator.js';
 let router = express.Router();
 
-/**
- * Error handler
- */
-function handleError(res, error) {
-  return res.status(500).send(`Order endpoint error: ${error.message}`);
-}
-
 /*
  * GET api/v1/orders
  * Get all of the system's orders
@@ -131,5 +124,12 @@ router.delete('/:orderId([0-9]+)', async (req, res) => {
     handleError(res, error);
   }
 });
+
+/**
+ * Error handler
+ */
+function handleError(res, error) {
+  return res.status(500).send(`Order endpoint error: ${error.message}`);
+}
 
 export default router;
