@@ -52,7 +52,7 @@
       <modal
         :show="showModal"
         @close="showModal = false"
-        @form-submit="createCustomer"
+        @form-submit="createCustomer()"
       >
         <template #header>
           <h3>Create a new Customer</h3>
@@ -176,7 +176,7 @@
           data-href=""
           @click="getInfo(customer.email)"
         >
-          <td scope="row">{{ customer.customerId }}</td>
+          <td scope="row"> {{ customer.customerId }}</td>
           <td>{{ customer.firstName }}</td>
           <td>{{ customer.middleInitial }}</td>
           <td>{{ customer.lastName }}</td>
