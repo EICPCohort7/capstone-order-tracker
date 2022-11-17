@@ -1,7 +1,6 @@
 <template>
   <img
     id="logo"
-    alt="Vue logo"
     src="../assets/tjx-logo.png"
   >
 
@@ -77,11 +76,10 @@ export default {
 </script>
 
 <style>
- /* img{
-  width: 500px;
-  margin-top: 100px;
-
-} */
+#logo {
+padding:20px;
+width: 300px;
+}
 .forms {
   display: flex;
   min-height: 100vh;
@@ -90,11 +88,6 @@ form {
   flex: 1 1 0%;
   padding: 8rem 1rem 1rem;
 }
-/*  form.register {
-  color: #fff;
-  background-color: rgb(245, 66, 101);
-  background-image: linear-gradient(to bottom right, rgb(245, 66, 101) 0%, rgb(189, 28, 60) 100%);
-} */
 h2 {
   font-size: 2rem;
   text-transform: uppercase;

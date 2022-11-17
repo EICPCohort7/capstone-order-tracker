@@ -2,7 +2,7 @@
   <div class="customer">
     <!-- <img class="img" src="../assets/tjx-logo.png" alt="TJX logo" /> -->
 
-    <h1>Customer Information</h1>
+    <h1 id="title">Customer Information</h1>
   </div>
   <div class="form-group">
     <form id="searching">
@@ -19,7 +19,7 @@
       </div>
     </form>
     <!--Modal-->
-    <button id="show-modal" class="btn btn-outline-danger" @click="showModal = true">
+    <button id="create-customer" class="btn btn-outline-danger" @click="showModal = true">
       New Customer
     </button>
 
@@ -118,7 +118,7 @@
     </Teleport>
 
     <!--Data Table-->
-    <table class="table table-striped">
+    <table id="customer-table" class="table table-striped">
       <thead>
         <tr>
           <th scope="col">Customer ID</th>
@@ -260,5 +260,19 @@ export default {
 </script>
 
 <style>
+#create-customer {
+float:right;
+margin-right: 100px;
+}
+#title{
+  font-size: 5rem;
+  font-weight: bolder;
+  margin-top: 100px;
+  color: #9b0c23;
+}
+#customer-table{
+  border: 2px solid;
+  border-radius: 10px;
 
+}
 </style>

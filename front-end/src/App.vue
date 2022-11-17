@@ -13,7 +13,7 @@
       <router-link to="/order">Orders</router-link>
       |
       <router-link to="/product">Products</router-link>
-      <button class="btn btn-dark" @click="$store.dispatch('logout')">Logout</button>
+      <button class="btn btn-dark" @click="$store.dispatch('logout')" id="logout-button">Logout</button>
     </div>
   </nav>
 
@@ -63,7 +63,16 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+#logout-button {
+  float: right;
+  margin-top: 15px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  margin-left: 1525px;
+  font-size: larger;
+  font-weight: bolder;
 
+}
 nav {
   padding: 30px;
   height: 90px;
@@ -82,13 +91,6 @@ img {
   width: 120px;
 }
 
-button {
-  float: right;
-  margin-top: 10px;
-  margin-right: 20px;
-  margin-bottom: 20px;
-  margin-left: 1550px;
-}
 form {
   width: 300px;
   height: 150px;
