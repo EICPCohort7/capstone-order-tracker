@@ -21,7 +21,7 @@ describe('Customer model', () => {
     expect(testCustomer.firstName).to.equal('Steven');
     expect(testCustomer.middleInitial).to.equal('A');
     expect(testCustomer.lastName).to.equal('Park');
-    expect(testCustomer.phone).to.equal('(558) 402-1342');
+    expect(testCustomer.phone).to.equal('5584021342');
     expect(testCustomer.email).to.equal('stevepark@gmail.com');
     expect(testCustomer.customerNotes).to.equal('customer has file complaint before');
     expect(testCustomer.billingAddressId).to.equal(1);
@@ -38,10 +38,19 @@ describe('Customer model', () => {
     expect(testCustomer.email).to.equal('jamesy@hotmail.com');
 
     let ordersRecord = await testCustomer.getOrders({ logging: false });
-    expect(ordersRecord.length).to.equal(1);
+    expect(ordersRecord.length).to.equal(4);
 
     let firstOrder = ordersRecord[0];
     expect(firstOrder.orderId).to.equal(3);
+
+    let secondOrder = ordersRecord[1];
+    expect(secondOrder.orderId).to.equal(8);
+
+    let thirdOrder = ordersRecord[2];
+    expect(thirdOrder.orderId).to.equal(18);
+
+    let fourthOrder = ordersRecord[3];
+    expect(fourthOrder.orderId).to.equal(28);
   });
 
   // From models/index.js - Customer.hasOne(Address, { foreignKey: 'addressId' });

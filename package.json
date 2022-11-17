@@ -29,6 +29,7 @@
     "dotenv": "^16.0.3",
     "express": "~4.16.1",
     "express-validator": "^6.14.2",
+    "firebase": "^9.14.0",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "morgan": "~1.9.1",
