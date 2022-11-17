@@ -173,7 +173,7 @@
           :key="customer.id"
           class="clickable-row"
           data-href=""
-          @click="getInfo(customer.email)"
+          @click="getInfo(customer.email, customer.customerId)"
         >
           <td scope="row">{{ customer.customerId }}</td>
           <td>{{ customer.firstName }}</td>
@@ -194,6 +194,7 @@
     <CustomerInformationModal
       :showing="showInfoModal"
       @xout="showInfoModal = false"
+      @form-submit="updateCustomer(customerInfo[0].customerId)"
     >
       <template #header>
         <h3>Customer Information</h3>
@@ -368,6 +369,7 @@ export default {
     Modal,
     CustomerInformationModal,
   },
+  emits: ['flag'],
   data() {
     return {
       customers: [],
@@ -515,7 +517,6 @@ export default {
         orderStatusCode: orderStatus,
         shippingAddressId: ogOrder.shippingAddressId,
       };
-      console.log(newOrder);
       return newOrder;
     },
     formatAllCustomerOrders(ogOrders) {
@@ -524,7 +525,6 @@ export default {
         let formattedOrder = this.formatACustomerOrder(order);
         formattedOrders.push(formattedOrder);
       }
-      console.log(formattedOrders);
     },
   },
 };
@@ -532,18 +532,17 @@ export default {
 
 <style>
 #create-customer {
-float:right;
-margin-right: 100px;
+  float: right;
+  margin-right: 100px;
 }
-#title{
+#title {
   font-size: 5rem;
   font-weight: bolder;
   margin-top: 100px;
   color: #9b0c23;
 }
-#customer-table{
+#customer-table {
   border: 2px solid;
   border-radius: 10px;
-
 }
 </style>
