@@ -22,7 +22,12 @@ router.get('/', async (req, res) => {
   try {
     let activeCustomers = await Customer.findAll({
       where: { isActive: true },
+      include: [{
+        model: Address,
+        as: 'address',
+      }],
     });
+
     return res.status(200).json(activeCustomers);
   } catch (error) {
     return handleError(res, error);
@@ -36,7 +41,12 @@ router.get('/', async (req, res) => {
  */
 router.get('/all/', async (req, res) => {
   try {
-    let result = await Customer.findAll();
+    let result = await Customer.findAll({
+      include: [{
+        model: Address,
+        as: 'address',
+      }],
+    });
     return res.status(200).json(result);
   } catch (error) {
     handleError(error);
@@ -52,6 +62,10 @@ router.get('/:customerId([0-9]+)', async (req, res) => {
   try {
     let customerId = req.params.customerId;
     let customer = await Customer.findByPk(customerId);
+
+    let customerAddress = await customer.getAddress();
+
+    _.merge(customer.dataValues, { address: customerAddress });
 
     // Use lodash library to check if returned JSON is empty
     if (!_.isEmpty(customer)) {
@@ -98,17 +112,22 @@ router.get('/:customerId([0-9]+)/orders', async (req, res) => {
  */
 router.get('/search', async (req, res) => {
   console.log('Query string', req.query);
-  let criteria = new URLSearchParams(req.query);
-  let email = criteria.get('email');
+  const criteria = new URLSearchParams(req.query);
+  const email = criteria.get('email');
 
   try {
     if (email) {
-      let result = await Customer.findAll({
-        where: {
-          email,
-        },
+      const customer = await Customer.findAll({
+        where: { email },
+        include: [{
+          model: Address,
+          as: 'address',
+        }],
       });
-      if (result.length) return res.json(result);
+
+      if (customer.length) {
+        return res.json(customer);
+      }
       return res.status(404).json();
     }
   } catch (error) {
@@ -271,7 +290,7 @@ router.delete('/:customerId([0-9]+)', async (req, res) => {
  * Error handler
  */
 function handleError(res, error) {
-  return res.status(500).send('Customer endpoint error', error.message);
+  return res.status(500).send(`Customer endpoint error: ${error.message}`);
 }
 
 export default router;

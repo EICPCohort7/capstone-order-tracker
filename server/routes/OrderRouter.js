@@ -5,7 +5,16 @@
 import express from 'express';
 import { Order } from '../orm/models/index.js';
 import { ValidationError } from 'sequelize';
+import { validationResult } from 'express-validator';
+import { validateOrder } from './validators/OrderValidator.js';
 let router = express.Router();
+
+/**
+ * Error handler
+*/
+function handleError(res, error) {
+  return res.status(500).send(`Order endpoint error: ${error.message}`);
+}
 
 /*
  * GET api/v1/orders
@@ -43,7 +52,13 @@ router.get('/:orderId([0-9]+)', async (req, res) => {
  * Create new order
  * Frontend response: object
  */
-router.post('/', async (req, res) => {
+router.post('/', validateOrder, async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     let newOrder = Order.build({ ...req.body });
     let result = await newOrder.save();
@@ -116,9 +131,5 @@ router.delete('/:orderId([0-9]+)', async (req, res) => {
     handleError(res, error);
   }
 });
-
-function handleError(res, error) {
-  return res.status(500).send('Order endpoint error:', error.message);
-}
 
 export default router;

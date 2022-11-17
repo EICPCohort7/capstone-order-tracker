@@ -15,9 +15,13 @@ import cors from 'cors';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+const corsOptions = {
+  origin: [/localhost/, /tjx/, /azurewebsites/],
+};
+
 let app = express();
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(logger('dev'));
 app.use(express.json());
