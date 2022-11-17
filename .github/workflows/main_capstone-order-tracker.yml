@@ -9,6 +9,13 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  DB_USER: dbadmin
+  DB_HOST: capstone-order-tracker-db.mysql.database.azure.com
+  DB_PORT: 3306
+  DB_SCHEMA: capstone_ots
+  DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,7 +32,7 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-        # npm run test:mocha
+          npm run test:mocha
 
       - name: Zip Artifact
         run: |
