@@ -22,10 +22,12 @@ router.get('/', async (req, res) => {
   try {
     let activeCustomers = await Customer.findAll({
       where: { isActive: true },
-      include: [{
-        model: Address,
-        as: 'address',
-      }],
+      include: [
+        {
+          model: Address,
+          as: 'address',
+        },
+      ],
     });
 
     return res.status(200).json(activeCustomers);
@@ -42,10 +44,12 @@ router.get('/', async (req, res) => {
 router.get('/all/', async (req, res) => {
   try {
     let result = await Customer.findAll({
-      include: [{
-        model: Address,
-        as: 'address',
-      }],
+      include: [
+        {
+          model: Address,
+          as: 'address',
+        },
+      ],
     });
     return res.status(200).json(result);
   } catch (error) {
@@ -119,10 +123,12 @@ router.get('/search', async (req, res) => {
     if (email) {
       const customer = await Customer.findAll({
         where: { email },
-        include: [{
-          model: Address,
-          as: 'address',
-        }],
+        include: [
+          {
+            model: Address,
+            as: 'address',
+          },
+        ],
       });
 
       if (customer.length) {

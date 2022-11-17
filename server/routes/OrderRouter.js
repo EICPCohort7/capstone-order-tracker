@@ -11,7 +11,7 @@ let router = express.Router();
 
 /**
  * Error handler
-*/
+ */
 function handleError(res, error) {
   return res.status(500).send(`Order endpoint error: ${error.message}`);
 }

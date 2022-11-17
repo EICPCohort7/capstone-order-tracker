@@ -5,6 +5,10 @@ import express from 'express';
 let router = express.Router();
 // const auth = getAuth();
 
+/**
+ * Route for getting customer credentials from the HTTP request body
+ * Validate and register with Firebase cloud
+ */
 router.post('/register', async (req, res) => {
   let email = req.body.username;
   let password = req.body.password;
@@ -17,6 +21,10 @@ router.post('/register', async (req, res) => {
   }
 });
 
+/**
+ * Route for getting customer credentials from the HTTP request body
+ * Validate and login / reject based on Firebase cloud response
+ */
 router.post('/login', async (req, res) => {
   let email = req.body.username;
   let password = req.body.password;
