@@ -5,11 +5,11 @@ insert into capstone_ots.addresses (address_id, street, apt_num, city, state, zi
 (4, '10 park st', '11','Brighouse', 'Calderdale', 'HD6 1AD', 'UK'),
 (5, '1392 Walnut Hill drive',null,'Cincinnati','OH','45229','US'),
 (6, '44 White Rd',null,'Philadelphia','PA','19102','US'),
- (7,"7225 Gravida Road","385","Arviat","Nunavut","9611","UK"),
-  (8,"7784 Senectus Avenue","unit 567","Kidderminster","NV","34W 7B4","CAN"),
-  (9,"1318 In, Street",null,"Carbonear","SE","39246-93532","CAN"),
-  (10,"Nunc Ave",null,"Fochabers","WO","23581-312","CAN"),
-  (11, "59942 Stracke Grove", "Suite 617", "New Natport", "AZ", "07581", "CAN"),
+(7,"7225 Gravida Road","385","Arviat","Nunavut","9611","UK"),
+(8,"7784 Senectus Avenue","unit 567","Kidderminster","NV","34W 7B4","CAN"),
+(9,"1318 In, Street",null,"Carbonear","SE","39246-93532","CAN"),
+(10,"Nunc Ave",null,"Fochabers","WO","23581-312","CAN"),
+(11, "59942 Stracke Grove", "Suite 617", "New Natport", "AZ", "07581", "CAN"),
 (12, "47617 Ahmad Cove", "Suite 165", "East Jennieberg", "OH", "22288", "CAN"),
 (13, "8536 Alisha Meadow", "Apt. 009", "East Juvenalstad", "TX", "41471", "UK"),
 (14, "0381 Newell Manors", "Apt. 523", "Timothyfort", "ID", "43130", "US"),
@@ -61,21 +61,19 @@ insert into capstone_ots.addresses (address_id, street, apt_num, city, state, zi
 (60, "807 Moore Rue", "Apt. 402", "Lemkeville", "MA", "20784", "US"),
 (61, "77533 Kozey Loop", "Apt. 819", "Fort Kyle", "NE", "46051", "UK");
  
-  
-  
-  -- insert dummy customer data
-  insert into capstone_ots.customers (customer_id, first_name, middle_initial, last_name, phone, email, customer_notes, billing_address_id) 
+-- insert dummy customer data
+insert into capstone_ots.customers (customer_id, first_name, middle_initial, last_name, phone, email, customer_notes, billing_address_id) 
 values (1, 'Steven','A','Park','5584021342','stevepark@gmail.com','customer has file complaint before',1),
 (2, 'Denim', null, 'Rob', '1231239999','denimrob@ymail.com', null, 2),
 (3, 'James', 'B', 'Case', '6661236025','jamesy@hotmail.com', 'Customer is very good at feedbacks', 3),
 (4, 'Jenny', null, 'nolan', '9751226025','jenny12@icloud.com', null, 4),
 (5, 'Tom', 'C', 'johnson','333345291','Tomc@gmail.com','has cancelled order several times previously',5),
- (6,"Tarik","A","Luna","3882370852","aliquam.nisl.nulla@outlook.edu","Cras lorem",6),
-  (7,"Driscoll",null,"Merritt","3967664866","enim.consequat.purus@protonmail.edu","Random customer notes",7),
-  (8,"Judah",null,"Bartlett","9585763385","leo.morbi@icloud.edu","Customer has seperate billing and shipping address",8),
-  (9,"Lani","C","Huff","4461247866","convallis.dolor@google.com",null,9),
-  (10,"Ila","A","Hess","4842614736","ipsum@icloud.ca",null,10),
- (11, "Alejandrin", "R", "Rogahn", "5399095489", "Alejandrin72@hotmail.com", null, 11),
+(6,"Tarik","A","Luna","3882370852","aliquam.nisl.nulla@outlook.edu","Cras lorem",6),
+(7,"Driscoll",null,"Merritt","3967664866","enim.consequat.purus@protonmail.edu","Random customer notes",7),
+(8,"Judah",null,"Bartlett","9585763385","leo.morbi@icloud.edu","Customer has seperate billing and shipping address",8),
+(9,"Lani","C","Huff","4461247866","convallis.dolor@google.com",null,9),
+(10,"Ila","A","Hess","4842614736","ipsum@icloud.ca",null,10),
+(11, "Alejandrin", "R", "Rogahn", "5399095489", "Alejandrin72@hotmail.com", null, 11),
 (12, "Noel", "R", "Murray", "7966704067", "Noel75@gmail.com", "One of our repeat customers", 12),
 (13, "Nash", "M", "King", "2058631165", "Nash.King43@gmail.com", null, 13),
 (14, "Juanita", "B", "O'Connell", "6624721084", "Juanita.OConnell@gmail.com", null, 14),
@@ -127,11 +125,9 @@ values (1, 'Steven','A','Park','5584021342','stevepark@gmail.com','customer has 
 (60, "Brittany", "N", "Lebsack", "6304879565", "Brittany_Lebsack@hotmail.com", "has filed complaint before", 60),
 (61, "Brandy", "A", "Smitham", "7154997564", "Brandy_Smitham82@gmail.com", null, 61);
   
-  
-  -- insert order status data
+-- insert order status data
 insert into capstone_ots.order_statuses(order_status_code, order_status_description)
 values(1, 'Draft'),(2, 'Order Placed'), (3, 'In Transit'), (4, 'Delivered'), (5, 'Canceled');
-
 
 -- insert dummy order data  
 insert into capstone_ots.orders(order_id, customer_id, order_status_code, order_placed, order_notes, shipping_address_id)
@@ -141,30 +137,30 @@ values(1, 1, 1, '2022-11-12 6:15', 'order delivery delayed to 2022-11-20', null)
 (4, 4, 2, '2022-11-12 12:15', null, 5),
 (5, 5, 2, '2022-11-10 3:55', null, 6),
 (6,1,3,"2022-06-05 05:06","nascetur ridiculus mus. Donec dignissim magna a tortor.",1),
-  (7,2,3,"2023-08-25 07:58","Morbi metus. Vivamus euismod urna. Nullam lobortis quam a",2),
-  (8,3,2,"2022-05-18 04:05","ridiculus mus. Aenean",3),
-  (9,4,5,"2022-09-14 03:49","odio,",4),
-  (10,5,3,"2021-3-27 10:30","lobortis risus",5),
-  (11,6,5,"2022-09-06 11:59","lectus, a sollicitudin orci sem eget massa. Suspendisse",6),
-  (12,7,2,"2023-07-02 02:17","nibh. Quisque nonummy ipsum",7),
-  (13,8,4,"2023-09-28 07:09","arcu vel quam dignissim pharetra. Nam",8),
-  (14,9,3,"2022-09-01 01:39","Phasellus vitae mauris sit amet",9),
-  (15,10,2,"2023-04-09 02:48","eu, placerat eget, venenatis a, magna.",10),
-  (16,1,4,"2023-09-20 03:49","Aliquam auctor, velit eget laoreet posuere, enim nisl",1),
-  (17,2,1,"2023-03-19 07:30","rutrum.",2),
-  (18,3,2,"2023-12-03 02:16","egestas. Sed pharetra,",3),
-  (19,4,1,"2022-05-30 01:59","Aenean massa.",4),
-  (20,5,4,"2022-02-04 12:42","dui. Suspendisse ac metus vitae",5),
-  (21,6,4,"2021-12-29 05:52","Cras eget",6),
-  (22,7,5,"2022-05-06 08:05","accumsan sed, facilisis vitae,",7),
-  (23,8,3,"2023-09-28 02:09","luctus, ipsum leo elementum sem,",8),
-  (24,9,2,"2022-06-18 03:36","et arcu",9),
-  (25,10,5,"2023-03-28 11:53","morbi tristique senectus et netus et",10),
-  (26,1,1,"2022-07-29 08:37","Nam nulla magna, malesuada vel, convallis in, cursus",1),
-  (27,2,3,"2022-08-21 02:58","ut eros non",2),
-  (28,3,3,"2022-04-18 05:24","blandit viverra. Donec tempus, lorem",3),
-  (29,4,3,"2022-11-03 06:18","molestie. Sed id risus quis diam luctus lobortis. Class aptent",4),
-  (30,5,4,"2022-10-03 07:17","orci luctus et ultrices posuere cubilia",5),
+(7,2,3,"2023-08-25 07:58","Morbi metus. Vivamus euismod urna. Nullam lobortis quam a",2),
+(8,3,2,"2022-05-18 04:05","ridiculus mus. Aenean",3),
+(9,4,5,"2022-09-14 03:49","odio,",4),
+(10,5,3,"2021-3-27 10:30","lobortis risus",5),
+(11,6,5,"2022-09-06 11:59","lectus, a sollicitudin orci sem eget massa. Suspendisse",6),
+(12,7,2,"2023-07-02 02:17","nibh. Quisque nonummy ipsum",7),
+(13,8,4,"2023-09-28 07:09","arcu vel quam dignissim pharetra. Nam",8),
+(14,9,3,"2022-09-01 01:39","Phasellus vitae mauris sit amet",9),
+(15,10,2,"2023-04-09 02:48","eu, placerat eget, venenatis a, magna.",10),
+(16,1,4,"2023-09-20 03:49","Aliquam auctor, velit eget laoreet posuere, enim nisl",1),
+(17,2,1,"2023-03-19 07:30","rutrum.",2),
+(18,3,2,"2023-12-03 02:16","egestas. Sed pharetra,",3),
+(19,4,1,"2022-05-30 01:59","Aenean massa.",4),
+(20,5,4,"2022-02-04 12:42","dui. Suspendisse ac metus vitae",5),
+(21,6,4,"2021-12-29 05:52","Cras eget",6),
+(22,7,5,"2022-05-06 08:05","accumsan sed, facilisis vitae,",7),
+(23,8,3,"2023-09-28 02:09","luctus, ipsum leo elementum sem,",8),
+(24,9,2,"2022-06-18 03:36","et arcu",9),
+(25,10,5,"2023-03-28 11:53","morbi tristique senectus et netus et",10),
+(26,1,1,"2022-07-29 08:37","Nam nulla magna, malesuada vel, convallis in, cursus",1),
+(27,2,3,"2022-08-21 02:58","ut eros non",2),
+(28,3,3,"2022-04-18 05:24","blandit viverra. Donec tempus, lorem",3),
+(29,4,3,"2022-11-03 06:18","molestie. Sed id risus quis diam luctus lobortis. Class aptent",4),
+(30,5,4,"2022-10-03 07:17","orci luctus et ultrices posuere cubilia",5),
 (31, 31, 1, "2022-03-18 10:07", null, 31),
 (32, 32, 5, "2022-03-07 07:48", null, 32),
 (33, 33, 4, "2022-07-09 18:13", null, 33),
@@ -197,8 +193,6 @@ values(1, 1, 1, '2022-11-12 6:15', 'order delivery delayed to 2022-11-20', null)
 (60, 60, 3, "2022-06-25 15:42", "Order delayed", 60),
 (61, 61, 3, "2022-04-17 14:13", null, 61);
   
-  
- 
  -- insert dummy product data
 insert into capstone_ots.Products (product_id, product_SKU, product_price, product_name, product_inventory, product_description) values
 (1, 'DEN-BLU-MEN', 31.99, 'Denim Pant', 100, 'Blue Denim Pants'),
@@ -266,10 +260,8 @@ stabilizes active muscles"),
 (59, "INT-VIO-MOV", 34.00, "Luxurious Wooden Ball", 89, "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals"),
 (60, "ORI-GRE-BAB", 120.00, "Handmade Plastic Sausages", 51, "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients"),
 (61, "MOD-GOL-GAM", 117.00, "Ergonomic Metal Ball", 66, "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals");
-
   
-  
-  -- insert dummy order details data
+-- insert dummy order details data
 insert into capstone_ots.Order_details (order_details_id, order_id, product_id, product_quantity) values
 (1, 1, 2, 3),
 (2, 2, 1, 3),
@@ -292,15 +284,15 @@ insert into capstone_ots.Order_details (order_details_id, order_id, product_id, 
 (19,9,18,6),
 (20,10,6,4),
 (21,6,4,5),
-  (22,7,10,4),
-  (23,8,23,4),
-  (24,9,11,2),
-  (25,10,7,9),
-   (26,11,21,2),
-  (27,12,13,4),
-  (28,13,6,8),
-  (29,14,18,7),
- (30, 30, 30, 5),
+(22,7,10,4),
+(23,8,23,4),
+(24,9,11,2),
+(25,10,7,9),
+(26,11,21,2),
+(27,12,13,4),
+(28,13,6,8),
+(29,14,18,7),
+(30, 30, 30, 5),
 (31, 31, 31, 8),
 (32, 32, 32, 3),
 (33, 33, 33, 3),
