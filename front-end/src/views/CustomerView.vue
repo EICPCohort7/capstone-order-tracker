@@ -430,6 +430,7 @@ export default {
         .get(`http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`)
         .catch((errors) => {
           console.log(errors); // Errors
+          alert(`Looks like there aren't any users that match "${this.emailValue}". Try again!`);
         });
       this.customers = customers.data;
     },
@@ -454,6 +455,7 @@ export default {
         })
         .catch((errors) => {
           console.log(errors); // Errors
+          alert("Whoops! Something might be wrong with the values you've entered. Try again.");
         });
       this.customers = this.getCustomers().data;
     },
@@ -463,6 +465,7 @@ export default {
         .get(`http://localhost:3000/api/v1/customers/search?email=${email}`)
         .catch((errors) => {
           console.log(errors); // Errors
+          alert(errors);
         });
       this.getCustomerOrders(id);
       this.customerInfo = customers.data;
@@ -501,6 +504,7 @@ export default {
         })
         .catch((errors) => {
           console.log(errors); // Errors
+          alert("Whoops! Something might be wrong with the values you've entered. Try again.");
         });
       this.customers = this.getCustomers().data;
       this.getCustomerOrders(id);
