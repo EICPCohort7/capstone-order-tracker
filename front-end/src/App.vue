@@ -1,33 +1,22 @@
 <template>
-  <nav
-    class="navbar navbar-light"
-    style="background-color: #9b0c23"
-  >
-    <!-- Navbar content -->
-    <a
-      class="navbar-brand"
-      href="#"
-    >
-      <img
-        src="../src/assets/tjx-white.png"
-        alt=""
-      >
-    </a>
+  <nav class="navbar navbar-light" style="background-color: #9b0c23">
+    <div v-if="$store.state.user" id="nav">
+      <!-- Navbar content -->
+      <a class="navbar-brand" href="#">
+        <img src="../src/assets/tjx-white.png" alt="" />
+      </a>
 
-    <router-link to="/">Home</router-link>
-    |
-    <router-link to="/customer">Customers</router-link>
-    |
-    <router-link to="/order">Orders</router-link>
-    |
-    <router-link to="/product">Products</router-link>
-    <button
-      class="btn btn-dark"
-      @click="$store.dispatch('logout')"
-    >
-      Logout
-    </button>
+      <router-link to="/">Home</router-link>
+      |
+      <router-link to="/customer">Customers</router-link>
+      |
+      <router-link to="/order">Orders</router-link>
+      |
+      <router-link to="/product">Products</router-link>
+      <button class="btn btn-dark" @click="$store.dispatch('logout')">Logout</button>
+    </div>
   </nav>
+
   <!-- <div
     v-if="$store.state.user"
     id="nav"
@@ -77,16 +66,17 @@ export default {
 
 nav {
   padding: 30px;
-  height:90px;
+  height: 90px;
 }
 
-nav a {
-  font-weight: bold;
-  color: #434241;
+div a {
+  font-weight:bolder;
+  color: #ffffff;
+  font-size: 0.75cm;
 }
 
-nav a.router-link-exact-active {
-  color: #E5006D;
+div a.router-link-exact-active {
+  color: #e5006d;
 }
 img {
   width: 120px;
@@ -96,7 +86,8 @@ button {
   float: right;
   margin-top: 10px;
   margin-right: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
+  margin-left: 1550px;
 }
 form {
   width: 300px;
@@ -106,5 +97,9 @@ form {
   display: flex;
   flex-direction: column;
   align-items: left;
+}
+table {
+  margin-top: 150px;
+  padding:50px
 }
 </style>

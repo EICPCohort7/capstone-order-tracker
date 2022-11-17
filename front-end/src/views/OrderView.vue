@@ -105,9 +105,4 @@ export default {
   px;
 
 } */
-
-table {
-margin-top: 150px;
-
-}
 </style>

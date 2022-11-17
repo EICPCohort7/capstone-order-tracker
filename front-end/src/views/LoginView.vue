@@ -1,4 +1,10 @@
 <template>
+  <img
+    id="logo"
+    alt="Vue logo"
+    src="../assets/tjx-logo.png"
+  >
+
   <main class="login">
     <section class="forms">
       <form
@@ -71,6 +77,11 @@ export default {
 </script>
 
 <style>
+ /* img{
+  width: 500px;
+  margin-top: 100px;
+
+} */
 .forms {
   display: flex;
   min-height: 100vh;
