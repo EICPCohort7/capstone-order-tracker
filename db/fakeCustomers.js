@@ -11,7 +11,7 @@ let customer = {
   email: String,
   cNotes: String,
   billingAddyId: INTEGER,
-  isActive: INTEGER,
+  // isActive: INTEGER,
 };
 
 /**
@@ -37,7 +37,7 @@ function generateCustomerData(i) {
       null,
     ]),
     billingAddyId: i,
-    isActive: 1,
+    // isActive: 1,
     // faker.helpers.arrayElement(['free', 'basic', 'business'])
     // faker.helpers.maybe<True>(callback: () => True, False {probability = .9}),
   };
@@ -49,7 +49,7 @@ function generateCustomerData(i) {
  * @param {# of fake customers to create} number
  */
 // id starting place
-let idStart = 200;
+let idStart = 11;
 function printCustomers(number) {
   for (let i = idStart; i <= number + idStart; i++) {
     let customerDB = generateCustomerData(i);
@@ -57,14 +57,13 @@ function printCustomers(number) {
     if (customerDB.cNotes === null) {
       customerDB.cNotes = null;
     } else {
-      customerDB.cNotes = `'${customerDB.cNotes}'`;
+      customerDB.cNotes = `"${customerDB.cNotes}"`;
     }
     console.log(
-      `INSERT INTO customers VALUES (${customerDB.customerId}, '${customerDB.firstName}', '${customerDB.middleI}', '${customerDB.lastName}', '${customer.phone}', '${customer.email}', ${customerDB.cNotes}, ${customerDB.billingAddyId}, ${customerDB.isActive});`
+      `(${customerDB.customerId}, "${customerDB.firstName}", "${customerDB.middleI}", "${customerDB.lastName}", "${customer.phone}", "${customer.email}", ${customerDB.cNotes}, ${customerDB.billingAddyId}),`
     );
-    console.log();
   }
 }
 // number of customer insert statements to be created (meant to be changed)
-let number = 3;
+let number = 50;
 printCustomers(number);
