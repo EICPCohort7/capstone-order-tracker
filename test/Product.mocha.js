@@ -14,7 +14,7 @@ describe('Product model', () => {
     expect(testProduct.productSku).to.equal('DEN-BLU-MEN');
     expect(testProduct.productPrice).to.equal(31.99);
     expect(testProduct.productName).to.equal('Denim Pant');
-    expect(testProduct.productInventory).to.equal(1);
+    expect(testProduct.productInventory).to.equal(100);
     expect(testProduct.productDescription).to.equal('Blue Denim Pants');
   });
 

@@ -118,8 +118,11 @@ router.delete('/:orderStatusCode([0-9]+)', async (req, res) => {
   }
 });
 
+/**
+ * Error handler
+ */
 function handleError(res, error) {
-  return res.status(500).send('Order Status endpoint error:', error.message);
+  return res.status(500).send(`Order status endpoint error: ${error.message}`);
 }
 
 export default router;
