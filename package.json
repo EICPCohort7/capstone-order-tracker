@@ -16,7 +16,8 @@
     "coverage:mocha": "nyc --all --reporter=text mocha",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test:jest": "jest"
   },
   "keywords": [],
   "author": "",
