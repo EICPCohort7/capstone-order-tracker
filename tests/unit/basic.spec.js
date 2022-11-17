@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
-import HelloWorld from '@/components/HelloWorld';
-import HomeView from '@/views/HomeView';
+import HelloWorld from '../../front-end/src/components/HelloWorld.vue';
+import HomeView from '../../front-end/src/views/HomeView';
 
 describe('Basic tests', () => {
   it('should test simple math', () => {
