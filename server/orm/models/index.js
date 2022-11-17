@@ -10,12 +10,20 @@ import OrderDetails from './OrderDetails.js';
  */
 
 // Customer/Address - one to many
-Address.hasMany(Customer, { foreignKey: 'billingAddressId' });
-Customer.hasOne(Address, { foreignKey: 'addressId' });
+// Address.belongsTo(Customer, { foreignKey: 'addressId' });
+Customer.hasOne(Address, {
+  foreignKey: 'addressId',
+  sourceKey: 'billingAddressId',
+  as: 'address',
+});
 
 // Address/Order - one to many
-Address.hasMany(Order, { foreignKey: 'shippingAddressId' });
-Order.hasOne(Address, { foreignKey: 'addressId' });
+// Address.hasMany(Order, { foreignKey: 'shippingAddressId' });
+Order.hasOne(Address, {
+  foreignKey: 'addressId',
+  sourceKey: 'shippingAddressId',
+  as: 'address',
+});
 
 // Customer/Order - one to many
 Customer.hasMany(Order, { foreignKey: 'customerId' });

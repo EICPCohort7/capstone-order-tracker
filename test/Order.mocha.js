@@ -58,10 +58,18 @@ describe('Order model', () => {
     expect(testOrder.orderStatusCode).to.equal(2);
 
     let productsRecord = await testOrder.getProducts({ logging: false });
-    expect(productsRecord.length).to.equal(1);
+    expect(productsRecord.length).to.equal(3);
 
     let firstProduct = productsRecord[0];
     expect(firstProduct.productId).to.equal(1);
     expect(firstProduct.productSku).to.equal('DEN-BLU-MEN');
+
+    let secondProduct = productsRecord[1];
+    expect(secondProduct.productId).to.equal(28);
+    expect(secondProduct.productSku).to.equal('PUF-RED-WOM');
+
+    let thirdProduct = productsRecord[2];
+    expect(thirdProduct.productId).to.equal(28);
+    expect(thirdProduct.productSku).to.equal('PUF-RED-WOM');
   });
 });

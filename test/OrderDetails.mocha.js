@@ -13,7 +13,7 @@ describe('OrderDetails model', () => {
     expect(testOrderDetails).not.to.be.null;
     expect(testOrderDetails.orderId).to.equal(1);
     expect(testOrderDetails.productId).to.equal(2);
-    expect(testOrderDetails.productQuantity).to.equal(5);
+    expect(testOrderDetails.productQuantity).to.equal(3);
   });
 
   it('should query an OrderDetails not in the database', async () => {
