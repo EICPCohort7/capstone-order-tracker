@@ -193,7 +193,7 @@
     <CustomerInformationModal
       :showing="showInfoModal"
       @xout="showInfoModal = false"
-      @form-submit="updateCustomer(customerInfo[0].email)"
+      @form-submit="updateCustomer(customerInfo[0].customerId)"
     >
       <template #header>
         <h3>Customer Information</h3>
@@ -202,45 +202,131 @@
       <template #body>
         <div>
           <p>Customer ID: {{ customerInfo[0].customerId }}</p>
-          <input
-            id="firstName"
-            :value="first"
-            type="text"
-            class="form-control"
-            placeholder="firstname"
-            required
-          >
-          <input
-            id="lastName"
-            :value="last"
-            type="text"
-            class="form-control"
-            placeholder="lastname"
-            required
-          >
-          <input
-            id="phone"
-            :value="phonenumber"
-            type="tel"
-            class="form-control"
-            placeholder="phonenumber"
-            required
-          >
-          <input
-            id="email"
-            :value="emailaddress"
-            type="email"
-            class="form-control"
-            placeholder="emailaddress"
-            required
-          >
-          <p>Street Address: {{ customerInfo[0].customerId }}</p>
-          <p>Apartment Number: {{ customerInfo[0].customerId }}</p>
-          <p>City: {{ customerInfo[0].customerId }}</p>
-          <p>State/Province: {{ customerInfo[0].customerId }}</p>
-          <p>Zip/Postal Code: {{ customerInfo[0].customerId }}</p>
-          <p>Country: {{ customerInfo[0].customerId }}</p>
-          <p>Customer Notes: {{ customerInfo[0].customerNotes }}</p>
+          <p>
+            First name:<input
+              id="editedFirst"
+              v-model="editedFirst"
+              type="text"
+              class="form-control"
+              placeholder="First name"
+              required
+            >
+          </p>
+          <p>
+            Middle initial:<input
+              id="editedInitial"
+              v-model="editedInitial"
+              type="text"
+              class="form-control"
+              placeholder="Middle initial"
+            >
+          </p>
+          <p>
+            Last name:<input
+              id="editedLast"
+              v-model="editedLast"
+              type="text"
+              class="form-control"
+              placeholder="Last name"
+              required
+            >
+          </p>
+          <p>
+            Phone number:<input
+              id="editedPhone"
+              v-model="editedPhone"
+              type="tel"
+              class="form-control"
+              placeholder="Phone Number"
+              required
+            >
+          </p>
+          <p>
+            Email address:<input
+              id="editedEmail"
+              v-model="editedEmail"
+              type="email"
+              class="form-control"
+              placeholder="Email Address"
+              required
+            >
+          </p>
+          <p>
+            Street Address: <input
+              id="editedStreet"
+              v-model="editedStreet"
+              type="text"
+              class="form-control"
+              placeholder="Street Address"
+              required
+            >
+          </p>
+          <p>
+            Apartment Number: <input
+              id="editedAptNum"
+              v-model="editedAptNum"
+              type="text"
+              class="form-control"
+              placeholder="Apartment Number"
+            >
+          </p>
+          <p>
+            City: <input
+              id="editedCity"
+              v-model="editedCity"
+              type="text"
+              class="form-control"
+              placeholder="City"
+              required
+            >
+          </p>
+          <p>
+            State/Province: <input
+              id="editedState"
+              v-model="editedState"
+              type="text"
+              class="form-control"
+              placeholder="State/Province"
+            >
+          </p>
+          <p>
+            Zip/Postal Code: <input
+              id="editedZip"
+              v-model="editedZip"
+              type="text"
+              class="form-control"
+              placeholder="Zip code"
+              required
+            >
+          </p>
+          <p>
+            Country: <input
+              id="editedCountry"
+              v-model="editedCountry"
+              type="text"
+              class="form-control"
+              placeholder="Country"
+              required
+            >
+          </p>
+          <p>
+            Customer Notes: <input
+              id="editedNotes"
+              v-model="editedNotes"
+              type="text"
+              class="form-control"
+              placeholder="Customer Notes"
+            >
+          </p>
+          <p>
+            Customer Status: <input
+              id="editedActiveStatus"
+              v-model="editedActiveStatus"
+              type="text"
+              class="form-control"
+              placeholder="Customer Status"
+            >
+          </p>
         </div>
       </template>
     </CustomerInformationModal>
@@ -274,10 +360,19 @@ export default {
       showModal: false,
       showInfoModal: false,
       customerInfo: [],
-      first: '',
-      last: '',
-      phonenumber: '',
-      emailaddress: '',
+      editedFirst: '',
+      editedInitial: '',
+      editedLast: '',
+      editedPhone: '',
+      editedEmail: '',
+      editedStreet: '',
+      editedAptNum: '',
+      editedCity: '',
+      editedState: '',
+      editedZip: '',
+      editedCountry: '',
+      editedNotes: '',
+      editedActiveStatus: '',
     };
   },
 
@@ -330,24 +425,40 @@ export default {
           console.log(errors); // Errors
         });
       this.customerInfo = customers.data;
-      this.first = this.customerInfo[0].firstName;
-      this.last = this.customerInfo[0].lastName;
-      this.phonenumber = this.customerInfo[0].phone;
-      this.emailaddress = this.customerInfo[0].email;
+      this.editedFirst = this.customerInfo[0].firstName;
+      this.editedInitial = this.customerInfo[0].middleInitial;
+      this.editedLast = this.customerInfo[0].lastName;
+      this.editedPhone = this.customerInfo[0].phone;
+      this.editedEmail = this.customerInfo[0].email;
+      this.editedStreet = this.customerInfo[0].address.street;
+      this.editedAptNum = this.customerInfo[0].address.aptNum;
+      this.editedCity = this.customerInfo[0].address.city;
+      this.editedState = this.customerInfo[0].address.state;
+      this.editedZip = this.customerInfo[0].address.zip;
+      this.editedCountry = this.customerInfo[0].address.country;
+      this.editedNotes = this.customerInfo[0].customerNotes;
+      this.editedActiveStatus = this.customerInfo[0].isActive;
     },
-    async updateCustomer(email) {
+    async updateCustomer(id) {
       await axios
-        .put(`http://localhost:3000/api/v1/customers/search?email=${email}`, {
-          firstName: this.first,
-          middleInitial: this.customerInfo[0].middleInitial,
-          lastName: this.last,
-          phone: this.phonenumber,
-          email: this.emailaddress,
-          customerNotes: this.customerInfo[0].customerNotes,
-          billingAddressId: 1,
-          isActive: 1,
+        .patch(`http://localhost:3000/api/v1/customers/${id}`, {
+          firstName: this.editedFirst,
+          middleInitial: this.editedInitial,
+          lastName: this.editedLast,
+          phone: this.editedPhone,
+          email: this.editedEmail,
+          address: {
+            street: this.editedStreet,
+            aptNum: this.editedAptNum,
+            city: this.editedCity,
+            state: this.editedState,
+            zip: this.editedZip,
+            country: this.editedCountry,
+          },
+          customerNotes: this.editedNotes,
+          isActive: this.editedActiveStatus,
         })
-        .catchs((errors) => {
+        .catch((errors) => {
           console.log(errors); // Errors
         });
       this.customers = this.getCustomers().data;
