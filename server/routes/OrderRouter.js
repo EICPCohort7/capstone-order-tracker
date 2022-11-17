@@ -9,15 +9,18 @@ import { validationResult } from 'express-validator';
 import { validateOrder } from './validators/OrderValidator.js';
 let router = express.Router();
 
+/**
+ * Error handler
+*/
+function handleError(res, error) {
+  return res.status(500).send(`Order endpoint error: ${error.message}`);
+}
+
 /*
  * GET api/v1/orders
  * Get all of the system's orders
  * Frontend response: array of objects
  */
-function handleError(res, error) {
-  return res.status(500).send(`Order endpoint error: ${error.message}`);
-}
-
 router.get('/', async (req, res) => {
   try {
     let orders = await Order.findAll();
