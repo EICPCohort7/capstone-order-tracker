@@ -1,5 +1,34 @@
 <template>
-  <div
+  <nav
+    class="navbar navbar-light"
+    style="background-color: #9b0c23"
+  >
+    <!-- Navbar content -->
+    <a
+      class="navbar-brand"
+      href="#"
+    >
+      <img
+        src="../src/assets/tjx-white.png"
+        alt=""
+      >
+    </a>
+
+    <router-link to="/">Home</router-link>
+    |
+    <router-link to="/customer">Customers</router-link>
+    |
+    <router-link to="/order">Orders</router-link>
+    |
+    <router-link to="/product">Products</router-link>
+    <button
+      class="btn btn-dark"
+      @click="$store.dispatch('logout')"
+    >
+      Logout
+    </button>
+  </nav>
+  <!-- <div
     v-if="$store.state.user"
     id="nav"
   >
@@ -16,7 +45,7 @@
     >
       Logout
     </button>
-  </div>
+  </div> -->
   <router-view />
 </template>
 
@@ -46,22 +75,21 @@ export default {
   color: #2c3e50;
 }
 
-div {
+nav {
   padding: 30px;
+  height:90px;
 }
 
-div a {
+nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #434241;
 }
 
-div a.router-link-exact-active {
-  color: #42b983;
+nav a.router-link-exact-active {
+  color: #E5006D;
 }
 img {
-  width: 175px;
-  float: left;
-  margin-left: 30px;
+  width: 120px;
 }
 
 button {

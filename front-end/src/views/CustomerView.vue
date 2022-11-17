@@ -1,6 +1,6 @@
 <template>
   <div class="customer">
-    <img class="img" src="../assets/tjx-logo.png" alt="TJX logo" />
+    <!-- <img class="img" src="../assets/tjx-logo.png" alt="TJX logo" /> -->
 
     <h1>Customer Information</h1>
   </div>

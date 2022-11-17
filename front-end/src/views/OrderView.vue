@@ -12,7 +12,7 @@
           class="form-control"
           placeholder="Order ID"
         >
-        <!--Search button for the email field-->
+        <!--Search button for the Order Id field-->
         <button
           type="button"
           class="btn btn-outline-danger"
@@ -97,3 +97,17 @@ export default {
   },
 };
 </script>
+
+<style>
+
+/* button.searching {
+  margin-top: 50
+  px;
+
+} */
+
+table {
+margin-top: 150px;
+
+}
+</style>

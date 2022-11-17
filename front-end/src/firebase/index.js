@@ -3,17 +3,21 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCUqU2d79-VtTcv4YW6fYz97mwnueVDw0M',
-  authDomain: 'captone-login-trial.firebaseapp.com',
-  projectId: 'captone-login-trial',
-  storageBucket: 'captone-login-trial.appspot.com',
-  messagingSenderId: '580482058630',
-  appId: '1:580482058630:web:10be4dd1af383065488407',
+  apiKey: 'AIzaSyDBwudajT79KwjOATHCrmmcyDLbZKj68uI',
+  authDomain: 'capstone-order-tracker.firebaseapp.com',
+  projectId: 'capstone-order-tracker',
+  storageBucket: 'capstone-order-tracker.appspot.com',
+  messagingSenderId: '250968406037',
+  appId: '1:250968406037:web:d429e612dbeafb055a361c',
+  measurementId: 'G-34K3MX34DS',
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const fbApp = initializeApp(firebaseConfig);
+export const auth = getAuth(fbApp);
 
-const auth = getAuth(app);
-
-export { auth };
+// onAuthStateChanged(auth, (user) => {
+//   if (user) {
+//     console.log(user.uid);
+//   }
+// });
