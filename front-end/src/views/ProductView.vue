@@ -1,6 +1,6 @@
 <template>
   <div class="product">
-    This is the Products Page
+    <h1 id="title2">Product Information</h1>
   </div>
   <div class="form-group">
     <form id="searching">
@@ -31,7 +31,7 @@
     </form>
   </div>
   <!--Data Table-->
-  <table class="table table-striped">
+  <table id="products-table" class="table table-striped">
     <thead>
       <tr>
         <th scope="col">Product ID</th>
@@ -100,3 +100,16 @@ export default {
   },
 };
 </script>
+ <style>
+#title2{
+  font-size: 5rem;
+  font-weight: bolder;
+  margin-top: 100px;
+  color: #9b0c23;
+}
+#products-table{
+  border: 2px solid;
+  border-radius: 10px;
+
+}
+</style>

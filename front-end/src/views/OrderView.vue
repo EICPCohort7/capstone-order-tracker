@@ -1,6 +1,6 @@
 <template>
   <div class="orders">
-    <h1>This the orders page</h1>
+    <h1 id="title1">Order Information</h1>
   </div>
   <div class="form-group">
     <form id="searching">
@@ -12,7 +12,7 @@
           class="form-control"
           placeholder="Order ID"
         >
-        <!--Search button for the email field-->
+        <!--Search button for the Order Id field-->
         <button
           type="button"
           class="btn btn-outline-danger"
@@ -31,7 +31,7 @@
     </form>
   </div>
   <!--Data Table-->
-  <table class="table table-striped">
+  <table id="orders-table" class="table table-striped">
     <thead>
       <tr>
         <th scope="col">Order ID</th>
@@ -97,3 +97,18 @@ export default {
   },
 };
 </script>
+
+<style>
+
+#title1{
+  font-size: 5rem;
+  font-weight: bolder;
+  margin-top: 100px;
+  color: #9b0c23;
+}
+#orders-table{
+  border: 2px solid;
+  border-radius: 10px;
+
+}
+</style>

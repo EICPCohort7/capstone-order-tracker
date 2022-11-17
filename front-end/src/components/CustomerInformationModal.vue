@@ -38,10 +38,10 @@ export default {
               <slot name="btn">
                 <button
                   class="btn btn-outline-danger"
-                  type="button"
-                  value="Edit"
+                  type="submit"
+                  value="Submit"
                 >
-                  Edit User
+                  Update User
                 </button>
               </slot>
             </div>
@@ -71,7 +71,7 @@ export default {
 }
 
 .modal-container {
-  width: 500px;
+  width: 1000px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -87,6 +87,8 @@ export default {
 
 .modal-body {
   margin: 20px 0;
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
 }
 
 .modal-default-button {
