@@ -19,8 +19,8 @@ paths:
                 items:
                   $ref: "#/components/schemas/Customer"
 
-        "404":
-          description: ECONNREFUSED
+        "500":
+          description: API server connection refused
 
     post:
       description: "Let a user create a new customer"
@@ -129,8 +129,8 @@ paths:
                 items:
                   $ref: "#/components/schemas/Customer"
 
-        "404":
-          description: ECONNREFUSED
+        "500":
+          description: API Server connection refused
   
   /customers/search?email=[email]:
     get:

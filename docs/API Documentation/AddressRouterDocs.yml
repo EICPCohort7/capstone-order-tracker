@@ -19,6 +19,8 @@ paths:
                 items:
                   $ref: "#/components/schemas/Address"
 
+        "500": 
+          description: API Server connection refused
     post:
       description: "Create a new address."
       parameters: []
