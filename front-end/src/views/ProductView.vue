@@ -1,4 +1,3 @@
-
 <template>
   <div class="product">
     <h1 id="title2">Product Information</h1>
@@ -13,20 +12,19 @@
           class="form-control"
           placeholder="Product ID"
         >
-        <!--Search button for the email field-->
+        <button
+          type="button"
+          class="btn btn-outline-danger get-all"
+          @click="getProducts"
+        >
+          Get All Products
+        </button>
         <button
           type="button"
           class="btn btn-outline-danger"
           @click="getProductId"
         >
           Search
-        </button>
-        <button
-          type="button"
-          class="btn btn-outline-danger"
-          @click="getProducts"
-        >
-          Get All Orders
         </button>
       </div>
     </form>
@@ -40,7 +38,7 @@
     <thead>
       <tr>
         <th scope="col">Product ID</th>
-        <th scope="col">Products SKU</th>
+        <th scope="col">Product SKU</th>
         <th scope="col">Product Name</th>
         <th scope="col">Product Price</th>
         <th scope="col">Inventory</th>
@@ -52,7 +50,6 @@
         v-for="product in products"
         :key="product.id"
       >
-        <!--Change these to proper fields-->
         <td scope="row">{{ product.productId }}</td>
         <td>{{ product.productSku }}</td>
         <td>{{ product.productName }}</td>
@@ -84,8 +81,6 @@ export default {
     this.products = products.data;
   },
   methods: {
-    // The get method called by the function
-
     async getProducts() {
       let products = await axios.get('/api/v1/products/')
         .catch((errors) => {
@@ -116,6 +111,9 @@ export default {
 #products-table{
   border: 2px solid;
   border-radius: 10px;
-
+}
+.get-all {
+  margin-left: 15px;
+  margin-right: 15px;
 }
 </style>

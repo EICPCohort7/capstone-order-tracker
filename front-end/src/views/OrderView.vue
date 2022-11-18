@@ -13,6 +13,13 @@
           class="form-control"
           placeholder="Order ID"
         >
+        <button
+          type="button"
+          class="btn btn-outline-danger get-all"
+          @click="getOrders"
+        >
+          Get All Orders
+        </button>
         <!--Search button for the Order Id field-->
         <button
           type="button"
@@ -20,13 +27,6 @@
           @click="getOrderId"
         >
           Search
-        </button>
-        <button
-          type="button"
-          class="btn btn-outline-danger"
-          @click="getOrders"
-        >
-          Get All Orders
         </button>
       </div>
     </form>
@@ -115,6 +115,9 @@ export default {
 #orders-table{
   border: 2px solid;
   border-radius: 10px;
-
+}
+.get-all {
+  margin-left: 15px;
+  margin-right: 15px;
 }
 </style>
