@@ -6,7 +6,7 @@ module.exports = {
     jest: true,
     mocha: true,
   },
-  ignorePatterns: ['server/public/js'],
+  ignorePatterns: ['server/public/js', 'test/AddressRouter.mocha.js', 'test/CustomerRouter.mocha.js', 'test/OrderDetailsRouter.mocha.js', 'test/OrderRouter.mocha.js', 'test/OrderStatusRouter.mocha.js', 'test/ProductRouter.mocha.js'],
   extends: ['plugin:vue/vue3-recommended', 'standard'],
   parser: 'vue-eslint-parser',
   parserOptions: {
