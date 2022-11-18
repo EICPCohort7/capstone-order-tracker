@@ -5,6 +5,7 @@
     <img
       id="homeLogo"
       src="../assets/tjx-logo.png"
+      alt="Home page TJX logo"
     >
     <br><br><br><br>
     <p>Use the navigation bar above to read and search through TJX's databases of customers, orders, and products.</p>
