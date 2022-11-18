@@ -6,7 +6,7 @@ module.exports = {
     jest: true,
     mocha: true,
   },
-  ignorePatterns: ['server/public/js.js'],
+  ignorePatterns: ['server/public/js'],
   extends: ['plugin:vue/vue3-recommended', 'standard'],
   parser: 'vue-eslint-parser',
   parserOptions: {
