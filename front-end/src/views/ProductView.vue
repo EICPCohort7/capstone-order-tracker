@@ -1,64 +1,64 @@
-
 <template>
-  <div class="orders">
-    <h1 id="title1">Order Information</h1>
+  <div class="product">
+    <h1 id="title2">Product Information</h1>
   </div>
   <div class="form-group">
     <form id="searching">
       <div class="form-group">
         <input
-          id="orderId"
-          v-model="orderId"
+          id="productId"
+          v-model="productId"
           type="number"
           class="form-control"
-          placeholder="Order ID"
+          placeholder="Product ID"
         >
-        <!--Search button for the Order Id field-->
         <button
           type="button"
-          class="btn btn-outline-danger"
-          @click="getOrderId"
+          class="btn btn-outline-danger get-all"
+          @click="getProducts"
         >
-          Search
+          Get All Products
         </button>
         <button
           type="button"
           class="btn btn-outline-danger"
-          @click="getOrders"
+          @click="getProductId"
         >
-          Get All Orders
+          Search
         </button>
       </div>
     </form>
   </div>
   <!--Data Table-->
   <table
-    id="orders-table"
+    id="products-table"
     class="table table-striped"
   >
-    <caption>Orders Table</caption>
+    <caption>Products Table</caption>
     <thead>
       <tr>
-        <th scope="col">Order ID</th>
-        <th scope="col">Customer ID</th>
-        <th scope="col">Order Placed</th>
-        <th scope="col">Order Status Code</th>
+        <th scope="col">Product ID</th>
+        <th scope="col">Product SKU</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Product Price</th>
+        <th scope="col">Inventory</th>
+        <th scope="col">Product Descrption</th>
       </tr>
     </thead>
     <tbody>
       <tr
-        v-for="order in orders"
-        :key="order.id"
+        v-for="product in products"
+        :key="product.id"
       >
-        <!--Change these to proper fields-->
-        <td scope="row">{{ order.orderId }}</td>
-        <td>{{ order.customerId }}</td>
-        <td>{{ order.orderPlaced }}</td>
-        <td>{{ order.orderStatusCode }}</td>
+        <td scope="row">{{ product.productId }}</td>
+        <td>{{ product.productSku }}</td>
+        <td>{{ product.productName }}</td>
+        <td>{{ product.productPrice }}</td>
+        <td>{{ product.productInventory }}</td>
+        <td>{{ product.productDescription }}</td>
       </tr>
     </tbody>
   </table>
-  <div />
 </template>
 
 <script>
@@ -68,53 +68,52 @@ export default {
   name: 'App',
   data() {
     return {
-      orders: [],
+      products: [],
 
     };
   },
 
   mounted: async function () {
-    let orders = await axios.get('/api/v1/orders/')
+    let products = await axios.get('/api/v1/products/')
       .catch((errors) => {
         console.log(errors); // Errors
       });
-    this.orders = orders.data;
+    this.products = products.data;
   },
   methods: {
-    // The get method called by the function
-
-    async getOrders() {
-      let orders = await axios.get('/api/v1/orders/')
+    async getProducts() {
+      let products = await axios.get('/api/v1/products/')
         .catch((errors) => {
           console.log(errors); // Errors
         });
-      this.orders = orders.data;
+      this.products = products.data;
     },
 
-    async getOrderId() {
-      let orders = await axios.get(`/api/v1/orders/${this.orderId}`)
+    async getProductId() {
+      let products = await axios.get(`/api/v1/products/${this.productId}`)
         .catch((errors) => {
           console.log(errors); // Errors
-          alert(`Looks like there aren't any orders that match "${this.orderId}". Try again!`);
+          alert(`Looks like there aren't any products that match "${this.productId}". Try again!`);
         });
-      this.orders = [orders.data];
+      this.products = [products.data];
     },
 
   },
 };
 </script>
-
-<style>
-
-#title1{
+ <style>
+#title2{
   font-size: 5rem;
   font-weight: bolder;
   margin-top: 100px;
   color: #9b0c23;
 }
-#orders-table{
+#products-table{
   border: 2px solid;
   border-radius: 10px;
-
+}
+.get-all {
+  margin-left: 15px;
+  margin-right: 15px;
 }
 </style>

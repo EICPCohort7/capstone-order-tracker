@@ -12,6 +12,14 @@
           class="form-control"
           placeholder="Email"
         >
+        <button
+          id="getAll"
+          type="button"
+          class="btn btn-outline-danger get-all"
+          @click="getCustomers()"
+        >
+          Get All Customers
+        </button>
         <!--Search button for the email field-->
         <button
           id="emailBtn"
@@ -20,14 +28,6 @@
           @click="getEmail()"
         >
           Search
-        </button>
-        <button
-          id="getAll"
-          type="button"
-          class="btn btn-outline-danger"
-          @click="getCustomers()"
-        >
-          Get All Customers
         </button>
       </div>
     </form>
@@ -560,5 +560,9 @@ export default {
 #customer-table {
   border: 2px solid;
   border-radius: 10px;
+}
+.get-all {
+  margin-left: 15px;
+  margin-right: 15px;
 }
 </style>
