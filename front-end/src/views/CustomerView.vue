@@ -1,3 +1,4 @@
+
 <template>
   <div class="customer">
     <!-- <img class="img" src="../assets/tjx-logo.png" alt="TJX logo" /> -->
@@ -157,6 +158,7 @@
       id="customer-table"
       class="table table-striped"
     >
+      <caption>Customers Table</caption>
       <thead>
         <tr>
           <th scope="col">Customer ID</th>
@@ -313,6 +315,7 @@
           <p>
             Order History:
             <table class="table table-striped">
+              <caption>Customer Order History</caption>
               <thead>
                 <tr>
                   <th scope="col">Order ID</th>
@@ -409,7 +412,7 @@ export default {
   },
 
   mounted: async function () {
-    let customers = await axios.get('http://localhost:3000/api/v1/customers/').catch((errors) => {
+    let customers = await axios.get('/api/v1/customers/').catch((errors) => {
       console.log(errors); // Errors
     });
     this.customers = customers.data;
@@ -419,7 +422,7 @@ export default {
 
     async getCustomers() {
       this.$emit('flag');
-      let customers = await axios.get('http://localhost:3000/api/v1/customers/').catch((errors) => {
+      let customers = await axios.get('/api/v1/customers/').catch((errors) => {
         console.log(errors); // Errors
       });
       this.customers = customers.data;
@@ -427,7 +430,7 @@ export default {
 
     async getEmail() {
       let customers = await axios
-        .get(`http://localhost:3000/api/v1/customers/search?email=${this.emailValue}`)
+        .get(`/api/v1/customers/search?email=${this.emailValue}`)
         .catch((errors) => {
           console.log(errors); // Errors
           alert(`Looks like there aren't any users that match "${this.emailValue}". Try again!`);
@@ -436,7 +439,7 @@ export default {
     },
     async createCustomer() {
       await axios
-        .post('http://localhost:3000/api/v1/customers/', {
+        .post('/api/v1/customers/', {
           firstName: this.firstName,
           middleInitial: this.middleInitial,
           lastName: this.lastName,
@@ -462,7 +465,7 @@ export default {
     async getInfo(email, id) {
       this.showInfoModal = true;
       let customers = await axios
-        .get(`http://localhost:3000/api/v1/customers/search?email=${email}`)
+        .get(`/api/v1/customers/search?email=${email}`)
         .catch((errors) => {
           console.log(errors); // Errors
           alert(errors);
@@ -485,7 +488,7 @@ export default {
     },
     async updateCustomer(id) {
       await axios
-        .patch(`http://localhost:3000/api/v1/customers/${id}`, {
+        .patch(`/api/v1/customers/${id}`, {
           firstName: this.editedFirst,
           middleInitial: this.editedInitial,
           lastName: this.editedLast,
@@ -511,7 +514,7 @@ export default {
     },
     async getCustomerOrders(id) {
       let orders = await axios
-        .get(`http://localhost:3000/api/v1/customers/${id}/orders`)
+        .get(`/api/v1/customers/${id}/orders`)
         .catch((errors) => {
           console.log(errors); // Errors
         });
@@ -520,7 +523,7 @@ export default {
     },
     async formatACustomerOrder(ogOrder) {
       let statusDescriptionResponse = await axios
-        .get(`http://localhost:3000/api/v1/orderstatuses/${ogOrder.orderStatusCode}`)
+        .get(`/api/v1/orderstatuses/${ogOrder.orderStatusCode}`)
         .catch((errors) => {
           console.log(errors); // Errors
         });

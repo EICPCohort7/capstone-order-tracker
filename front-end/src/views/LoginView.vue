@@ -2,6 +2,7 @@
   <img
     id="logo"
     src="../assets/tjx-logo.png"
+    alt=""
   >
 
   <main class="login">

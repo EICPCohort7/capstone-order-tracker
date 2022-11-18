@@ -29,6 +29,7 @@ module.exports = {
     'prefer-const': 'off',
     semi: ['error', 'always'],
     'space-before-function-paren': ['error', { named: 'never' }],
+    'vue/require-explicit-emits': ['off'],
     'vue/singleline-html-element-content-newline': 'off',
   },
   overrides: [

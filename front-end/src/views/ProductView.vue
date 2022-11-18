@@ -1,3 +1,4 @@
+
 <template>
   <div class="product">
     <h1 id="title2">Product Information</h1>
@@ -31,7 +32,11 @@
     </form>
   </div>
   <!--Data Table-->
-  <table id="products-table" class="table table-striped">
+  <table
+    id="products-table"
+    class="table table-striped"
+  >
+    <caption>Products Table</caption>
     <thead>
       <tr>
         <th scope="col">Product ID</th>
@@ -72,7 +77,7 @@ export default {
   },
 
   mounted: async function () {
-    let products = await axios.get('http://localhost:3000/api/v1/products/')
+    let products = await axios.get('/api/v1/products/')
       .catch((errors) => {
         console.log(errors); // Errors
       });
@@ -82,7 +87,7 @@ export default {
     // The get method called by the function
 
     async getProducts() {
-      let products = await axios.get('http://localhost:3000/api/v1/products/')
+      let products = await axios.get('/api/v1/products/')
         .catch((errors) => {
           console.log(errors); // Errors
         });
@@ -90,7 +95,7 @@ export default {
     },
 
     async getProductId() {
-      let products = await axios.get(`http://localhost:3000/api/v1/products/${this.productId}`)
+      let products = await axios.get(`/api/v1/products/${this.productId}`)
         .catch((errors) => {
           console.log(errors); // Errors
           alert(`Looks like there aren't any products that match "${this.productId}". Try again!`);
