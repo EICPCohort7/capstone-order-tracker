@@ -7,7 +7,7 @@ import axios from 'axios';
 import { expect } from 'chai';
 import Customer from '../server/orm/models/Customer.js';
 
-const host = 'http://localhost:3000/api/v1/customers';
+const host = 'api/v1/customers';
 
 describe('Customer Router', () => {
 
