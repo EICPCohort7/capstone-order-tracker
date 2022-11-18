@@ -6,6 +6,7 @@ module.exports = {
     jest: true,
     mocha: true,
   },
+  ignorePatterns: ['server/public/js'],
   extends: ['plugin:vue/vue3-recommended', 'standard'],
   parser: 'vue-eslint-parser',
   parserOptions: {
@@ -31,4 +32,13 @@ module.exports = {
     'vue/require-explicit-emits': ['off'],
     'vue/singleline-html-element-content-newline': 'off',
   },
+  overrides: [
+    {
+      files: ['server/bin/www.js', 'server/routes/credential-routes/credentialRouter.js'],
+      rules: {
+        'no-unreachable': ['off'],
+        'no-unused-vars': ['off'],
+      },
+    },
+  ],
 };
