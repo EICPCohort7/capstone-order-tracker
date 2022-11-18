@@ -1,0 +1,159 @@
+openapi: "3.0.2"
+info:
+  title: Order Tracker API
+  version: "1.0"
+servers:
+  - url: https://
+paths:
+  /orderstatuses: 
+    get: 
+      description: "Returns a list of order statuses"
+      parameters: []
+      responses: 
+        "200" : 
+          description: "Successfully returned order statuses"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderStatus"
+        "500" :
+          $ref: "#/components/responses/500Error" 
+
+    post: 
+      description: "Creates a new order status"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+               $ref: "#/components/schemas/OrderStatus"
+      responses:
+        "201":
+          description: Successfully added new order
+        "500":
+          $ref: "#/components/responses/500Error"
+
+  /orderstatuses/{order_status_code}:
+    get:
+      description: "Obtain order status from unique order status code"
+      parameters:
+        - name: order_status_code
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Successfully returned the Order Status referenced by order_status_code.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderStatus"
+        "404":
+          description: Order Status Code not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    put:
+      description: "Replace the order status referenced by order_status_code."
+      parameters:
+        - name: order_status_code
+          description: The code of the order status to be replaced.
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderStatus"
+      responses:
+        "200":
+          description: Successfully updated the order status referenced by order_status_code.
+        "404":
+          description: Failed PUT request for order status referenced by order_status_code.
+        "500":
+          $ref: "#/components/responses/500Error"
+
+    patch:
+      description: "Edit the existing order status referenced by order_status_code."
+      parameters:
+        - name: order_status_code
+          description: The order status code of the order status to be edited/patched.
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderStatus"
+      responses:
+        "200":
+          description: Successfully edited the order status referenced by order_status_code.
+        "404":
+          description: Failed PATCH request for order status referenced by order_status_code.
+        "500":
+          $ref: "#/components/responses/500Error"
+      
+    delete:
+      description: "Delete an order status by order_status_code"
+      requestBody:
+        required: true
+        content:
+          application/json:
+           schema:
+            $ref: "#/components/schemas/OrderStatus"
+      responses:
+        "204":
+          description: Successfully deleted the order status referenced by order_status_code.
+        "404":
+          description: Failed DELETE request for order status referenced by order_status_code.
+        "500":
+          $ref: "#/components/responses/500Error"
+
+components:
+  schemas:
+    OrderStatus:
+      type: object
+      properties: 
+        order_status_code:
+          type: integer
+        order_status_description:
+          type: string
+        
+
+  responses:
+    400Error:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+
+    500Error:
+      description: Order Status endpoint error.
+      content:
+        application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+

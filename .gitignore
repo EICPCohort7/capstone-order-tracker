@@ -56,6 +56,7 @@ typings/
 
 # dotenv environment variables file
 .env
+.load-env
 
 # next.js build output
 .next
@@ -67,3 +68,4 @@ typings/
 server/public/css
 server/public/*.html
 server/public/*.js
+server/public/js
