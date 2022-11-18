@@ -1,3 +1,4 @@
+
 <template>
   <div class="orders">
     <h1 id="title1">Order Information</h1>
@@ -31,7 +32,11 @@
     </form>
   </div>
   <!--Data Table-->
-  <table id="orders-table" class="table table-striped">
+  <table
+    id="orders-table"
+    class="table table-striped"
+  >
+    <caption>Orders Table</caption>
     <thead>
       <tr>
         <th scope="col">Order ID</th>
@@ -69,7 +74,7 @@ export default {
   },
 
   mounted: async function () {
-    let orders = await axios.get('http://localhost:3000/api/v1/orders/')
+    let orders = await axios.get('/api/v1/orders/')
       .catch((errors) => {
         console.log(errors); // Errors
       });
@@ -79,7 +84,7 @@ export default {
     // The get method called by the function
 
     async getOrders() {
-      let orders = await axios.get('http://localhost:3000/api/v1/orders/')
+      let orders = await axios.get('/api/v1/orders/')
         .catch((errors) => {
           console.log(errors); // Errors
         });
@@ -87,7 +92,7 @@ export default {
     },
 
     async getOrderId() {
-      let orders = await axios.get(`http://localhost:3000/api/v1/orders/${this.orderId}`)
+      let orders = await axios.get(`/api/v1/orders/${this.orderId}`)
         .catch((errors) => {
           console.log(errors); // Errors
           alert(`Looks like there aren't any orders that match "${this.orderId}". Try again!`);
