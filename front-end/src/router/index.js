@@ -5,7 +5,6 @@ import Product from '../views/ProductView.vue';
 import { auth } from '../firebase';
 
 const routes = [
-
   {
     path: '/',
     name: 'Home',
@@ -25,8 +24,7 @@ const routes = [
   {
     path: '/order',
     name: 'Order',
-    component: () =>
-      import(/* webpackChunkName: 'about' */ '../views/OrderView.vue'),
+    component: () => import(/* webpackChunkName: 'about' */ '../views/OrderView.vue'),
     meta: {
       requiresAuth: true,
     },
@@ -42,9 +40,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () =>
-      import('../views/LoginView.vue'),
-
+    component: () => import('../views/LoginView.vue'),
   },
 ];
 
@@ -59,7 +55,7 @@ router.beforeEach((to, from, next) => {
     return;
   }
 
-  if (to.matched.some(record => record.meta.requiresAuth) && !auth.currentUser) {
+  if (to.matched.some((record) => record.meta.requiresAuth) && !auth.currentUser) {
     next('/login');
     return;
   }
