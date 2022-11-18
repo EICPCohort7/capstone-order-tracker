@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+#format js, ts, css, less & scss using prettier, config file prettierrc.json
+npm run format:prettier
+
+#format html using beautify, config file jsbeautifyrc
+npm run format:html
+
+# add changes to commit
+git add -u

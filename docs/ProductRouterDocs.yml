@@ -1,0 +1,139 @@
+openapi: "3.0.2"
+info:
+  title: Order Tracker API
+  version: "1.0"
+servers:
+  - url: https://
+paths:
+  /products:
+    get:
+      description: "Get all of the system's products."
+      parameters: []
+      responses:
+        "200":
+          description: Successfully returned all of the system's products.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+
+  /products/:productId{product_id}:
+    get:
+      description: "Get product by product_id."
+      parameters:
+        - name: product_id
+          description: The id of the product to be returned.
+          in: path
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: Successfully returned the product referenced by product_id.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+
+        "404":
+          description: Failed to locate a product with the specified product_id.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+        "500":
+          description: Product endpoint error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    put:
+      description: "Replace the product referenced by product_id."
+      parameters:
+        - name: product_id
+          description: The id of the product to be replaced.
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        "200":
+          description: Successfully updated the product referenced by product_id.
+        "404":
+          description: Failed PUT request for product referenced by product_id.
+        "500":
+          description: Product endpoint error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    patch:
+      description: "Edit the existing product referenced by product_id."
+      parameters:
+        - name: product_id
+          description: The id of the product to be edited/patched.
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        "200":
+          description: Successfully edited the product referenced by product_id.
+        "404":
+          description: Failed PATCH request for product referenced by product_id.
+        "500":
+          description: Product endpoint error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        product_id:
+          type: integer
+        product_SKU:
+          type: string
+        product_price:
+          type: string
+        product_name:
+          type: string
+        product_inventory:
+          type: integer
+        product_description:
+          type: string
