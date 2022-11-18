@@ -1,8 +1,5 @@
-
 <template>
   <div class="customer">
-    <!-- <img class="img" src="../assets/tjx-logo.png" alt="TJX logo" /> -->
-
     <h1 id="title">Customer Information</h1>
   </div>
   <div class="form-group">
@@ -15,6 +12,14 @@
           class="form-control"
           placeholder="Email"
         >
+        <button
+          id="getAll"
+          type="button"
+          class="btn btn-outline-danger get-all"
+          @click="getCustomers()"
+        >
+          Get All Customers
+        </button>
         <!--Search button for the email field-->
         <button
           id="emailBtn"
@@ -23,14 +28,6 @@
           @click="getEmail()"
         >
           Search
-        </button>
-        <button
-          id="getAll"
-          type="button"
-          class="btn btn-outline-danger"
-          @click="getCustomers()"
-        >
-          Get All
         </button>
       </div>
     </form>
@@ -76,7 +73,7 @@
             v-model="lastName"
             type="text"
             class="form-control"
-            placeholder="Last Name"
+            placeholder="Last Name (i.e. Doe)"
             required
           >
           <input
@@ -93,7 +90,7 @@
             v-model="email"
             type="email"
             class="form-control"
-            placeholder="Email"
+            placeholder="Email (i.e. email@email.com)"
             required
           >
           <input
@@ -101,7 +98,7 @@
             v-model="street"
             type="text"
             class="form-control"
-            placeholder="Street Address"
+            placeholder="Street Address (i.e. 1 Main Street)"
             required
           >
           <input
@@ -109,14 +106,14 @@
             v-model="aptNum"
             type="text"
             class="form-control"
-            placeholder="Apartment Number"
+            placeholder="Apartment Number (i.e. Apt. 1)"
           >
           <input
             id="city"
             v-model="city"
             type="text"
             class="form-control"
-            placeholder="City"
+            placeholder="City (i.e. Marlborough)"
             required
           >
           <input
@@ -124,14 +121,14 @@
             v-model="state"
             type="text"
             class="form-control"
-            placeholder="State/Province"
+            placeholder="State/Province (i.e. MA)"
           >
           <input
             id="zip"
             v-model="zip"
             type="text"
             class="form-control"
-            placeholder="Zip/Postal Code"
+            placeholder="Zip/Postal Code (i.e. 00000)"
             required
           >
           <input
@@ -139,7 +136,7 @@
             v-model="country"
             type="text"
             class="form-control"
-            placeholder="Country"
+            placeholder="Country (i.e. US)"
             required
           >
           <input
@@ -563,5 +560,9 @@ export default {
 #customer-table {
   border: 2px solid;
   border-radius: 10px;
+}
+.get-all {
+  margin-left: 15px;
+  margin-right: 15px;
 }
 </style>

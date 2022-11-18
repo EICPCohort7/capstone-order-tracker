@@ -25,8 +25,7 @@ describe('HelloWorld', () => {
 describe('HomeView', () => {
   it('using standard @vue/test-utils', () => {
     let wrapper = mount(HomeView);
-    let helloWorld = wrapper.findComponent(HelloWorld);
-    let header = helloWorld.find('h1');
-    expect(header.text()).toEqual('Welcome to the TJX CSR home page');
+    let header = wrapper.find('h1');
+    expect(header.text()).toEqual('Welcome to the CSR Home Page');
   });
 });
