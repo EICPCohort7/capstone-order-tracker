@@ -34,25 +34,6 @@
       </button>
     </div>
   </nav>
-
-  <!-- <div
-    v-if="$store.state.user"
-    id="nav"
-  >
-    <router-link to="/">Home</router-link>
-    |
-    <router-link to="/customer">Customers</router-link>
-    |
-    <router-link to="/order">Orders</router-link>
-    |
-    <router-link to="/product">Products</router-link>
-    <button
-      class="btn btn-outline-danger"
-      @click="$store.dispatch('logout')"
-    >
-      Logout
-    </button>
-  </div> -->
   <router-view />
 </template>
 
@@ -73,13 +54,46 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Helvetica Neue', Helvetica, Avenir, Arial, sans-serif;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Avenir, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #000000;
+}
+h1 {
+  font-weight: bolder;
+  font-size: 80pt;
+}
+h2 {
+  font-weight: bold;
+  font-size: 60pt;
+}
+h3 {
+  font-size: 45pt;
+}
+p {
+  font-size: 15pt;
+}
+.subtitle{
+  font-size: 13pt;
+  color: #434241;
+}
+caption{
+  font-size: 13pt;
+  color: #434241;
+}
+button{
+  font-size: 14pt;
+  letter-spacing: 12%;
+}
+#title {
+  font-size: 5rem;
+  font-weight: bolder;
+  margin-top: 100px;
+  color: #9b0c23;
 }
 #logout-button {
   float: right;
@@ -103,7 +117,9 @@ div a {
 }
 
 div a.router-link-exact-active {
-  color: #e5006d;
+  color: #ffffff;
+  padding: 30px;
+  background-color: #e5006d;
 }
 img {
   width: 120px;

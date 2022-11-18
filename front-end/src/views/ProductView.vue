@@ -1,30 +1,30 @@
 
 <template>
-  <div class="product">
-    <h1 id="title2">Product Information</h1>
+  <div class="orders">
+    <h1 id="title1">Order Information</h1>
   </div>
   <div class="form-group">
     <form id="searching">
       <div class="form-group">
         <input
-          id="productId"
-          v-model="productId"
+          id="orderId"
+          v-model="orderId"
           type="number"
           class="form-control"
-          placeholder="Product ID"
+          placeholder="Order ID"
         >
-        <!--Search button for the email field-->
+        <!--Search button for the Order Id field-->
         <button
           type="button"
           class="btn btn-outline-danger"
-          @click="getProductId"
+          @click="getOrderId"
         >
           Search
         </button>
         <button
           type="button"
           class="btn btn-outline-danger"
-          @click="getProducts"
+          @click="getOrders"
         >
           Get All Orders
         </button>
@@ -33,35 +33,32 @@
   </div>
   <!--Data Table-->
   <table
-    id="products-table"
+    id="orders-table"
     class="table table-striped"
   >
-    <caption>Products Table</caption>
+    <caption>Orders Table</caption>
     <thead>
       <tr>
-        <th scope="col">Product ID</th>
-        <th scope="col">Products SKU</th>
-        <th scope="col">Product Name</th>
-        <th scope="col">Product Price</th>
-        <th scope="col">Inventory</th>
-        <th scope="col">Product Descrption</th>
+        <th scope="col">Order ID</th>
+        <th scope="col">Customer ID</th>
+        <th scope="col">Order Placed</th>
+        <th scope="col">Order Status Code</th>
       </tr>
     </thead>
     <tbody>
       <tr
-        v-for="product in products"
-        :key="product.id"
+        v-for="order in orders"
+        :key="order.id"
       >
         <!--Change these to proper fields-->
-        <td scope="row">{{ product.productId }}</td>
-        <td>{{ product.productSku }}</td>
-        <td>{{ product.productName }}</td>
-        <td>{{ product.productPrice }}</td>
-        <td>{{ product.productInventory }}</td>
-        <td>{{ product.productDescription }}</td>
+        <td scope="row">{{ order.orderId }}</td>
+        <td>{{ order.customerId }}</td>
+        <td>{{ order.orderPlaced }}</td>
+        <td>{{ order.orderStatusCode }}</td>
       </tr>
     </tbody>
   </table>
+  <div />
 </template>
 
 <script>
@@ -71,49 +68,51 @@ export default {
   name: 'App',
   data() {
     return {
-      products: [],
+      orders: [],
 
     };
   },
 
   mounted: async function () {
-    let products = await axios.get('/api/v1/products/')
+    let orders = await axios.get('/api/v1/orders/')
       .catch((errors) => {
         console.log(errors); // Errors
       });
-    this.products = products.data;
+    this.orders = orders.data;
   },
   methods: {
     // The get method called by the function
 
-    async getProducts() {
-      let products = await axios.get('/api/v1/products/')
+    async getOrders() {
+      let orders = await axios.get('/api/v1/orders/')
         .catch((errors) => {
           console.log(errors); // Errors
         });
-      this.products = products.data;
+      this.orders = orders.data;
     },
 
-    async getProductId() {
-      let products = await axios.get(`/api/v1/products/${this.productId}`)
+    async getOrderId() {
+      let orders = await axios.get(`/api/v1/orders/${this.orderId}`)
         .catch((errors) => {
           console.log(errors); // Errors
-          alert(`Looks like there aren't any products that match "${this.productId}". Try again!`);
+          alert(`Looks like there aren't any orders that match "${this.orderId}". Try again!`);
         });
-      this.products = [products.data];
+      this.orders = [orders.data];
     },
 
   },
 };
 </script>
- <style>
-#title2{
+
+<style>
+
+#title1{
   font-size: 5rem;
   font-weight: bolder;
   margin-top: 100px;
   color: #9b0c23;
 }
-#products-table{
+#orders-table{
   border: 2px solid;
   border-radius: 10px;
 
