@@ -1,3 +1,8 @@
+/*
+    This file contains integration tests that verify whether the route methods
+    within AddressRouter.js operate correctly with the capstone-ots database.
+*/
+
 import axios from 'axios';
 import { expect } from 'chai';
 import Address from '../server/orm/models/Address.js';

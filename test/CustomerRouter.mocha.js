@@ -1,3 +1,8 @@
+/*
+    This files contains integration tests that verify whether the route methods
+    within CustomerRouter.js operate correctly with the capstone-ots database.
+*/
+
 import axios from 'axios';
 import { expect } from 'chai';
 import Customer from '../server/orm/models/Customer.js';
