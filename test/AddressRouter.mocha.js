@@ -7,7 +7,7 @@ import axios from 'axios';
 import { expect } from 'chai';
 import Address from '../server/orm/models/Address.js';
 
-const host = 'http://localhost:3000/api/v1/addresses';
+const host = 'api/v1/addresses';
 
 
 describe('Address Router', () => {

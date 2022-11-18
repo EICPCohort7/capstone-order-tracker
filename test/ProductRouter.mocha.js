@@ -7,7 +7,7 @@ import axios from 'axios';
 import { expect } from 'chai';
 import Product from '../server/orm/models/Product.js';
 
-const host = 'http://localhost:3000/api/v1/products';
+const host = 'api/v1/products';
 
 describe('Product Router', () => {
   before(async () => {
