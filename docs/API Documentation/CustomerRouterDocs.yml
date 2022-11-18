@@ -60,7 +60,7 @@ paths:
           description: Customer with passed customer_id not found
         
     patch:
-      description: "Edit the existing customer referenced by customer_id."
+      description: "Edit the existing customer referenced by customer_id"
       parameters:
         - name: customer_id
           description: The customer id of the customer to be edited/patched.
@@ -68,6 +68,7 @@ paths:
           required: true
           schema:
             type: string
+
       requestBody:
         required: true
         content:
@@ -138,7 +139,7 @@ paths:
       parameters: 
         - name: email
           description: The email of the customer to be found
-          in: path
+          in: query
           required: true
           schema:
             type: string
@@ -179,5 +180,23 @@ components:
           type: integer
         is_active:
           type: boolean
+    
+    Address:
+      type: object
+      properties:
+        address_id:
+          type: integer
+        street:
+          type: string
+        apt_num:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
 
   
