@@ -37,10 +37,10 @@ let customers = [
   },
 ];
 export const handlers = [
-  rest.get('http://localhost:3000/api/v1/customers', (req, res, context) => {
+  rest.get('/api/v1/customers', (req, res, context) => {
     return res(context.status(200), context.json(customers));
   }),
-  rest.get('http://localhost:3000/api/v1/customers/search', (req, res, context) => {
+  rest.get('/api/v1/customers/search', (req, res, context) => {
     const emailVal = req.url.searchParams.get('email');
 
     let search = customers.find((obj) => {
